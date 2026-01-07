@@ -3,6 +3,101 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Gray shades */
+  --gray-100:   #FDFDFD;
+  --gray-200:  #F9F9F9;
+  --gray-300:  #EFEFEF;
+  --gray-400:  #B4B4B4;
+  --gray-500:  #797979;
+
+  /* Blue shades */
+  --blue-100:  #CAEFFD;
+  --blue-200:  #7CBCD5;
+  --blue-300:  #067099;
+  --blue-400:  #04435C;
+  --blue-500:  #02222E;
+
+  /* Yellow shades */
+  --yellow-100:  #FFFCE6;
+  --yellow-200:  #FFF8CC;
+  --yellow-300:  #FFF199;
+  --yellow-400:  #FFEA66;
+  --yellow-500:  #FFDC00;
+  
+  /* Black */
+  --black-100: #A2B0B5;
+  --black-200: #67757A;
+  --black-300: #2C3A3F;
+  --black-400: #1A2326;
+  --black-700: #090C0D;
+
+  /* Red shades */
+  --red-100:  #FAE9E9;
+  --red-200:  #E9A5A5;
+  --red-300:  #DE7878;
+  --red-400:  #D34B4B;
+  --red-500:  #C81E1E;
+  --red-600:  #A01818;
+
+  /* Green shades */
+  --green-100:  #ECF9EC;
+  --green-200:  #C6EDC6;
+  --green-300:  #8EDB8C;
+  --green-400:  #42C340;
+  --green-500:  #287526;
+  --green-600:  #143B13;
+}
+
+@theme {
+    /* Gray shades */
+  --color-gray-100:   #FDFDFD;
+  --color-gray-200:  #F9F9F9;
+  --color-gray-300:  #EFEFEF;
+  --color-gray-400:  #B4B4B4;
+  --color-gray-500:  #797979;
+
+  /* Blue shades */
+  --color-blue-100:  #CAEFFD;
+  --color-blue-200:  #7CBCD5;
+  --color-blue-300:  #067099;
+  --color-blue-400:  #04435C;
+  --color-blue-500:  #02222E;
+
+  /* Yellow shades */
+  --color-yellow-100:  #FFFCE6;
+  --color-yellow-200:  #FFF8CC;
+  --color-yellow-300:  #FFF199;
+  --color-yellow-400:  #FFEA66;
+  --color-yellow-500:  #FFDC00;
+  
+  /* Black */
+  --color-black-100: #A2B0B5;
+  --color-black-200: #67757A;
+  --color-black-300: #2C3A3F;
+  --color-black-400: #1A2326;
+  --color-black-700: #090C0D;
+
+  /* Red shades */
+  --color-red-100:  #FAE9E9;
+  --color-red-200:  #E9A5A5;
+  --color-red-300:  #DE7878;
+  --color-red-400:  #D34B4B;
+  --color-red-500:  #C81E1E;
+  --color-red-600:  #A01818;
+
+  /* Green shades */
+  --color-green-100:  #ECF9EC;
+  --color-green-200:  #C6EDC6;
+  --color-green-300:  #8EDB8C;
+  --color-green-400:  #42C340;
+  --color-green-500:  #287526;
+  --color-green-600:  #143B13;
+
+  /* Fonts */
+  --font-fredoka: 'Fredoka One', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-inria: 'Inria Sans', sans-serif;
 }
 
 @theme inline {
@@ -10,6 +105,30 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+@layer base {
+  .base h1 {
+    @apply text-4xl font-fredoka font-bold;
+  }
+  .base h2 {
+    @apply text-3xl font-fredoka font-semibold;
+  }
+  .base h3 {
+    @apply text-2xl font-fredoka font-semibold;
+  }
+  .base h4 {
+    @apply text-xl font-fredoka font-semibold;
+  }
+  .base h5 {
+    @apply text-lg font-fredoka font-semibold;
+  }
+  .base p {
+    @apply text-base font-poppins font-normal;
+  }
+  .base a {
+    @apply text-base font-normal;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
