@@ -1,14 +1,23 @@
 // sanity/lib/client.ts
 
 import { createClient } from 'next-sanity'
-
 import { apiVersion, dataset, projectId, token, isDev } from '../env'
 
 export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: false, // Set to false if statically generating pages, using ISR or tag-based revalidation TODO: chnage to true when going live
+  useCdn: false,
+  perspective: isDev ? "drafts" : "published",
   token,
-  perspective: isDev ? "previewDrafts" : "published",
-})
+  timeout: 10000, // ✅ 10 seconds (fail fast)
+});
+
+// export const client = createClient({
+//   projectId,
+//   dataset,
+//   apiVersion,
+//   useCdn: true,              // ✅ CDN for published content
+//   perspective: "published",  // ✅ no drafts by default
+//   timeout: 10000,     // keep this
+// });

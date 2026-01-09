@@ -1,3 +1,5 @@
+// app/ui/pages/home/GradeContent.tsx
+
 import React from "react";
 import { fetchRowCards, GradeKey } from "@/sanity/lib/fetch/fetchRowCards";
 import {urlFor} from "@/sanity/lib/image";
@@ -14,6 +16,7 @@ export default async function GradeContent({ grade }: { grade: GradeKey }) {
     title: s.name,
     href: `${gradePrefix(grade)}/saints/${s.slug}`,
     imageSrc: urlFor(s.cardImage).width(800).height(450).fit("crop").auto("format").url(),
+    // imageSrc: s.cardImage.src,
     imageAlt: s.cardImage.alt || s.name,
   }));
 
@@ -21,6 +24,7 @@ export default async function GradeContent({ grade }: { grade: GradeKey }) {
     title: v.name,
     href: `${gradePrefix(grade)}/virtues/${v.slug}`,
     imageSrc: urlFor(v.cardImage).width(800).height(450).fit("crop").auto("format").url(),
+    // imageSrc: v.cardImage.src,
     imageAlt: v.cardImage.alt || v.name,
   }));
 

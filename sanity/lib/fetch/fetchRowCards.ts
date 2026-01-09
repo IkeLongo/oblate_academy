@@ -7,14 +7,42 @@ export type RowCard = {
   _id: string;
   name: string;
   slug: string;
-  cardImage: { alt?: string; asset: { url: string } };
+  cardImage: any;
 };
 
-export async function fetchRowCards(grade: GradeKey) {
-  const [saints, virtues] = await Promise.all([
-    client.fetch<RowCard[]>(saintsRowCardsQuery, { grade }),
-    client.fetch<RowCard[]>(virtuesRowCardsQuery, { grade }),
+function withTimeout<T>(p: Promise<T>, ms: number, label: string) {
+  return Promise.race([
+    p,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`Timeout after ${ms}ms: ${label}`)), ms)
+    ),
   ]);
+}
 
-  return { saints, virtues };
+export async function fetchRowCards(grade: GradeKey) {
+  console.log("[fetchRowCards] start", grade);
+
+  try {
+    console.log("[fetchRowCards] fetching saints...");
+    const saints = await withTimeout(
+      client.fetch<RowCard[]>(saintsRowCardsQuery, { grade }),
+      8000,
+      "saintsRowCardsQuery"
+    );
+    console.log("[fetchRowCards] saints ok:", saints.length);
+
+    console.log("[fetchRowCards] fetching virtues...");
+    const virtues = await withTimeout(
+      client.fetch<RowCard[]>(virtuesRowCardsQuery, { grade }),
+      8000,
+      "virtuesRowCardsQuery"
+    );
+    console.log("[fetchRowCards] virtues ok:", virtues.length);
+
+    console.log("[fetchRowCards] done");
+    return { saints, virtues };
+  } catch (err: any) {
+    console.error("[fetchRowCards] ERROR:", err?.message || err);
+    throw err;
+  }
 }
