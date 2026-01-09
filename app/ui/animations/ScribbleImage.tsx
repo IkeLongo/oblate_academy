@@ -50,6 +50,7 @@ export function ScribbleOnImage({
               width={width}
               height={height}
               priority={priority}
+              className="min-w-[300px]"
             />
           </motion.div>
 
