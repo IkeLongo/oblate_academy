@@ -14,7 +14,7 @@ export default function FaithAndFun() {
   return (
     <div className="base relative bg-red-300">
       {/* TOP CLOUD BORDER */}
-      <div className="absolute -top-10 left-1/2 -translate-x-1/2 min-w-[110vw] z-30 pointer-events-none">
+      <div className="absolute -top-10 md:-top-10 left-1/2 -translate-x-1/2 min-w-[110vw] z-30 pointer-events-none">
         <Image
           src="/cloud-border-red.webp"
           alt="Cloud border top"
@@ -76,7 +76,7 @@ export default function FaithAndFun() {
               src="/leaf.svg"
               width={96}
               height={96}
-              styleClass="absolute left-10 bottom-10 pointer-events-none"
+              styleClass="absolute left-10 bottom-0 md:bottom-10 pointer-events-none"
               className="opacity-40 rotate-134"
               delay={0.3}
             />
@@ -88,7 +88,7 @@ export default function FaithAndFun() {
               src="/flower.svg"
               width={96}
               height={96}
-              styleClass="absolute right-10 bottom-10 pointer-events-none"
+              styleClass="absolute right-10 bottom-4 md:bottom-10 pointer-events-none"
               className="opacity-40"
               delay={0.45}
             />
@@ -155,9 +155,9 @@ export default function FaithAndFun() {
                 fontWeight: 700,
                 fontFamily: 'Poppins, sans-serif',
                 width: { xs: '100%', sm: 'auto' },
-                bgcolor: "transparent",
+                bgcolor: "#DE7878",
                 color: "#FDFDFD",
-                mt: 4,
+                mt: { xs:8, md:4 },
                 border: '2px solid #FDFDFD',
                 '&:hover': { border: '2px solid #FDFDFD' },
               }}
