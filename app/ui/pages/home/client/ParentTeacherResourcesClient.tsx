@@ -82,7 +82,7 @@ export default function ParentTeacherResourcesClient() {
       <div className="absolute left-1/2 top-[90px] sm:top-[100px] md:top-[110px] -translate-x-1/2 w-full flex flex-col items-center">
         <h3
           ref={titleRef}
-          className="relative z-10 text-[#0E3A4C] font-extrabold tracking-wide text-xl sm:text-2xl md:text-3xl uppercase text-center"
+          className="relative z-10 text-blue-400 font-extrabold tracking-wide text-xl sm:text-2xl md:text-3xl uppercase text-center"
           id="parent-teacher-title"
         >
           Parent and<wbr />
