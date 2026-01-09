@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "../ui/layout/navbar/navbar";
-import Footer from "../ui/layout/footer";
+import Footer from "../ui/layout/foooter/footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,14 +13,10 @@ export default function PublicLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className="antialiased"
-      >
-        <Navbar />
-        {children}
-        <Footer />
-      </body>
-    </html>
+    <>
+      <Navbar />
+      {children}
+      <Footer />
+    </>
   );
 }

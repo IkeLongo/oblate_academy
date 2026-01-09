@@ -112,10 +112,10 @@ export default function Footer() {
         ))}
       </div>
       <div className="flex items-center max-w-7xl mx-auto mt-10">
-        <Image src="/bible.svg" alt="Bible Icon" width={120} height={120} />
-        <div className="flex-1 -ml-4 h-0.5 bg-gray-200 mb-6" />
+        <Image src="/bible.svg" alt="Bible Icon" width={120} height={120} className="opacity-60" />
+        <div className="flex-1 -ml-4 h-0.5 bg-gray-200 mb-6 opacity-60" />
       </div>
-      <div className="font-inria mt-10 md:-mt-10 text-center text-sm text-gray-400">
+      <div className="font-inria mt-10 md:-mt-10 text-center text-sm text-gray-100">
         &copy; {getCurrentYear()}  Oblate Academy. All Rights Reserved. Built with love for Catholic education.
       </div>
       <div className="flex justify-center mt-4">

@@ -53,7 +53,7 @@ export default function RootLayout({
         />
       </Head>
       <body
-        className={`${poppins.className} ${fredoka.variable} ${inriaSans.variable} antialiased`}
+        className={`${poppins.className} ${fredoka.variable} ${inriaSans.variable} antialiased overflow-x-hidden`}
       >
         {children}
       </body>

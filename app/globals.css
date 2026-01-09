@@ -24,6 +24,7 @@
   --yellow-300:  #FFF199;
   --yellow-400:  #FFEA66;
   --yellow-500:  #FFDC00;
+  --yellow-600:  #D0B402;
   
   /* Black */
   --black-100: #A2B0B5;
@@ -70,7 +71,8 @@
   --color-yellow-300:  #FFF199;
   --color-yellow-400:  #FFEA66;
   --color-yellow-500:  #FFDC00;
-  
+  --color-yellow-600:  #D0B402;
+
   /* Black */
   --color-black-100: #A2B0B5;
   --color-black-200: #67757A;
@@ -108,26 +110,52 @@
 }
 
 @layer base {
+  .hero h1 {
+    @apply text-4xl font-fredoka font-bold tracking-wide;
+  }
+  .hero h2 {
+    @apply text-3xl font-fredoka font-semibold tracking-wide;
+  }
+  .hero h3 {
+    @apply text-2xl font-fredoka font-semibold tracking-wide;
+  }
+  .hero h4 {
+    @apply text-xl font-fredoka font-semibold tracking-wide;
+  }
+  .hero h5 {
+    @apply text-lg font-fredoka font-semibold tracking-wide;
+  }
+  .hero p {
+    @apply text-base font-poppins font-normal;
+  }
+  .hero a {
+    @apply text-base font-normal;
+  }
+  /* 🔹 GLOBAL SECTION SPACING */
   .base h1 {
-    @apply text-4xl font-fredoka font-bold;
+    @apply text-4xl font-fredoka font-bold tracking-wide;
   }
   .base h2 {
-    @apply text-3xl font-fredoka font-semibold;
+    @apply text-3xl font-fredoka font-semibold tracking-wide;
   }
   .base h3 {
-    @apply text-2xl font-fredoka font-semibold;
+    @apply text-2xl font-fredoka font-semibold tracking-wide;
   }
   .base h4 {
-    @apply text-xl font-fredoka font-semibold;
+    @apply text-xl font-fredoka font-semibold tracking-wide;
   }
   .base h5 {
-    @apply text-lg font-fredoka font-semibold;
+    @apply text-lg font-fredoka font-semibold tracking-wide;
   }
   .base p {
     @apply text-base font-poppins font-normal;
   }
   .base a {
     @apply text-base font-normal;
+  }
+  /* 🔹 GLOBAL SECTION SPACING */
+  .base section {
+    @apply py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto;
   }
 }
 
