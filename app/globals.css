@@ -102,8 +102,8 @@
   --font-inria: 'Inria Sans', sans-serif;
 
   /* Breakpoints */
-  --breakpoint-2xs: 350px;
-  --breakpoint-xs: 450px;
+  --breakpoint-2xs: 450px;
+  --breakpoint-xs: 550px;
 }
 
 @theme inline {
@@ -152,7 +152,7 @@
     @apply text-lg font-fredoka font-semibold tracking-wide;
   }
   .base p {
-    @apply text-base font-poppins font-normal;
+    @apply text-base font-inria font-normal;
   }
   .base a {
     @apply text-base font-normal;

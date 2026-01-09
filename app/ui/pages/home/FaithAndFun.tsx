@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Button from "@mui/material/Button";
-import FaithAndFunClient from "./FaithAndFunClient";
+import FaithAndFunClient from "./client/FaithAndFunClient";
 
 export default function FaithAndFun() {
   return (

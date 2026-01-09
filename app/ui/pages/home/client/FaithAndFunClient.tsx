@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useInView } from "framer-motion";
-import { ScribbleOnImage } from "../../animations/ScribbleImage";
-import { GiggleIcon } from "../../animations/GiggleIcon";
+import { ScribbleOnImage } from "../../../animations/ScribbleImage";
+import { GiggleIcon } from "../../../animations/GiggleIcon";
 
 export default function FaithAndFunClient() {
   // This ref should be attached to an element that is inside the server section
