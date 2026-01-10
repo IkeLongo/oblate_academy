@@ -1,12 +1,6 @@
 import React from "react";
-import { ContentCard } from "./ContentCard";
-
-export type ContentCardModel = {
-  title: string;
-  href: string;
-  imageSrc: string;
-  imageAlt: string;
-};
+import { ContentCard } from "../../components/cards/ContentCard";
+import type { ContentCardModel } from "@/app/types/types";
 
 const colorConfigs = [
   { text: "text-blue-300", border: "border-blue-300", bg: "bg-blue-100" },

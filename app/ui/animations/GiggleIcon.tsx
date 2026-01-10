@@ -2,16 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-
-type GiggleIconProps = {
-  src: string;
-  alt?: string;
-  width: number;
-  height: number;
-  className?: string; // for styling
-  styleClass?: string; // for positioning
-  delay?: number;
-};
+import type { GiggleIconProps } from "@/app/types/types";
 
 export function GiggleIcon({
   src,

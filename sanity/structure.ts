@@ -103,14 +103,6 @@ export const structure: StructureResolver = (S) =>
                     .title("Resources (3–5)")
                     .filter('_type == "resource" && grade == "g3_5" && isActive == true')
                 ),
-
-              S.listItem()
-                .title("Resources (Both)")
-                .child(
-                  S.documentList()
-                    .title("Resources (Both)")
-                    .filter('_type == "resource" && grade == "both" && isActive == true')
-                ),
             ])
         ),
 

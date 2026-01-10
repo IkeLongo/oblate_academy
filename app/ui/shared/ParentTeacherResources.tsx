@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Button from "@mui/material/Button";
-import ParentTeacherResourcesClient from "./client/ParentTeacherResourcesClient";
+import ParentTeacherResourcesClient from "../pages/home/client/ParentTeacherResourcesClient";
 
 export default function ParentTeacherResources() {
   return (

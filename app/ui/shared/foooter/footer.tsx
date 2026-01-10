@@ -118,9 +118,9 @@ export default function Footer() {
       <div className="font-inria mt-10 md:-mt-10 text-center text-sm text-gray-100">
         &copy; {getCurrentYear()}  Oblate Academy. All Rights Reserved. Built with love for Catholic education.
       </div>
-      <div className="flex justify-center mt-4">
+      {/* <div className="flex justify-center mt-4">
         <ScrollToTopButton />
-      </div>
+      </div> */}
     </footer>
   );
 }

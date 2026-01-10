@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { PillarCard } from "../../components/PillarCard";
+import { PillarCard } from "../../components/cards/PillarCard";
 import { TeachPillarsClient } from "./client/TeachPillarsClient";
 
 export default function TeachPillars() {

@@ -1,7 +1,7 @@
 import { client } from "../client";
-import { saintsRowCardsQuery, virtuesRowCardsQuery } from "../queries";
+import { saintsRowCardsQuery, virtuesRowCardsQuery } from "../queries/queries";
 
-export type GradeKey = "k2" | "g3_5";
+export type GradeKey = { value: "k2" | "g3_5"; label: string };
 
 export type RowCard = {
   _id: string;
@@ -19,7 +19,7 @@ function withTimeout<T>(p: Promise<T>, ms: number, label: string) {
   ]);
 }
 
-export async function fetchRowCards(grade: GradeKey) {
+export async function fetchRowCards(grade: string) {
   try {
     const saints = await withTimeout(
       client.fetch<RowCard[]>(saintsRowCardsQuery, { grade }),

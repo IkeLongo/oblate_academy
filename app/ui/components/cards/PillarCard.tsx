@@ -1,17 +1,5 @@
 import Image from "next/image";
-
-type PillarCardProps = {
-  imageSrc: string;
-  imageAlt: string;
-  title: string;
-  description: string;
-
-  /** Tailwind class (recommended): e.g. "border-emerald-500" */
-  borderClassName: string;
-
-  /** Optional extra classes */
-  className?: string;
-};
+import type { PillarCardProps } from "@/app/types/types";
 
 export function PillarCard({
   imageSrc,

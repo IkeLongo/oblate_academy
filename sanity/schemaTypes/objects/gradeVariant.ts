@@ -19,15 +19,8 @@ export const gradeVariant = defineType({
       title: "Overview Content",
       type: "array",
       of: [{ type: "block" }],
-      validation: (Rule) => Rule.required().min(1),
-    }),
-
-    defineField({
-      name: "actionCards",
-      title: "Action Cards",
-      type: "array",
-      of: [{ type: "actionCard" }],
-      validation: (Rule) => Rule.required().min(1),
+      // ✅ do NOT require here (require conditionally at parent)
+      validation: (Rule) => Rule.min(1),
     }),
 
     defineField({
@@ -35,19 +28,6 @@ export const gradeVariant = defineType({
       title: "Related Virtues (optional)",
       type: "array",
       of: [{ type: "reference", to: [{ type: "virtue" }] }],
-    }),
-
-    defineField({
-      name: "parentTeacherResourcesHeading",
-      title: "Parent/Teacher Resources Heading (optional)",
-      type: "string",
-      initialValue: "PARENT AND TEACHER RESOURCES",
-    }),
-
-    defineField({
-      name: "parentTeacherResourcesBlurb",
-      title: "Parent/Teacher Resources Blurb (optional)",
-      type: "string",
     }),
 
     defineField({

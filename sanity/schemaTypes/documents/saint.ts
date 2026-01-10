@@ -52,8 +52,19 @@ export const saint = defineType({
       validation: (Rule) =>
         Rule.custom((val, ctx) => {
           const enabled = (ctx.parent as any)?.enableK2;
-          if (!enabled) return true;        // not enabled → no requirement
-          if (!val) return "K–2 content is enabled but missing.";
+
+          // not enabled → don't require anything
+          if (!enabled) return true;
+
+          // enabled → require object
+          if (!val) return "K–2 is enabled but its content is missing.";
+
+          // enabled → require overview blocks
+          const overview = (val as any)?.overview;
+          if (!Array.isArray(overview) || overview.length === 0) {
+            return "K–2 overview is required when K–2 is enabled.";
+          }
+
           return true;
         }),
     }),
@@ -68,11 +79,17 @@ export const saint = defineType({
       validation: (Rule) =>
         Rule.custom((val, ctx) => {
           const enabled = (ctx.parent as any)?.enableG35;
+
           if (!enabled) return true;
-          if (!val) return "3–5 content is enabled but missing.";
+          if (!val) return "3–5 is enabled but its content is missing.";
+
+          const overview = (val as any)?.overview;
+          if (!Array.isArray(overview) || overview.length === 0) {
+            return "3–5 overview is required when 3–5 is enabled.";
+          }
+
           return true;
         }),
     }),
   ],
 });
-

@@ -1,13 +1,6 @@
 import React from "react";
 import Link from "next/link";
-
-type ContentCardProps = {
-  title: string;
-  href: string;
-  imageSrc: string;
-  imageAlt: string;
-  color: { text: string; border: string; bg: string };
-};
+import type { ContentCardProps } from "@/app/types/types";
 
 export function ContentCard({ title, href, imageSrc, imageAlt, color }: ContentCardProps) {
   return (
