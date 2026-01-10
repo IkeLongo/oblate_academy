@@ -29,3 +29,26 @@ export const saintPageQuery = groq`
   } | order(activity.sortOrder asc)
 }
 `;
+
+export const saintActivityPageQuery = groq`
+*[_type=="saint" && slug.current==$slug && isActive==true][0]{
+  _id,
+  name,
+  "slug": slug.current,
+
+  "resource": *[
+    _type=="resource" &&
+    grade==$grade &&
+    saint._ref==^._id &&
+    activity->slug.current==$activity
+  ][0]{
+    _id,
+    "pdfUrl": pdf.asset->url,
+    activity->{
+      title,
+      icon,
+      "slug": slug.current
+    }
+  }
+}
+`;
