@@ -48,3 +48,30 @@ export type ScribbleImageProps = {
   className?: string;
   priority?: boolean;
 };
+
+export type PageActivity = {
+  _id: string;
+  pdfUrl: string;
+  activity: {
+    _id: string;
+    title: string;
+    icon: "crayon" | "pencil" | "clipboard" | "book" | "sparkles";
+    slug: string;
+    sortOrder?: number;
+  };
+};
+
+export type PageData = {
+  _id: string;
+  name: string;
+  slug: string;
+  overviewTitle: string;
+  overview: any[]; // PortableTextBlock[] if you want strict typing
+  cardImage: {
+    asset?: any;
+    alt?: string;
+  };
+  activities: PageActivity[];
+  enableK2?: boolean;
+  enableG35?: boolean;
+};

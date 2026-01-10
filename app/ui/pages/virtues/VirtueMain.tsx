@@ -5,23 +5,12 @@ import { PortableTextComponent } from "@/app/ui/components/texts/PortableTextCom
 import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
 import { urlFor } from "@/sanity/lib/image";
 
-import type { GradeKey } from "@/app/types/types";
-
-// Activity type for virtues
- type Activity = {
-  _id: string;
-  activity: {
-    slug: string;
-    title: string;
-    icon: string;
-  };
-  startColorIndex: number;
-};
+import type { GradeKey, PageData } from "@/app/types/types";
 
 type VirtueMainProps = {
   grade: GradeKey;
   slug: string;
-  data: Record<string, any>;
+  data: PageData;
 };
 
 const colorConfigs = [
@@ -47,8 +36,8 @@ export function VirtueMain({ grade, slug, data }: VirtueMainProps) {
             slug={slug}
             basePath="virtues"
             enabledGrades={{
-              k2: data.enableK2,
-              g3_5: data.enableG35,
+              k2: data.enableK2 ?? true,
+              g3_5: data.enableG35 ?? true,
             }}
           />
         </div>
@@ -80,7 +69,7 @@ export function VirtueMain({ grade, slug, data }: VirtueMainProps) {
       </div>
 
       <div className="mt-12 flex justify-between md:justify-center gap-8 max-w-lg md:max-w-none flex-wrap mx-auto">
-        {data.activities.map((r: Activity, i: number) => {
+        {data.activities.map((r, i) => {
           const href = `/${grade}/virtues/${data.slug}/${r.activity.slug}`;
           const color = colorConfigs[i % colorConfigs.length];
           return (
