@@ -21,7 +21,7 @@ import type { GradeKey } from "@/app/types/types";
 type VirtueMainProps = {
   grade: GradeKey;
   slug: string;
-  data: any;
+  data: Record<string, any>;
 };
 
 const colorConfigs = [
@@ -38,14 +38,14 @@ export function VirtueMain({ grade, slug, data }: VirtueMainProps) {
   return (
     <div className="base bg-gradient-to-b from-blue-100 via-gray-100 to-blue-100 mx-auto px-6 py-20 md:pt-10">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-8 max-w-6xl mx-auto pt-16 md:pt-0">
-        <a href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400">
+        <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400">
           ← Back to Home
-        </a>
+        </Link>
         <div className="text-blue-300 font-extrabold min-w-none md:min-w-sm md:static md:mt-0 mt-2">
           <GradeSwitcher
             grade={grade}
             slug={slug}
-            basePath="saints"
+            basePath="virtues"
             enabledGrades={{
               k2: data.enableK2,
               g3_5: data.enableG35,

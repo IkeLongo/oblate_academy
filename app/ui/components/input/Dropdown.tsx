@@ -44,12 +44,11 @@ const Dropdown = React.forwardRef<HTMLSelectElement, DropdownProps>(
       return selectedValues.filter((v) => v && v.trim().length > 0);
     }, [selectedValues]);
 
-    let mouseX = useMotionValue(0)
-    let mouseY = useMotionValue(0)
+    const mouseX = useMotionValue(0)
+    const mouseY = useMotionValue(0)
 
-    function handleMouseMove({ currentTarget, clientX, clientY }: any) {
-      let { left, top } = currentTarget.getBoundingClientRect()
-
+    function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+      const { left, top } = currentTarget.getBoundingClientRect()
       mouseX.set(clientX - left)
       mouseY.set(clientY - top)
     }
