@@ -1,8 +1,7 @@
 import { fetchRowCards } from "@/sanity/lib/fetch/fetchRowCards";
 import { urlFor } from "@/sanity/lib/image";
 import GradeContentClient from "./client/GradeContentClient";
-import type { ContentCardModel } from "@/app/types/types";
-import type { GradeKey } from "@/app/types/types";
+import type { GradeKey, ContentCardModel, Saint, Virtue } from "@/app/types/types";
 
 function gradePrefix(grade: GradeKey) {
   return grade === "k2" ? "/k2" : "/g3-5";
@@ -10,8 +9,8 @@ function gradePrefix(grade: GradeKey) {
 
 function toCards(
   grade: GradeKey,
-  saints: any[],
-  virtues: any[]
+  saints: Saint[],
+  virtues: Virtue[]
 ): { saintsCards: ContentCardModel[]; virtuesCards: ContentCardModel[] } {
   const saintsCards = saints.map((s) => ({
     title: s.name,

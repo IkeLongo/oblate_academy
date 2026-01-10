@@ -1,4 +1,5 @@
 // app/types/types.ts
+import type { PortableTextBlock, ImageAsset } from '@sanity/types';
 
 export type GradeKey = "k2" | "g3_5";
 
@@ -66,12 +67,32 @@ export type PageData = {
   name: string;
   slug: string;
   overviewTitle: string;
-  overview: any[]; // PortableTextBlock[] if you want strict typing
+  overview: PortableTextBlock[]; // PortableTextBlock[] if you want strict typing
   cardImage: {
-    asset?: any;
+    asset?: ImageAsset;
     alt?: string;
   };
   activities: PageActivity[];
   enableK2?: boolean;
   enableG35?: boolean;
+};
+
+export type Saint = {
+  name: string;
+  slug: string;
+  cardImage: {
+    asset?: ImageAsset;
+    alt?: string;
+  };
+  // ...other saint-specific fields
+};
+
+export type Virtue = {
+  name: string;
+  slug: string;
+  cardImage: {
+    asset?: ImageAsset;
+    alt?: string;
+  };
+  // ...other virtue-specific fields
 };
