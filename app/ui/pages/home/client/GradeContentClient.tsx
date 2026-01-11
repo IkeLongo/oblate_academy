@@ -22,7 +22,7 @@ type Props = {
 };
 
 export default function GradeContentClient({
-  initialGrade = "k2",
+  initialGrade = "gk_2",
   options,
   dataByGrade,
 }: Props) {

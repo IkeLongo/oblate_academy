@@ -2,12 +2,14 @@
 import { client } from "@/sanity/lib/client";
 import { virtuePageQuery, virtueActivityPageQuery } from "@/sanity/lib/queries/virtuePage";
 
-export async function fetchVirtuePage({ slug, grade }: { slug: string; grade: "k2" | "g3_5" }) {
+import type { GradeKey } from "@/app/types/types";
+
+export async function fetchVirtuePage({ slug, grade }: { slug: string; grade: GradeKey }) {
   return client.fetch(virtuePageQuery, { slug, grade });
 }
 
 export async function fetchVirtueActivityPage(params: {
-  grade: "k2" | "g3_5";
+  grade: GradeKey;
   slug: string;
   activity: string;
 }) {

@@ -1,14 +1,8 @@
 import { client } from "../client";
 import { saintsRowCardsQuery, virtuesRowCardsQuery } from "../queries/queries";
 
-export type GradeKey = { value: "k2" | "g3_5"; label: string };
-
-export type RowCard = {
-  _id: string;
-  name: string;
-  slug: string;
-  cardImage: any;
-};
+import type { GradeKey } from "@/app/types/types";
+import type { RowCard } from "@/app/types/types";
 
 function withTimeout<T>(p: Promise<T>, ms: number, label: string) {
   return Promise.race([
@@ -19,7 +13,7 @@ function withTimeout<T>(p: Promise<T>, ms: number, label: string) {
   ]);
 }
 
-export async function fetchRowCards(grade: string) {
+export async function fetchRowCards(grade: GradeKey) {
   try {
     const saints = await withTimeout(
       client.fetch<RowCard[]>(saintsRowCardsQuery, { grade }),

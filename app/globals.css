@@ -25,6 +25,9 @@
   --yellow-400:  #FFEA66;
   --yellow-500:  #FFDC00;
   --yellow-600:  #D0B402;
+  --yellow-700:  #b69f08;
+  --yellow-800:  #8c7a05;
+  --yellow-900:  #894B00;
   
   /* Black */
   --black-100: #A2B0B5;
@@ -72,6 +75,9 @@
   --color-yellow-400:  #FFEA66;
   --color-yellow-500:  #FFDC00;
   --color-yellow-600:  #D0B402;
+  --color-yellow-700:  #b69f08;
+  --color-yellow-800:  #8c7a05;
+  --color-yellow-900:  #894B00;
 
   /* Black */
   --color-black-100: #A2B0B5;

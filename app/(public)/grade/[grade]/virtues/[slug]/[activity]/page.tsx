@@ -30,7 +30,7 @@ export default async function VirtueActivityPage({
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url(/cloud-backdrop.webp)" }}
+        style={{ backgroundImage: "url(/swirls-backdrop.webp)" }}
       />
       <div className="absolute inset-0 bg-white/20" />
 
@@ -45,7 +45,7 @@ export default async function VirtueActivityPage({
 
         <div className="mt-10 flex flex-col items-start gap-10">
           {/* Chip */}
-          <div className="inline-flex items-center rounded-full bg-white/70 px-2 py-1 shadow-sm border border-white/40 text-xs">
+          <div className="inline-flex items-center rounded-full bg-white/90 px-2 py-1 shadow-sm border border-white/40 text-xs">
             <span className="text-blue-400 font-extrabold tracking-wide">
               {chipText}
             </span>
@@ -56,7 +56,7 @@ export default async function VirtueActivityPage({
           </div>
 
           {/* H1 */}
-          <h1 className="mt-5 font-extrabold text-blue-300 text-3xl md:text-4xl w-full text-center">
+          <h1 className="mt-5 font-extrabold text-blue-500 text-3xl md:text-4xl w-full text-center">
             {pageTitle}
           </h1>
         </div>

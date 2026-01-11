@@ -9,12 +9,13 @@ export const saint = defineType({
   icon: SparklesIcon,
   groups: [
     { name: "shared", title: "Shared" },
-    { name: "k2", title: "K–2" },
-    { name: "g3_5", title: "3–5" },
+    { name: "k-2", title: "K–2" },
+    { name: "3-5", title: "3–5" },
   ],
   fields: [
     // Shared identity fields...
     defineField({ name: "name", type: "string", group: "shared", validation: (R) => R.required() }),
+    defineField({ name: "feastDay", type: "string", group: "shared", validation: (R) => R.required() }),
     defineField({ name: "slug", type: "slug", group: "shared", options: { source: "name" }, validation: (R) => R.required() }),
     defineField({
       name: "cardImage",
@@ -28,14 +29,14 @@ export const saint = defineType({
 
     // ✅ Enable toggles
     defineField({
-      name: "enableK2",
+      name: "enableGradeK_2",
       title: "Enable K–2 Version",
       type: "boolean",
       group: "shared",
       initialValue: true,
     }),
     defineField({
-      name: "enableG35",
+      name: "enableGrade3_5",
       title: "Enable 3–5 Version",
       type: "boolean",
       group: "shared",
@@ -44,14 +45,14 @@ export const saint = defineType({
 
     // K–2 variant (optional, but required if enabled)
     defineField({
-      name: "k2",
+      name: "gk_2",
       title: "Kinder - 2nd Grade Page",
       type: "gradeVariant",
-      group: "k2",
-      hidden: ({ parent }) => !parent?.enableK2,
+      group: "k-2",
+      hidden: ({ parent }) => !parent?.enableGradeK_2,
       validation: (Rule) =>
         Rule.custom((val, ctx) => {
-          const enabled = (ctx.parent as any)?.enableK2;
+          const enabled = (ctx.parent as any)?.enableGradeK_2;
 
           // not enabled → don't require anything
           if (!enabled) return true;
@@ -74,11 +75,11 @@ export const saint = defineType({
       name: "g3_5",
       title: "3rd - 5th Grade Page",
       type: "gradeVariant",
-      group: "g3_5",
-      hidden: ({ parent }) => !parent?.enableG35,
+      group: "3-5",
+      hidden: ({ parent }) => !parent?.enableGrade3_5,
       validation: (Rule) =>
         Rule.custom((val, ctx) => {
-          const enabled = (ctx.parent as any)?.enableG35;
+          const enabled = (ctx.parent as any)?.enableGrade3_5;
 
           if (!enabled) return true;
           if (!val) return "3–5 is enabled but its content is missing.";

@@ -6,12 +6,12 @@ import { cn } from "@/app/lib/utils";
 import { Label } from "@/app/ui/components/input/Label";
 import { Dropdown } from "@/app/ui/components/input/Dropdown";
 
-import type { GradeKey } from "@/app/types/types";
+import type { GradeKeyLink } from "@/app/types/types";
 
 type GradeDropdownProps = {
-  grade: GradeKey;
-  options: { value: GradeKey; label: string }[];
-  onChange: (grade: GradeKey) => void;
+  grade: GradeKeyLink;
+  options: { value: GradeKeyLink; label: string }[];
+  onChange: (grade: GradeKeyLink) => void;
   compact?: boolean;
 };
 
@@ -33,7 +33,7 @@ export function GradeDropdown({ grade, options, onChange, compact }: GradeDropdo
           singleSelect
           selectedValueClassName="text-xl text-blue-200 font-bold tracking-loose"
           onChange={(val) => {
-            if (typeof val === "string" && (val === "k2" || val === "g3_5")) {
+            if (typeof val === "string" && (val === "k-2" || val === "3-5")) {
               onChange(val);
             }
           }}

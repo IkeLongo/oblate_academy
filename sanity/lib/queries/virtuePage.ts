@@ -7,11 +7,11 @@ export const virtuePageQuery = groq`
   name,
   "slug": slug.current,
   cardImage{..., alt},
-  enableK2,
-  enableG35,
+  enableGardeK_2,
+  enableGrade3_5,
 
-  "overviewTitle": coalesce(select($grade == "k2" => k2.overviewTitle, g3_5.overviewTitle), name),
-  "overview": select($grade == "k2" => k2.overview, g3_5.overview),
+  "overviewTitle": coalesce(select($grade == "gk_2" => gk_2.overviewTitle, g3_5.overviewTitle), name),
+  "overview": select($grade == "gk_2" => gk_2.overview, g3_5.overview),
 
   "activities": *[
     _type == "resource" &&

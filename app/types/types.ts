@@ -1,7 +1,16 @@
 // app/types/types.ts
 import type { PortableTextBlock, ImageAsset } from '@sanity/types';
 
-export type GradeKey = "k2" | "g3_5";
+export type GradeKey = "gk_2" | "g3_5";
+
+export type GradeKeyLink = "k-2" | "3-5";
+
+export type RowCard = {
+  _id: string;
+  name: string;
+  slug: string;
+  cardImage: any;
+};
 
 export type ContentCardModel = {
   title: string;
@@ -65,6 +74,7 @@ export type PageActivity = {
 export type PageData = {
   _id: string;
   name: string;
+  feastDay?: string;
   slug: string;
   overviewTitle: string;
   overview: PortableTextBlock[]; // PortableTextBlock[] if you want strict typing
@@ -73,8 +83,8 @@ export type PageData = {
     alt?: string;
   };
   activities: PageActivity[];
-  enableK2?: boolean;
-  enableG35?: boolean;
+  enableGradeK_2?: boolean;
+  enableGrade3_5?: boolean;
 };
 
 export type Saint = {

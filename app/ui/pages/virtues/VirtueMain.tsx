@@ -5,10 +5,10 @@ import { PortableTextComponent } from "@/app/ui/components/texts/PortableTextCom
 import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
 import { urlFor } from "@/sanity/lib/image";
 
-import type { GradeKey, PageData } from "@/app/types/types";
+import type { GradeKeyLink, PageData } from "@/app/types/types";
 
 type VirtueMainProps = {
-  grade: GradeKey;
+  grade: GradeKeyLink;
   slug: string;
   data: PageData;
 };
@@ -36,8 +36,8 @@ export function VirtueMain({ grade, slug, data }: VirtueMainProps) {
             slug={slug}
             basePath="virtues"
             enabledGrades={{
-              k2: data.enableK2 ?? true,
-              g3_5: data.enableG35 ?? true,
+              "k-2": data.enableGradeK_2 ?? true,
+              "3-5": data.enableGrade3_5 ?? true,
             }}
           />
         </div>

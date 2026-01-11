@@ -5,10 +5,10 @@ import { PortableTextComponent } from "@/app/ui/components/texts/PortableTextCom
 import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
 import { urlFor } from "@/sanity/lib/image";
 
-import type { GradeKey, PageData } from "@/app/types/types";
+import type { GradeKeyLink, PageData } from "@/app/types/types";
 
 type SaintMainProps = {
-  grade: GradeKey;
+  grade: GradeKeyLink;
   slug: string;
   data: PageData;
 };
@@ -21,7 +21,7 @@ const colorConfigs = [
 
 export function SaintMain({ grade, slug, data }: SaintMainProps) {
   const imageUrl = data.cardImage
-    ? urlFor(data.cardImage).width(600).height(600).fit("crop").url()
+    ? urlFor(data.cardImage).url()
     : "";
 
   return (
@@ -36,8 +36,8 @@ export function SaintMain({ grade, slug, data }: SaintMainProps) {
             slug={slug}
             basePath="saints"
             enabledGrades={{
-              k2: data.enableK2 ?? true,
-              g3_5: data.enableG35 ?? true,
+              "k-2": data.enableGradeK_2 ?? true,
+              "3-5": data.enableGrade3_5 ?? true,
             }}
           />
         </div>
@@ -47,17 +47,20 @@ export function SaintMain({ grade, slug, data }: SaintMainProps) {
       </h1>
 
       <div className="mt-10 bg-white/70 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row gap-8 items-start max-w-lg md:max-w-5xl mx-auto">
-        <div className="w-full flex justify-center md:shrink-0 md:w-auto">
+        <div className="w-full flex flex-col gap-6 justify-center items-center md:shrink-0 md:w-auto">
           {imageUrl && (
             <Image
               src={imageUrl}
               alt={data.cardImage?.alt || data.name}
               width={320}
-              height={320}
-              className="rounded-2xl object-cover w-full max-w-xs md:w-[320px] md:max-w-none"
+              height={450}
+              className="rounded-2xl object-cover object-top w-full max-w-xs md:w-[320px] md:max-w-none"
               priority
             />
           )}
+          <div className="self-center md:self-start max-w-[320px] md:max-w-none w-full bg-blue-100 rounded-lg px-4 py-2">
+            <p className="text-xl font-bold text-blue-400">Feast Day: {data.feastDay}</p>
+          </div>
         </div>
 
         <div className="max-w-none">
