@@ -35,7 +35,10 @@ export type RowCard = {
   _id: string;
   name: string;
   slug: string;
-  cardImage: any;
+  cardImage: {
+    asset?: ImageAsset;
+    alt?: string;
+  };
 };
 
 export type ContentCardModel = {
