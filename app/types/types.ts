@@ -138,6 +138,7 @@ export type Virtue = {
 
 export type AutoplayMuxVideoProps = {
   playbackId: string;
+  thumbnailTime?: number;
 
   /** Wrapper styling (Tailwind) */
   className?: string;

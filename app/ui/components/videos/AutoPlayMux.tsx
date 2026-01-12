@@ -8,6 +8,7 @@ type MuxPlayerEl = React.ElementRef<typeof MuxPlayer>;
 
 export function AutoplayMuxVideo({
   playbackId,
+  thumbnailTime = 0,
   className = "",
   containerStyle,
   playerStyle,
@@ -46,6 +47,7 @@ export function AutoplayMuxVideo({
       <MuxPlayer
         ref={playerRef}
         playbackId={playbackId}
+        thumbnailTime={thumbnailTime}
         muted={muted}
         loop={loop}
         autoPlay={autoPlay}
