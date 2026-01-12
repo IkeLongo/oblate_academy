@@ -1,3 +1,5 @@
+// app/ui/shared/navbar/nav-links.tsx
+
 'use client';
 
 import clsx from 'clsx';
@@ -6,6 +8,9 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import Submenu from './submenu';
+import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
+
+import type { GradeKey } from "@/app/types/types";
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.
@@ -115,26 +120,39 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
             {/* Mobile submenu: slide down inline */}
             {isMobile && hasSubmenu && (
               <div
-                className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}
+                className={`overflow-hidden transition-all duration-300 ${
+                  isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                }`}
               >
                 <div className="flex flex-col w-full bg-gray-50 rounded-b-md">
                   {link.submenu.map((item) => {
-                    let hoverClass = '';
-                    if (item.name === 'Kinder - 2nd Grade') {
-                      hoverClass = 'hover:bg-blue-100 hover:text-blue-700 hover:font-bold';
-                    } else if (item.name === '3rd - 5th Grade') {
-                      hoverClass = 'hover:bg-green-100 hover:text-green-600 hover:font-bold';
+                    let hoverClass = "";
+                    if (item.name === "Kinder - 2nd Grade") {
+                      hoverClass = "hover:bg-blue-100 hover:text-blue-700 hover:font-bold";
+                    } else if (item.name === "3rd - 5th Grade") {
+                      hoverClass = "hover:bg-green-100 hover:text-green-600 hover:font-bold";
                     } else {
-                      hoverClass = 'hover:bg-gray-100 hover:text-green-600 hover:font-bold';
+                      hoverClass = "hover:bg-gray-100 hover:text-green-600 hover:font-bold";
                     }
+
+                    const grade: GradeKey =
+                      item.name === "Kinder - 2nd Grade" ? "gk_2" : "g3_5";
+
                     return (
-                      <Link
+                      <GradeAnchorLink
                         key={item.name}
-                        href={item.href}
+                        grade={grade}
                         className={`block px-4 py-2 text-md text-black ${hoverClass}`}
+                        onClick={() => {
+                          // ✅ close the mobile menu
+                          onClick();
+                          // ✅ also close submenu state
+                          setOpenSubmenu(null);
+                          onSubmenuState?.(false);
+                        }}
                       >
                         {item.name}
-                      </Link>
+                      </GradeAnchorLink>
                     );
                   })}
                 </div>
@@ -142,7 +160,11 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
             )}
             {/* Desktop submenu */}
             {!isMobile && hasSubmenu && (
-              <Submenu items={link.submenu} open={isOpen} />
+              <Submenu
+                items={link.submenu}
+                open={isOpen}
+                onItemClick={() => setOpenSubmenu(null)}
+              />
             )}
           </div>
         );

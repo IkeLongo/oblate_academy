@@ -4,7 +4,9 @@ import { fetchVirtuePage } from "@/sanity/lib/fetch/fetchVirtuePage";
 import { VirtueMain } from "@/app/ui/pages/virtues/VirtueMain";
 import ParentTeacherResources from "@/app/ui/shared/ParentTeacherResources";
 
-import { GradeKey, GradeKeyLink } from "@/app/types/types";
+import { isGradeLink, toGradeKey } from "@/app/types/types";
+
+import type { GradeKey } from "@/app/types/types";
 
 type PageProps = {
   params: Promise<{ grade: string; slug: string }>;
@@ -13,26 +15,16 @@ type PageProps = {
 export default async function VirtuePage({ params }: PageProps) {
   const { grade, slug } = await params;
 
-  // ✅ validate grade so bad routes don't loop
-  // ✅ validate grade so bad routes don't loop
-  let gradeDisplay: string;
-  let internalGrade: string;
-  if (grade === "gk_2" || grade === "k-2") {
-    gradeDisplay = "k-2";
-    internalGrade = "gk_2";
-  } else if (grade === "g3_5" || grade === "3-5") {
-    gradeDisplay = "3-5";
-    internalGrade = "g3_5";
-  } else {
-    notFound();
-  }
+  if (!isGradeLink(grade)) notFound();
 
-  const data = await fetchVirtuePage({ slug, grade: internalGrade as GradeKey });
+  const gradeKey = toGradeKey(grade); // ✅ "gk_2" | "g3_5" for Sanity queries
+
+  const data = await fetchVirtuePage({ slug, grade: gradeKey });
   if (!data) notFound();
 
   return (
     <>
-      <VirtueMain grade={gradeDisplay as GradeKeyLink} slug={slug} data={data} />
+      <VirtueMain grade={gradeKey as GradeKey} slug={slug} data={data} />
       <ParentTeacherResources />
     </>
   );

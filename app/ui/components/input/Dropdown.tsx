@@ -104,18 +104,6 @@ const Dropdown = React.forwardRef<HTMLSelectElement, DropdownProps>(
       onChange?.(newValues);
     };
 
-    const removeOption = (optionValue: string, e: React.MouseEvent) => {
-      e.stopPropagation()
-      if (singleSelect) {
-        setSelectedValues([])
-        onChange?.("")
-      } else {
-        const newValues = selectedValues.filter(v => v !== optionValue)
-        setSelectedValues(newValues)
-        onChange?.(newValues)
-      }
-    }
-
     return (
       <div className="relative" ref={dropdownRef}>
         {/* Hidden select for form compatibility */}

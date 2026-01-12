@@ -5,7 +5,9 @@ import { SaintMain } from "@/app/ui/pages/saints/SaintMain";
 import ParentTeacherResources from "@/app/ui/shared/ParentTeacherResources";
 import RelatedVirtues from "@/app/ui/pages/saints/RelatedVirtues";
 
-import type { GradeKey, GradeKeyLink } from "@/app/types/types";
+import { isGradeLink, toGradeKey } from "@/app/types/types";
+
+import type { GradeKey } from "@/app/types/types";
 
 type PageProps = {
   params: Promise<{ grade: string; slug: string }>;
@@ -15,25 +17,16 @@ export default async function SaintPage({ params }: PageProps) {
 
   const { grade, slug } = await params;
 
-  // ✅ validate grade so bad routes don't loop
-  let gradeDisplay: string;
-  let internalGrade: string;
-  if (grade === "gk_2" || grade === "k-2") {
-    gradeDisplay = "k-2";
-    internalGrade = "gk_2";
-  } else if (grade === "g3_5" || grade === "3-5") {
-    gradeDisplay = "3-5";
-    internalGrade = "g3_5";
-  } else {
-    notFound();
-  }
+  if (!isGradeLink(grade)) notFound();
 
-  const data = await fetchSaintPage({ slug, grade: internalGrade as GradeKey });
+  const gradeKey = toGradeKey(grade); // ✅ "gk_2" | "g3_5" for Sanity queries
+
+  const data = await fetchSaintPage({ slug, grade: gradeKey });
   if (!data) notFound();
 
   return (
     <>
-      <SaintMain grade={gradeDisplay as GradeKeyLink} slug={slug} data={data} />
+      <SaintMain grade={gradeKey as GradeKey} slug={slug} data={data} />
       <ParentTeacherResources />
       <RelatedVirtues cards={data.relatedVirtuesCards} />
     </>

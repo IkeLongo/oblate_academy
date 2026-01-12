@@ -2,6 +2,7 @@ import React from "react";
 import { School } from "lucide-react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
 
 export default function OblateAcademyHero() {
   return (
@@ -35,43 +36,51 @@ export default function OblateAcademyHero() {
           alignItems="center"
           justifyContent="center"
         >
-          <Button
-            variant="contained"
-            startIcon={<School size={20} />}
-            disableElevation
-            sx={{
-              textTransform: "none",
-              borderRadius: "999px",
-              px: 4,
-              py: 1.5,
-              fontWeight: 700,
-              fontFamily: 'Poppins, sans-serif',
-              width: { xs: '100%', sm: 'auto' },
-              bgcolor: "#067099", // tailwind-ish sky-700/teal
-              "&:hover": { bgcolor: "#04435C" },
-            }}
-          >
-            Kinder - 2nd Grade
-          </Button>
+          <GradeAnchorLink
+            grade="gk_2"
+            className="w-full md:w-auto no-underline">
+            <Button
+              variant="contained"
+              startIcon={<School size={20} />}
+              disableElevation
+              sx={{
+                textTransform: "none",
+                borderRadius: "999px",
+                px: 4,
+                py: 1.5,
+                fontWeight: 700,
+                fontFamily: "Poppins, sans-serif",
+                width: { xs: "100%", sm: "auto" },
+                bgcolor: "#067099",
+                "&:hover": { bgcolor: "#04435C" },
+              }}
+            >
+              Kinder - 2nd Grade
+            </Button>
+          </GradeAnchorLink>
 
-          <Button
-            variant="contained"
-            startIcon={<School size={20} />}
-            disableElevation
-            sx={{
-              textTransform: "none",
-              borderRadius: "999px",
-              px: 4,
-              py: 1.5,
-              fontWeight: 700,
-              fontFamily: 'Poppins, sans-serif',
-              width: { xs: '100%', sm: 'auto' },
-              bgcolor: "#C81E1E", // red-600
-              "&:hover": { bgcolor: "#A01818" }, // red-700
-            }}
-          >
-            3rd - 5th Grade
-          </Button>
+          <GradeAnchorLink
+            grade="g3_5"
+            className="w-full md:w-auto no-underline">
+            <Button
+              variant="contained"
+              startIcon={<School size={20} />}
+              disableElevation
+              sx={{
+                textTransform: "none",
+                borderRadius: "999px",
+                px: 4,
+                py: 1.5,
+                fontWeight: 700,
+                fontFamily: 'Poppins, sans-serif',
+                width: { xs: '100%', sm: 'auto' },
+                bgcolor: "#C81E1E", // red-600
+                "&:hover": { bgcolor: "#A01818" }, // red-700
+              }}
+            >
+              3rd - 5th Grade
+            </Button>
+          </GradeAnchorLink>
         </Stack>
 
         <div className="mt-6 flex justify-center">

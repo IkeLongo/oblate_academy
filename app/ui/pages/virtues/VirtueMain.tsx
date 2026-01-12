@@ -4,11 +4,12 @@ import { PortableText } from "@portabletext/react";
 import { PortableTextComponent } from "@/app/ui/components/texts/PortableTextComponent";
 import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
 import { urlFor } from "@/sanity/lib/image";
+import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
 
-import type { GradeKeyLink, PageData } from "@/app/types/types";
+import type { GradeKey, PageData } from "@/app/types/types";
 
 type VirtueMainProps = {
-  grade: GradeKeyLink;
+  grade: GradeKey;
   slug: string;
   data: PageData;
 };
@@ -27,17 +28,19 @@ export function VirtueMain({ grade, slug, data }: VirtueMainProps) {
   return (
     <div className="base bg-gradient-to-b from-blue-100 via-gray-100 to-blue-100 mx-auto px-6 py-20 md:pt-10">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-8 max-w-6xl mx-auto pt-16 md:pt-0">
-        <Link href="/" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400">
-          ← Back to Home
-        </Link>
+        <GradeAnchorLink grade={grade}>
+          <span className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 cursor-pointer">
+            ← Back to Home
+          </span>
+        </GradeAnchorLink>
         <div className="text-blue-300 font-extrabold min-w-none md:min-w-sm md:static md:mt-0 mt-2">
           <GradeSwitcher
             grade={grade}
             slug={slug}
             basePath="virtues"
             enabledGrades={{
-              "k-2": data.enableGradeK_2 ?? true,
-              "3-5": data.enableGrade3_5 ?? true,
+              "gk_2": data.enableGradeK_2 ?? true,
+              "g3_5": data.enableGrade3_5 ?? true,
             }}
           />
         </div>

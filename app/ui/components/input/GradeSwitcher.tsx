@@ -2,8 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { GradeDropdown } from "@/app/ui/pages/home/client/GradeContentDropdown";
+import { toGradeLink } from "@/app/types/types";
 
-import type { GradeKeyLink } from "@/app/types/types";
+import type { GradeKey } from "@/app/types/types";
+
+const GRADE_OPTIONS = [
+  { value: "gk_2", label: "Kinder - 2nd Grade" },
+  { value: "g3_5", label: "3rd - 5th Grade" },
+] as const satisfies ReadonlyArray<{ value: GradeKey; label: string }>;
 
 export function GradeSwitcher({
   grade,
@@ -11,25 +17,22 @@ export function GradeSwitcher({
   basePath,
   enabledGrades,
 }: {
-  grade: GradeKeyLink;
+  grade: GradeKey;
   slug: string;
   basePath: "saints" | "virtues";
-  enabledGrades: { "k-2": boolean; "3-5": boolean };
+  enabledGrades: Record<GradeKey, boolean>;
 }) {
   const router = useRouter();
 
-  const options = [
-    { value: "k-2" as const, label: "Kinder - 2nd Grade" },
-    { value: "3-5" as const, label: "3rd - 5th Grade" },
-  ].filter(opt => enabledGrades[opt.value]);
+  const options = GRADE_OPTIONS.filter((opt) => enabledGrades[opt.value]);
 
   return (
     <GradeDropdown
       grade={grade}
       options={options}
       onChange={(nextGrade) => {
-        // ✅ route param swap (no search params)
-        router.push(`/grade/${nextGrade}/${basePath}/${slug}`, { scroll: false });
+        const gradeLink = toGradeLink(nextGrade); // ✅ convert only at routing edge
+        router.push(`/grade/${gradeLink}/${basePath}/${slug}`, { scroll: false });
       }}
       compact={true}
     />
