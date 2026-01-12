@@ -181,3 +181,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Only hide UI on mux players inside .mux-bg */
+.mux-bg mux-player::part(controls),
+.mux-bg mux-player::part(center-play-button),
+.mux-bg mux-player::part(bottom-play-button),
+.mux-bg mux-player::part(time),
+.mux-bg mux-player::part(captions),
+.mux-bg mux-player::part(airplay),
+.mux-bg mux-player::part(pip),
+.mux-bg mux-player::part(fullscreen),
+.mux-bg mux-player::part(settings),
+.mux-bg mux-player::part(menu),
+.mux-bg mux-player::part(control-bar bottom) {
+  display: none !important;
+}

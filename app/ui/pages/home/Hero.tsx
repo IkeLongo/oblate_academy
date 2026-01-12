@@ -3,6 +3,7 @@ import { School } from "lucide-react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
+import { AutoplayMuxVideo } from "@/app/ui/components/videos/AutoPlayMux";
 
 export default function OblateAcademyHero() {
   return (
@@ -16,13 +17,11 @@ export default function OblateAcademyHero() {
         </h1>
 
         <div className="mt-8 flex justify-center">
-          <div className="w-full max-w-2xl rounded-[10px] bg-white p-2 shadow-[0_10px_25px_rgba(0,0,0,0.18)]">
-            <img
-              src="/hero-reading.png"
-              alt="Parent reading with child"
-              className="h-[350px] w-full rounded-[8px] object-cover"
-            />
-          </div>
+          <AutoplayMuxVideo
+            playbackId="pzuJNPXv6k0100ynetUZkb8fnakkCpbCV6k3fD7ygBvOA"
+            className="w-full rounded-[8px] object-cover"
+            videoTitle="Oblate Academy - Home Hero Video"
+          />
         </div>
 
         <h4 className="mt-6 font-semibold text-white drop-shadow-sm">
