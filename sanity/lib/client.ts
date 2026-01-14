@@ -7,10 +7,11 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: false,
+  useCdn: true,
   perspective: isDev ? "drafts" : "published",
   token,
   timeout: 10000, // ✅ 10 seconds (fail fast)
+  stega: { studioUrl: '/studio' },
 });
 
 // export const client = createClient({
