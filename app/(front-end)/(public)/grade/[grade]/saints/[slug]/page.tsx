@@ -21,9 +21,11 @@ export default async function SaintPage({ params }: PageProps) {
   const gradeKey = toGradeKey(grade);
   const isDraft = (await draftMode()).isEnabled;
 
+  const resourceGrade = gradeKey === "gk_2" ? "k2" : "g3_5";
+
   const { data } = await sanityFetch({
     query: saintPageQuery,
-    params: { slug, grade: gradeKey, isDraft },
+    params: { slug, grade: gradeKey, resourceGrade, isDraft },
   });
 
   // ✅ Never notFound() while in draft/presentation
@@ -43,7 +45,12 @@ export default async function SaintPage({ params }: PageProps) {
 
   return (
     <>
-      <SaintMain grade={gradeKey as GradeKey} slug={slug} data={data} />
+      <SaintMain
+        grade={gradeKey as GradeKey}
+        gradeHref={grade}        // ✅ pass route grade
+        slug={slug}
+        data={data}
+      />
       <ParentTeacherResources />
       <RelatedVirtues gradeHref={grade} virtues={data.relatedVirtues} />
     </>

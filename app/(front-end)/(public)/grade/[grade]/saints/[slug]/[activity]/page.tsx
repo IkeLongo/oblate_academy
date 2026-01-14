@@ -1,10 +1,10 @@
 // app/[grade]/saints/[slug]/[activity]/page.tsx
 
 import { notFound } from "next/navigation";
-import { fetchSaintActivityPage } from "@/sanity/lib/fetch/fetchSaintPage";
+import { draftMode } from "next/headers";
+import { sanityFetch } from "@/sanity/lib/live";
+import { saintActivityPageQuery } from "@/sanity/lib/queries/saintPageQueries";
 import { ActivityTopControls } from "@/app/ui/components/buttons/ActivityTopControls";
-
-import { GradeKey } from "@/app/types/types";
 
 export default async function SaintActivityPage({
   params,
@@ -13,18 +13,40 @@ export default async function SaintActivityPage({
 }) {
   const { grade, slug, activity } = await params;
 
-  if (grade !== "k2" && grade !== "g3_5") notFound();
+  // URL grade guard
+  if (grade !== "k-2" && grade !== "3-5") notFound();
 
-  const data = await fetchSaintActivityPage({
-    grade: grade as GradeKey,
-    slug,
-    activity,
+  const isDraft = (await draftMode()).isEnabled;
+
+  // ✅ resource schema grade values are "k2" and "g3_5"
+  const resourceGrade = grade === "k-2" ? "k2" : "g3_5";
+
+  const { data } = await sanityFetch({
+    query: saintActivityPageQuery,
+    params: {
+      slug,
+      activity,
+      grade: resourceGrade, // ✅ matches resource.grade values
+      isDraft,              // ✅ fixes GROQ param error
+    },
   });
 
-  if (!data?.resource?.pdfUrl) notFound();
+  // In preview, don't hard crash if resource is missing briefly
+  if (!data?.resource?.pdfUrl) {
+    if (isDraft) {
+      return (
+        <div className="p-6">
+          <p className="text-lg font-bold">Preview updating…</p>
+          <p className="text-sm text-slate-600">
+            This can happen briefly while editing. Try again in a moment.
+          </p>
+        </div>
+      );
+    }
+    notFound();
+  }
 
   const chipText = "Worksheets & Activities";
-
   const activityTitle = data.resource.activity?.title ?? "Activity";
   const pageTitle = `${activityTitle} — ${data.name}`;
 
@@ -40,7 +62,7 @@ export default async function SaintActivityPage({
       {/* Top controls */}
       <div className="relative z-10 mx-auto max-w-5xl px-6 pt-6">
         <ActivityTopControls
-          grade={grade}
+          grade={grade} // ✅ keep URL grade for navigation
           slug={slug}
           basePath="saints"
           pdfUrl={data.resource.pdfUrl}
@@ -54,7 +76,7 @@ export default async function SaintActivityPage({
             </span>
             <span className="mx-2 h-3 w-px bg-blue-200/70" />
             <span className="text-blue-300 font-extrabold">
-              {grade === "k2" ? "Kinder–2nd" : "3rd–5th"}
+              {grade === "k-2" ? "Kinder–2nd" : "3rd–5th"}
             </span>
           </div>
 
@@ -80,3 +102,4 @@ export default async function SaintActivityPage({
     </div>
   );
 }
+

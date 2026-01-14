@@ -6,7 +6,7 @@ export function ActivityTopControls({ grade, slug, basePath, pdfUrl }: { grade: 
   return (
     <div className="flex items-center justify-between">
       <Link
-        href={`/${grade}/${basePath}/${slug}`}
+        href={`/grade/${grade}/${basePath}/${slug}`}
         className="inline-flex text-blue-400 h-10 w-10 items-center justify-center rounded-full bg-white/60 hover:bg-white/80 transition"
         aria-label="Back"
       >

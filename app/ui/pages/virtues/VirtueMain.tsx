@@ -6,10 +6,11 @@ import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
 import { urlFor } from "@/sanity/lib/image";
 import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
 
-import type { GradeKey, PageData } from "@/app/types/types";
+import type { GradeKey, GradeKeyLink, PageData } from "@/app/types/types";
 
 type VirtueMainProps = {
-  grade: GradeKey;
+  grade: GradeKey;          // for GradeSwitcher etc
+  gradeHref: GradeKeyLink;  // ✅ for URLs: "k-2" | "3-5"
   slug: string;
   data: PageData;
 };
@@ -20,7 +21,7 @@ const colorConfigs = [
   { text: "text-red-400", bg: "bg-red-400" },
 ];
 
-export function VirtueMain({ grade, slug, data }: VirtueMainProps) {
+export function VirtueMain({ grade, gradeHref, slug, data }: VirtueMainProps) {
   const imageUrl = data.cardImage
     ? urlFor(data.cardImage).width(600).height(600).fit("crop").url()
     : "";
@@ -73,7 +74,7 @@ export function VirtueMain({ grade, slug, data }: VirtueMainProps) {
 
       <div className="mt-12 flex justify-between md:justify-center gap-8 max-w-lg md:max-w-none flex-wrap mx-auto">
         {data.activities.map((r, i) => {
-          const href = `/${grade}/virtues/${data.slug}/${r.activity.slug}`;
+          const href = `/grade/${gradeHref}/virtues/${data.slug}/${r.activity.slug}`;
           const color = colorConfigs[i % colorConfigs.length];
           return (
             <Link

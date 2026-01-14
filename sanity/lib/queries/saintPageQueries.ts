@@ -18,7 +18,7 @@ export const saintPageQuery = groq`
     "slug": slug.current,
     cardImage{..., alt}
   },
-  enableGardeK_2,
+  enableGradeK_2,
   enableGrade3_5,
 
   "overviewTitle": coalesce(select($grade == "gk_2" => gk_2.overviewTitle, g3_5.overviewTitle), name),
@@ -26,7 +26,7 @@ export const saintPageQuery = groq`
 
   "activities": *[
     _type == "resource" &&
-    grade == $grade &&
+    grade == $resourceGrade &&
     saint._ref == ^._id
   ]{
     _id,

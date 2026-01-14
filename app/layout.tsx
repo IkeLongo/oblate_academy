@@ -5,6 +5,11 @@ import { Fredoka } from "next/font/google";
 import { Inria_Sans } from "next/font/google";
 import "./globals.css";
 
+import { SanityLive } from '@/sanity/lib/live'
+import { draftMode } from 'next/headers'
+import { VisualEditing } from 'next-sanity/visual-editing'
+import { DisableDraftMode } from "./ui/components/buttons/DisableDraftMode";
+
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['400', '500'],
@@ -56,6 +61,13 @@ export default async function RootLayout({
         className={`${poppins.className} ${fredoka.variable} ${inriaSans.variable} antialiased overflow-x-hidden`}
       >
         {children}
+        <SanityLive />
+        {(await draftMode()).isEnabled && (
+          <>
+            <DisableDraftMode />
+            <VisualEditing />
+          </>
+        )}
       </body>
     </html>
   );

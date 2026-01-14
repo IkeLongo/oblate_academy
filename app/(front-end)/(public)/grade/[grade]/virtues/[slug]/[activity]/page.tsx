@@ -1,8 +1,9 @@
 // app/(public)/[grade]/virtues/[slug]/[activity]/page.tsx
 import { notFound } from "next/navigation";
-import { fetchVirtueActivityPage } from "@/sanity/lib/fetch/fetchVirtuePage";
+import { draftMode } from "next/headers";
 import { ActivityTopControls } from "@/app/ui/components/buttons/ActivityTopControls";
-import { GradeKey } from "@/app/types/types";
+import { sanityFetch } from "@/sanity/lib/live";
+import { virtueActivityPageQuery } from "@/sanity/lib/queries/virtuePageQueries";
 
 export default async function VirtueActivityPage({
   params,
@@ -10,16 +11,39 @@ export default async function VirtueActivityPage({
   params: Promise<{ grade: string; slug: string; activity: string }>;
 }) {
   const { grade, slug, activity } = await params;
+  
+  // URL grade guard
+  if (grade !== "k-2" && grade !== "3-5") notFound();
 
-  if (grade !== "k2" && grade !== "g3_5") notFound();
+  const isDraft = (await draftMode()).isEnabled;
 
-  const data = await fetchVirtueActivityPage({
-    grade: grade as GradeKey,
-    slug,
-    activity,
+  // ✅ resource schema grade values are "k2" and "g3_5"
+  const resourceGrade = grade === "k-2" ? "k2" : "g3_5";
+
+  const { data } = await sanityFetch({
+    query: virtueActivityPageQuery,
+    params: {
+      slug,
+      activity,
+      grade: resourceGrade, // ✅ matches resource.grade values
+      isDraft,              // ✅ fixes GROQ param error
+    },
   });
 
-  if (!data?.resource?.pdfUrl) notFound();
+  // In preview, don't hard crash if resource is missing briefly
+  if (!data?.resource?.pdfUrl) {
+    if (isDraft) {
+      return (
+        <div className="p-6">
+          <p className="text-lg font-bold">Preview updating…</p>
+          <p className="text-sm text-slate-600">
+            This can happen briefly while editing. Try again in a moment.
+          </p>
+        </div>
+      );
+    }
+    notFound();
+  }
 
   const chipText = "Worksheets & Activities";
   const activityTitle = data.resource.activity?.title ?? "Activity";
@@ -51,7 +75,7 @@ export default async function VirtueActivityPage({
             </span>
             <span className="mx-2 h-3 w-px bg-blue-200/70" />
             <span className="text-blue-300 font-extrabold">
-              {grade === "k2" ? "Kinder–2nd" : "3rd–5th"}
+              {grade === "k-2" ? "Kinder–2nd" : "3rd–5th"}
             </span>
           </div>
 

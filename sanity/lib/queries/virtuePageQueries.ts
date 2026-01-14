@@ -13,7 +13,7 @@ export const virtuePageQuery = groq`
     "slug": slug.current,
     cardImage{..., alt}
   },
-  enableGardeK_2,
+  enableGradeK_2,
   enableGrade3_5,
 
   "overviewTitle": coalesce(select($grade == "gk_2" => gk_2.overviewTitle, g3_5.overviewTitle), name),
@@ -21,7 +21,7 @@ export const virtuePageQuery = groq`
 
   "activities": *[
     _type == "resource" &&
-    grade == $grade &&
+    grade == $resourceGrade &&
     virtue._ref == ^._id
   ]{
     _id,
@@ -37,7 +37,11 @@ export const virtuePageQuery = groq`
 `;
 
 export const virtueActivityPageQuery = groq`
-*[_type=="virtue" && slug.current==$slug && isActive==true][0]{
+*[
+  _type == "virtue" &&
+  slug.current == $slug &&
+  ($isDraft || coalesce(isActive, true) == true)
+][0]{
   _id,
   name,
   "slug": slug.current,
