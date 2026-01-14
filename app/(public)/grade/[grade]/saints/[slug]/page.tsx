@@ -29,7 +29,7 @@ export default async function SaintPage({ params }: PageProps) {
     <>
       <SaintMain grade={gradeKey as GradeKey} slug={slug} data={data} />
       <ParentTeacherResources />
-      <RelatedVirtues cards={data.relatedVirtuesCards} />
+      <RelatedVirtues gradeHref={grade} virtues={data.relatedVirtues} />
     </>
   );
 }

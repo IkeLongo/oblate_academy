@@ -8,6 +8,12 @@ export const saintPageQuery = groq`
   feastDay,
   "slug": slug.current,
   cardImage{..., alt},
+  "relatedVirtues": relatedVirtues[]->{
+    _id,
+    name,
+    "slug": slug.current,
+    cardImage{..., alt}
+  },
   enableGardeK_2,
   enableGrade3_5,
 

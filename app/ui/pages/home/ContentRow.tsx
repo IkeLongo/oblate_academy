@@ -6,7 +6,7 @@ const colorConfigs = [
   { text: "text-blue-300", border: "border-blue-300", bg: "bg-blue-100" },
   { text: "text-green-500", border: "border-green-500", bg: "bg-green-200" },
   { text: "text-red-500", border: "border-red-500", bg: "bg-red-100" },
-  { text: "text-yellow-600", border: "border-yellow-600", bg: "bg-yellow-100" },
+  { text: "text-yellow-700", border: "border-yellow-700", bg: "bg-yellow-100" },
 ];
 
 export function ContentRow({

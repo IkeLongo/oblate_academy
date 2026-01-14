@@ -5,6 +5,7 @@ import { virtuePageQuery } from "@/sanity/lib/queries/virtuePageQueries";
 import { VirtueMain } from "@/app/ui/pages/virtues/VirtueMain";
 import ParentTeacherResources from "@/app/ui/shared/ParentTeacherResources";
 import { isGradeLink, toGradeKey } from "@/app/types/types";
+import RelatedSaints from "@/app/ui/pages/virtues/RelatedSaints";
 
 import type { GradeKey } from "@/app/types/types";
 
@@ -29,6 +30,7 @@ export default async function VirtuePage({ params }: PageProps) {
     <>
       <VirtueMain grade={gradeKey as GradeKey} slug={slug} data={data} />
       <ParentTeacherResources />
+      <RelatedSaints gradeHref={grade} saints={data.relatedSaints} />
     </>
   );
 }

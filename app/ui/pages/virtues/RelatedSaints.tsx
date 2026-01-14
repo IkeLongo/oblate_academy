@@ -2,7 +2,7 @@ import RelatedContentSection from "../../shared/sections/RelatedContentSection";
 
 import type { ImageAsset } from '@sanity/types';
 
-type VirtueItem = {
+type SaintItem = {
   _id: string;
   name: string;
   slug: string;
@@ -11,35 +11,35 @@ type VirtueItem = {
 
 type Props = {
   gradeHref: "k-2" | "3-5";
-  virtues: VirtueItem[];
+  saints: SaintItem[];
   title?: string;
   className?: string;
 };
 
-const virtuesTheme = {
-  sectionBg: "bg-blue-100",
-  headingText: "text-blue-400",
+const saintsTheme = {
+  sectionBg: "bg-red-150",
+  headingText: "text-red-600",
   cardColors: [
-    { text: "text-red-500", border: "border-red-500", bg: "bg-red-100" },
+    { text: "text-green-500", border: "border-green-500", bg: "bg-green-200" },
     { text: "text-yellow-700", border: "border-yellow-700", bg: "bg-yellow-100" },
-    { text: "text-green-600", border: "border-green-500", bg: "bg-green-200" }, // to mimic outer/middle/outer
+    { text: "text-blue-300", border: "border-blue-300", bg: "bg-blue-100" }, // to mimic outer/middle/outer
   ],
 };
 
-export default function RelatedVirtues({
+export default function RelatedSaints({
   gradeHref,
-  virtues,
-  title = "Related Virtues",
+  saints,
+  title = "Related Saints",
   className = "",
 }: Props) {
   return (
     <RelatedContentSection
       gradeHref={gradeHref}
-      basePath="virtues"
-      items={virtues}
+      basePath="saints"
+      items={saints}
       title={title}
       className={className}
-      theme={virtuesTheme}
+      theme={saintsTheme}
       limit={3}
     />
   );

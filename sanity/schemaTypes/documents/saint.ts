@@ -25,8 +25,14 @@ export const saint = defineType({
       fields: [{ name: "alt", type: "string", title: "Alt Text", validation: (R: any) => R.required().max(120) }],
       validation: (R) => R.required(),
     }),
+    defineField({
+      name: "relatedVirtues",
+      title: "Related Virtues (optional)",
+      type: "array",
+      group: "shared",
+      of: [{ type: "reference", to: [{ type: "virtue" }] }],
+    }),
     defineField({ name: "isActive", type: "boolean", group: "shared", initialValue: true }),
-
     // ✅ Enable toggles
     defineField({
       name: "enableGradeK_2",

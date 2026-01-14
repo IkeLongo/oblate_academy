@@ -30,13 +30,6 @@ export const gradeVariant = defineType({
     }),
 
     defineField({
-      name: "relatedVirtues",
-      title: "Related Virtues (optional)",
-      type: "array",
-      of: [{ type: "reference", to: [{ type: "virtue" }] }],
-    }),
-
-    defineField({
       name: "parentTeacherResourcesLink",
       title: "Parent/Teacher Resources Link (optional)",
       type: "reference",

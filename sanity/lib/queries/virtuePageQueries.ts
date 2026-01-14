@@ -7,6 +7,12 @@ export const virtuePageQuery = groq`
   name,
   "slug": slug.current,
   cardImage{..., alt},
+  "relatedSaints": relatedSaints[]->{
+    _id,
+    name,
+    "slug": slug.current,
+    cardImage{..., alt}
+  },
   enableGardeK_2,
   enableGrade3_5,
 

@@ -24,8 +24,14 @@ export const virtue = defineType({
       fields: [{ name: "alt", type: "string", title: "Alt Text", validation: (R) => R.required().max(120) }],
       validation: (R) => R.required(),
     }),
+    defineField({
+      name: "relatedSaints",
+      title: "Related Saints (optional)",
+      type: "array",
+      group: "shared",
+      of: [{ type: "reference", to: [{ type: "saint" }] }],
+    }),
     defineField({ name: "isActive", type: "boolean", group: "shared", initialValue: true }),
-
     // ✅ Enable toggles
     defineField({
       name: "enableGradeK_2",

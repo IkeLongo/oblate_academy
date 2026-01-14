@@ -164,3 +164,30 @@ export type AutoplayMuxVideoProps = {
   videoTitle?: string;
   viewerUserId?: string;
 };
+
+export type RelatedVirtuesSectionProps = {
+  gradeHref: "k-2" | "3-5"; // route segment
+  virtues: Array<{
+    _id: string;
+    name: string;
+    slug: string;
+    cardImage?: { asset?: ImageAsset; alt?: string };
+    // if you have imageUrl in query, include it instead
+    imageSrc?: string;
+  }>;
+  title?: string;
+  className?: string;
+};
+
+// app/ui/types/relatedSectionTheme.ts
+export type CardColorConfig = {
+  text: string;
+  border: string;
+  bg: string;
+};
+
+export type RelatedSectionTheme = {
+  sectionBg: string;                 // e.g. "bg-blue-200"
+  headingText?: string;              // e.g. "text-blue-400"
+  cardColors?: CardColorConfig[];    // array = rotation strategy
+};

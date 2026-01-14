@@ -39,6 +39,7 @@
 
   /* Red shades */
   --red-100:  #FAE9E9;
+  --red-150:  #f5d4d4;
   --red-200:  #E9A5A5;
   --red-300:  #DE7878;
   --red-400:  #D34B4B;
@@ -89,6 +90,7 @@
 
   /* Red shades */
   --color-red-100:  #FAE9E9;
+  --color-red-150:  #f5d4d4;
   --color-red-200:  #E9A5A5;
   --color-red-300:  #DE7878;
   --color-red-400:  #D34B4B;
