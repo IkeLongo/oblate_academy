@@ -2,7 +2,11 @@
 import { groq } from "next-sanity";
 
 export const saintPageQuery = groq`
-*[_type == "saint" && slug.current == $slug && isActive == true][0]{
+*[
+  _type == "saint" &&
+  slug.current == $slug &&
+  ($isDraft || coalesce(isActive, true) == true)
+][0]{
   _id,
   name,
   feastDay,
@@ -38,7 +42,11 @@ export const saintPageQuery = groq`
 `;
 
 export const saintActivityPageQuery = groq`
-*[_type=="saint" && slug.current==$slug && isActive==true][0]{
+*[
+  _type == "saint" &&
+  slug.current == $slug &&
+  ($isDraft || coalesce(isActive, true) == true)
+][0]{
   _id,
   name,
   "slug": slug.current,
