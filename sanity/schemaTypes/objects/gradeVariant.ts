@@ -18,7 +18,13 @@ export const gradeVariant = defineType({
       name: "overview",
       title: "Overview Content",
       type: "array",
-      of: [{ type: "block" }],
+      of: [
+        { type: "block" },
+        {
+          type: "image",
+          options: { hotspot: true }
+        },
+      ],
       // ✅ do NOT require here (require conditionally at parent)
       validation: (Rule) => Rule.min(1),
     }),

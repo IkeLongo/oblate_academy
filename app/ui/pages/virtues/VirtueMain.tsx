@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText } from "@portabletext/react";
-import { PortableTextComponent } from "@/app/ui/components/texts/PortableTextComponent";
+import { PortableText } from "next-sanity";
+import { components } from "@/app/ui/components/texts/PortableTextComponent";
 import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
 import { urlFor } from "@/sanity/lib/image";
 import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
@@ -66,7 +66,7 @@ export function VirtueMain({ grade, slug, data }: VirtueMainProps) {
         <div className="max-w-none">
           <PortableText
             value={data.overview || []}
-            components={PortableTextComponent}
+            components={components}
           />
         </div>
       </div>

@@ -1,6 +1,6 @@
 // sanity/lib/fetch/fetchSaintK2Page.ts
 import { client } from "@/sanity/lib/client";
-import { saintActivityPageQuery, saintPageQuery } from "@/sanity/lib/queries/saintPage";
+import { saintActivityPageQuery, saintPageQuery } from "@/sanity/lib/queries/saintPageQueries";
 
 import type { GradeKey } from "@/app/types/types";
 

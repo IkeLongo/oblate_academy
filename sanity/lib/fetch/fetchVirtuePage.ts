@@ -1,6 +1,6 @@
 // sanity/lib/fetch/fetchVirtuePage.ts
 import { client } from "@/sanity/lib/client";
-import { virtuePageQuery, virtueActivityPageQuery } from "@/sanity/lib/queries/virtuePage";
+import { virtuePageQuery, virtueActivityPageQuery } from "@/sanity/lib/queries/virtuePageQueries";
 
 import type { GradeKey } from "@/app/types/types";
 

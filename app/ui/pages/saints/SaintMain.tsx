@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText } from "@portabletext/react";
-import { PortableTextComponent } from "@/app/ui/components/texts/PortableTextComponent";
+// import { PortableText } from "@portabletext/react";
+import { PortableText } from "next-sanity";
+import { components } from "@/app/ui/components/texts/PortableTextComponent";
 import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
 import { urlFor } from "@/sanity/lib/image";
 import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
@@ -66,10 +67,14 @@ export function SaintMain({ grade, slug, data }: SaintMainProps) {
           </div>
         </div>
 
-        <div className="max-w-none">
-          <PortableText
+        <div className="w-full">
+          {/* <PortableText
             value={data.overview || []}
             components={PortableTextComponent}
+          /> */}
+          <PortableText
+            value={data.overview || []}
+            components={components}
           />
         </div>
       </div>
