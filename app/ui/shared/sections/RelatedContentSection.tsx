@@ -67,27 +67,31 @@ export default function RelatedContentSection({
         </h2>
 
         <div className="mt-10 md:mt-12">
-          <div className="-mx-6 px-6 overflow-x-auto pb-2 md:overflow-visible md:pb-0">
-            <div className="flex gap-8 md:gap-10 md:justify-center min-w-max md:min-w-0">
-              {sliced.map((item, i) => (
-                <ContentCard
-                  key={item._id}
-                  title={item.name}
-                  href={`/grade/${gradeHref}/${basePath}/${item.slug}`}
-                  imageSrc={
-                    item.cardImage
-                      ? urlFor(item.cardImage)
-                          .width(800)
-                          .height(450)
-                          .fit("crop")
-                          .auto("format")
-                          .url()
-                      : ""
-                  }
-                  imageAlt={item.cardImage?.alt || ""}
-                  color={cardColorForIndex(i)}
-                />
-              ))}
+          <div className="-mr-4 sm:-mr-6 lg:-mr-8 -mx-6 px-6 overflow-x-auto pb-2 lg:overflow-visible md:pb-0">
+            <div className="flex gap-8 md:gap-10 mb-2 lg:mb-0 lg:justify-center min-w-max md:min-w-0">
+              {sliced.map((item, i) => {
+                const isLast = i === sliced.length - 1;
+                return (
+                  <div key={item._id} className={isLast ? 'pr-0 md:pr-6 lg:pr-8' : ''}>
+                    <ContentCard
+                      title={item.name}
+                      href={`/grade/${gradeHref}/${basePath}/${item.slug}`}
+                      imageSrc={
+                        item.cardImage
+                          ? urlFor(item.cardImage)
+                              .width(800)
+                              .height(450)
+                              .fit("crop")
+                              .auto("format")
+                              .url()
+                          : ""
+                      }
+                      imageAlt={item.cardImage?.alt || ""}
+                      color={cardColorForIndex(i)}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
