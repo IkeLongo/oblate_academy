@@ -4,12 +4,12 @@ import { TeachPillarsClient } from "./client/TeachPillarsClient";
 
 export default function TeachPillars() {
   return (
-    <section className="base relative">
+    <div className="base relative !overflow-visible">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-yellow-200 via-gray-100 to-yellow-200" />
 
       {/* TOP CLOUD BORDER */}
-      <div className="absolute -top-4 md:-top-10 left-1/2 -translate-x-1/2 min-w-[110vw] pointer-events-none select-none">
+      <div className="absolute !overflow-visible -top-4 md:-top-10 left-1/2 -translate-x-1/2 min-w-[110vw] pointer-events-none select-none">
         <Image
           src="/cloud-border-yellow.webp"
           alt="Cloud shaped border top"
@@ -20,7 +20,7 @@ export default function TeachPillars() {
       </div>
 
       {/* BOTTOM CLOUD BORDER */}
-      <div className="absolute -bottom-4 md:-bottom-10 left-1/2 -translate-x-1/2 min-w-[110vw] pointer-events-none select-none">
+      <div className="absolute !overflow-visible -bottom-4 md:-bottom-10 left-1/2 -translate-x-1/2 min-w-[110vw] pointer-events-none select-none">
         <Image
           src="/cloud-border-yellow.webp"
           alt="Cloud shaped border bottom"
@@ -29,7 +29,7 @@ export default function TeachPillars() {
         />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 py-10 pb-16 sm:py-10 sm:pb-20 md:py-12 md:pb-20">
+      <section className="relative z-10 mx-auto max-w-6xl px-6 py-10 pb-16 sm:py-10 sm:pb-20 md:py-12 md:pb-20">
         {/* Decorative dots (top-left) */}
         <div className="absolute left-2 top-10 2xs:left-10 sm:top-12 md:top-0 lg:top-40 opacity-90 pointer-events-none select-none">
           <Image
@@ -88,7 +88,7 @@ export default function TeachPillars() {
             borderClassName="border-red-400"
           />
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }

@@ -6,7 +6,7 @@ import TeachPillars from "@/app/ui/pages/home/TeachPillars";
 
 export default function Home() {
   return (
-    <div className="overflow-x-hidden">
+    <div className="overflow-hidden">
       <OblateAcademyHero />
       <GradeContent />
       <FaithAndFun />
