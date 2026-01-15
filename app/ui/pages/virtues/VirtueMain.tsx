@@ -50,25 +50,24 @@ export function VirtueMain({ grade, gradeHref, slug, data }: VirtueMainProps) {
         {data.overviewTitle}
       </h1>
 
-      <div className="mt-10 bg-white/70 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row gap-8 items-start max-w-lg md:max-w-5xl mx-auto">
-        <div className="w-full flex justify-center md:shrink-0 md:w-auto">
+      <div className="mt-10 bg-white/70 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row gap-8 items-stretch max-w-lg md:max-w-5xl mx-auto">
+        {/* LEFT: fixed height on md so RIGHT can match it */}
+        <div className="w-full md:w-[320px] md:shrink-0 flex flex-col gap-6 items-center md:items-start md:h-[320px]">
           {imageUrl && (
             <Image
               src={imageUrl}
               alt={data.cardImage?.alt || data.name}
               width={320}
               height={320}
-              className="rounded-2xl object-cover w-full max-w-xs md:w-[320px] md:max-w-none"
+              className="rounded-2xl object-cover object-top w-full md:w-[320px]"
               priority
             />
           )}
         </div>
 
-        <div className="max-w-none">
-          <PortableText
-            value={data.overview || []}
-            components={components}
-          />
+        {/* RIGHT: matches LEFT height on md; scrolls when content is longer */}
+        <div className="w-full flex flex-col h-[450px] md:h-[320px] overflow-y-auto md:pr-2">
+          <PortableText value={data.overview || []} components={components} />
         </div>
       </div>
 

@@ -30,7 +30,15 @@ export const saint = defineType({
       title: "Related Virtues (optional)",
       type: "array",
       group: "shared",
-      of: [{ type: "reference", to: [{ type: "virtue" }] }],
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "virtue" }],
+          options: {
+            filter: 'isActive == true',
+          },
+        },
+      ],
     }),
     defineField({ name: "isActive", type: "boolean", group: "shared", initialValue: true }),
     // ✅ Enable toggles

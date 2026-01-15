@@ -29,7 +29,15 @@ export const virtue = defineType({
       title: "Related Saints (optional)",
       type: "array",
       group: "shared",
-      of: [{ type: "reference", to: [{ type: "saint" }] }],
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "saint" }],
+          options: {
+            filter: 'isActive == true',
+          },
+        },
+      ],
     }),
     defineField({ name: "isActive", type: "boolean", group: "shared", initialValue: true }),
     // ✅ Enable toggles

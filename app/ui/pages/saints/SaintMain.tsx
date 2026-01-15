@@ -51,32 +51,31 @@ export function SaintMain({ grade, gradeHref, slug, data }: SaintMainProps) {
         {data.overviewTitle}
       </h1>
 
-      <div className="mt-10 bg-white/70 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row gap-8 items-start max-w-lg md:max-w-5xl mx-auto">
-        <div className="w-full flex flex-col gap-6 justify-center items-center md:shrink-0 md:w-auto">
+      <div className="mt-10 bg-white/70 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row gap-8 items-stretch max-w-lg md:max-w-5xl mx-auto">
+        {/* LEFT: fixed height on md so RIGHT can match it */}
+        <div className="w-full md:w-[320px] md:shrink-0 flex flex-col gap-6 items-center md:items-start md:h-[540px]">
           {imageUrl && (
             <Image
               src={imageUrl}
               alt={data.cardImage?.alt || data.name}
               width={320}
               height={450}
-              className="rounded-2xl object-cover object-top w-full max-w-xs md:w-[320px] md:max-w-none"
+              className="rounded-2xl object-cover object-top w-full md:w-[320px] h-[400px] md:h-[450px]"
               priority
             />
           )}
-          <div className="self-center md:self-start max-w-[320px] md:max-w-none w-full bg-blue-100 rounded-lg px-4 py-2">
-            <p className="text-xl font-bold text-blue-400">Feast Day: {data.feastDay}</p>
+
+          {/* Push feast day to bottom of the left column on md */}
+          <div className="w-full bg-blue-100 rounded-lg px-4 py-2 md:mt-auto">
+            <p className="text-xl font-bold text-blue-400">
+              Feast Day: {data.feastDay}
+            </p>
           </div>
         </div>
 
-        <div className="w-full">
-          {/* <PortableText
-            value={data.overview || []}
-            components={PortableTextComponent}
-          /> */}
-          <PortableText
-            value={data.overview || []}
-            components={components}
-          />
+        {/* RIGHT: matches LEFT height on md; scrolls when content is longer */}
+        <div className="w-full flex flex-col h-[400px] md:h-[540px] overflow-y-auto md:pr-2">
+          <PortableText value={data.overview || []} components={components} />
         </div>
       </div>
 
