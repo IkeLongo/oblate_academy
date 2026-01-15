@@ -67,7 +67,7 @@ export default function RelatedContentSection({
         </h2>
 
         <div className="mt-10 md:mt-12">
-          <div className="-mr-4 sm:-mr-6 lg:-mr-8 -mx-6 px-6 overflow-x-auto pb-2 lg:overflow-visible md:pb-0">
+          <div className="-mr-6 sm:-mr-6 lg:-mr-8 -mx-6 px-6 overflow-x-auto pb-2 lg:overflow-visible md:pb-0">
             <div className="flex gap-8 md:gap-10 mb-2 lg:mb-0 lg:justify-center min-w-max md:min-w-0">
               {sliced.map((item, i) => {
                 const isLast = i === sliced.length - 1;
