@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import type { GradeKey } from "@/app/types/types";
+import type { GradeKey } from "@/app/types";
 import { setSelectedGrade } from "@/app/lib/gradeSelection";
 
 function scrollToIdWithOffset(id: string, offsetPx: number) {

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import MuxPlayer from "@mux/mux-player-react";
-import type { AutoplayMuxVideoProps } from "@/app/types/types";
+import type { AutoplayMuxVideoProps } from "@/app/types";
 
 type MuxPlayerEl = React.ElementRef<typeof MuxPlayer>;
 

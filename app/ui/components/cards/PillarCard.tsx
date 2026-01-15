@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { PillarCardProps } from "@/app/types/types";
+import type { PillarCardProps } from "@/app/types";
 
 export function PillarCard({
   imageSrc,

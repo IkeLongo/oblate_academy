@@ -7,7 +7,7 @@ import { ContentRow } from "@/app/ui/pages/home/ContentRow";
 import { GradeDropdown } from "./GradeContentDropdown";
 import { getSelectedGrade, clearSelectedGrade } from "@/app/lib/gradeSelection";
 
-import type { GradeKey, ContentCardModel } from "@/app/types/types";
+import type { GradeKey, ContentCardModel } from "@/app/types";
 
 type Props = {
   initialGrade?: GradeKey;

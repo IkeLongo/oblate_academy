@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { GradeDropdown } from "@/app/ui/pages/home/client/GradeContentDropdown";
-import { toGradeLink } from "@/app/types/types";
+import { toGradeLink } from "@/app/types";
 
-import type { GradeKey } from "@/app/types/types";
+import type { GradeKey } from "@/app/types";
 
 const GRADE_OPTIONS = [
   { value: "gk_2", label: "Kinder - 2nd Grade" },

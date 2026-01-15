@@ -5,10 +5,10 @@ import { saintPageQuery } from "@/sanity/lib/queries/saintPageQueries";
 import { SaintMain } from "@/app/ui/pages/saints/SaintMain";
 import ParentTeacherResources from "@/app/ui/shared/ParentTeacherResources";
 import RelatedVirtues from "@/app/ui/pages/saints/RelatedVirtues";
-import { isGradeLink, toGradeKey } from "@/app/types/types";
+import { isGradeLink, toGradeKey } from "@/app/types";
 import { draftMode } from "next/headers";
 
-import type { GradeKey } from "@/app/types/types";
+import type { GradeKey } from "@/app/types";
 
 type PageProps = {
   params: Promise<{ grade: string; slug: string }>;

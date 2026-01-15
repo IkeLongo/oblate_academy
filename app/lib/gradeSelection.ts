@@ -1,4 +1,4 @@
-import type { GradeKey } from "@/app/types/types";
+import type { GradeKey } from "@/app/types";
 
 const KEY = "oa:selectedGrade";
 

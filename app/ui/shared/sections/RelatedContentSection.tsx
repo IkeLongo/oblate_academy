@@ -4,7 +4,7 @@ import { ContentCard } from "@/app/ui/components/cards/ContentCard";
 import { urlFor } from "@/sanity/lib/image";
 
 import type { ImageAsset } from '@sanity/types';
-import type { RelatedSectionTheme, CardColorConfig } from "@/app/types/types";
+import type { RelatedSectionTheme, CardColorConfig } from "@/app/types";
 
 type RelatedItem = {
   _id: string;

@@ -6,7 +6,7 @@ import { cn } from "@/app/lib/utils";
 import { Label } from "@/app/ui/components/input/Label";
 import { Dropdown } from "@/app/ui/components/input/Dropdown";
 
-import type { GradeKey } from "@/app/types/types";
+import type { GradeKey } from "@/app/types";
 
 type GradeDropdownProps = {
   grade: GradeKey;

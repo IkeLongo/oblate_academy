@@ -7,7 +7,7 @@ import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
 import { urlFor } from "@/sanity/lib/image";
 import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
 
-import type { GradeKey, GradeKeyLink, PageData } from "@/app/types/types";
+import type { GradeKey, GradeKeyLink, PageData } from "@/app/types";
 
 type SaintMainProps = {
   grade: GradeKey;          // for GradeSwitcher etc

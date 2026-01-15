@@ -4,7 +4,7 @@ import GradeContentClient from "./client/GradeContentClient";
 import { sanityFetch } from "@/sanity/lib/live";
 import { saintsRowCardsQuery, virtuesRowCardsQuery } from "@/sanity/lib/queries/queries";
 
-import type { GradeKey, ContentCardModel, Saint, Virtue } from "@/app/types/types";
+import type { GradeKey, ContentCardModel, Saint, Virtue } from "@/app/types";
 
 function gradePrefix(grade: GradeKey) {
   if (grade === "gk_2") return "/k-2";

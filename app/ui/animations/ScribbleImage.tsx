@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import type { ScribbleImageProps } from "@/app/types/types";
+import type { ScribbleImageProps } from "@/app/types";
 
 export function ScribbleOnImage({
   src,

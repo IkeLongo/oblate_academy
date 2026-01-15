@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import type { GiggleIconProps } from "@/app/types/types";
+import type { GiggleIconProps } from "@/app/types";
 
 export function GiggleIcon({
   src,

@@ -10,7 +10,7 @@ import { useState } from 'react';
 import Submenu from './submenu';
 import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
 
-import type { GradeKey } from "@/app/types/types";
+import type { GradeKey } from "@/app/types";
 
 // Map of links to display in the side navigation.
 // Depending on the size of the application, this would be stored in a database.

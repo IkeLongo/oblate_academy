@@ -1,7 +1,7 @@
 "use client";
 
 import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
-import type { GradeKey } from "@/app/types/types";
+import type { GradeKey } from "@/app/types";
 
 interface SubmenuProps {
   items: { name: string; href: string }[];

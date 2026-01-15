@@ -4,10 +4,10 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { virtuePageQuery } from "@/sanity/lib/queries/virtuePageQueries";
 import { VirtueMain } from "@/app/ui/pages/virtues/VirtueMain";
 import ParentTeacherResources from "@/app/ui/shared/ParentTeacherResources";
-import { isGradeLink, toGradeKey } from "@/app/types/types";
+import { isGradeLink, toGradeKey } from "@/app/types";
 import RelatedSaints from "@/app/ui/pages/virtues/RelatedSaints";
 
-import type { GradeKey } from "@/app/types/types";
+import type { GradeKey } from "@/app/types";
 import { draftMode } from "next/headers";
 
 type PageProps = {
