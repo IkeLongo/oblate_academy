@@ -25,7 +25,7 @@ export default function FaithAndFun() {
               alt=""
               width={600}
               height={600}
-              className="opacity-20 2xs:-translate-y-24 xs:-translate-y-10 sm:-translate-y-10"
+              className="opacity-20 -translate-y-16 2xs:-translate-y-8 xs:-translate-y-5 sm:-translate-y-4 md:-translate-y-10"
             />
           </div>
 
@@ -50,10 +50,10 @@ export default function FaithAndFun() {
               alt="Bible characters"
               width={520}
               height={360}
-              className="mt-6"
+              className="mt-12 md:mt-6"
             />
 
-            <h3 className="mt-20 text-2xl sm:text-3xl font-extrabold">
+            <h3 className="mt-10 md:mt-20 text-2xl sm:text-3xl font-extrabold">
               What makes our approach special?
             </h3>
 
