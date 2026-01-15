@@ -32,6 +32,7 @@ export default function RelatedSaints({
   title = "Related Saints",
   className = "",
 }: Props) {
+  if (!saints || saints.length === 0) return null;
   return (
     <RelatedContentSection
       gradeHref={gradeHref}

@@ -32,6 +32,7 @@ export default function RelatedVirtues({
   title = "Related Virtues",
   className = "",
 }: Props) {
+  if (!virtues || virtues.length === 0) return null;
   return (
     <RelatedContentSection
       gradeHref={gradeHref}
