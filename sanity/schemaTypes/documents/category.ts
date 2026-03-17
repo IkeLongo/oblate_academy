@@ -1,12 +1,12 @@
-// sanity/schemaTypes/documents/activity.ts
+// sanity/schemaTypes/documents/category.ts
 import { defineField, defineType } from "sanity";
-import { DocumentPdfIcon } from "@sanity/icons";
+import { TagsIcon } from '@sanity/icons'
 
-export const activity = defineType({
-  name: "activity",
-  title: "Activity",
+export const category = defineType({
+  name: "category",
+  title: "Category",
   type: "document",
-  icon: DocumentPdfIcon,
+  icon: TagsIcon,
   fields: [
     defineField({
       name: "title",
@@ -23,7 +23,7 @@ export const activity = defineType({
         hotspot: true,
       },
       validation: (Rule) => Rule.required(),
-      description: "Upload an icon image for this activity.",
+      description: "Upload an icon image for this category.",
     }),
     defineField({
       name: "slug",

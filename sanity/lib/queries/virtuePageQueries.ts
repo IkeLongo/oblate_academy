@@ -2,7 +2,11 @@
 import { groq } from "next-sanity";
 
 export const virtuePageQuery = groq`
-*[_type == "virtue" && slug.current == $slug && isActive == true][0]{
+*[
+  _type == "virtue" &&
+  slug.current == $slug &&
+  ($isDraft || coalesce(isActive, true) == true)
+][0]{
   _id,
   name,
   "slug": slug.current,
@@ -19,24 +23,28 @@ export const virtuePageQuery = groq`
   "overviewTitle": coalesce(select($grade == "gk_2" => gk_2.overviewTitle, g3_5.overviewTitle), name),
   "overview": select($grade == "gk_2" => gk_2.overview, g3_5.overview),
 
-  "activities": *[
-    _type == "resource" &&
-    grade == $resourceGrade &&
-    virtue._ref == ^._id
-  ]{
+  "resources": coalesce(
+    select(
+      $resourceGrade == "k2" => resourcesK_2,
+      $resourceGrade == "g3_5" => resources3_5
+    ), []
+  )[]->{
     _id,
+    title,
+    kind,
+    grade,
+    tags,
     "pdfUrl": pdf.asset->url,
-    activity->{
-      title,
-      icon,
-      "slug": slug.current,
-      sortOrder
-    }
-  } | order(activity.sortOrder asc)
+    pdfThumbnail{..., alt},
+    url,
+    body,
+    image{..., alt},
+    category->{ title, icon, "slug": slug.current, sortOrder }
+  } | order(category->sortOrder asc)
 }
 `;
 
-export const virtueActivityPageQuery = groq`
+export const virtueCategoryPageQuery = groq`
 *[
   _type == "virtue" &&
   slug.current == $slug &&
@@ -47,18 +55,26 @@ export const virtueActivityPageQuery = groq`
   "slug": slug.current,
 
   "resource": *[
-    _type=="resource" &&
-    grade==$grade &&
-    virtue._ref==^._id &&
-    activity->slug.current==$activity
-  ][0]{
+    _type == "resource" &&
+    grade in [$grade, "all"] &&
+    virtue._ref == ^._id &&
+    category->slug.current == $category
+  ] | order(_createdAt desc)[0]{
     _id,
+    title,
+    kind,
+    grade,
+    tags,
+
     "pdfUrl": pdf.asset->url,
-    activity->{
-      title,
-      icon,
-      "slug": slug.current
-    }
+    "imageUrl": image.asset->url,
+    url,
+    body,
+
+    pdfThumbnail{..., alt},
+    image{..., alt},
+
+    category->{ title, icon, "slug": slug.current, sortOrder }
   }
 }
 `;

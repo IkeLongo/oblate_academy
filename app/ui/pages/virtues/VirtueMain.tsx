@@ -23,7 +23,7 @@ const colorConfigs = [
 
 export function VirtueMain({ grade, gradeHref, slug, data }: VirtueMainProps) {
   const imageUrl = data.cardImage
-    ? urlFor(data.cardImage).width(600).height(600).fit("crop").url()
+    ? urlFor(data.cardImage).url()
     : "";
 
   return (
@@ -72,32 +72,36 @@ export function VirtueMain({ grade, gradeHref, slug, data }: VirtueMainProps) {
       </div>
 
       <div className="mt-12 flex justify-between md:justify-center gap-8 max-w-lg md:max-w-none flex-wrap mx-auto">
-        {data.activities.map((r, i) => {
-          const href = `/grade/${gradeHref}/virtues/${data.slug}/${r.activity.slug}`;
-          const color = colorConfigs[i % colorConfigs.length];
-          return (
-            <Link
-              key={r._id}
-              href={href}
-              className={`w-full md:w-[200px] rounded-2xl overflow-hidden shadow-sm border border-transparent hover:shadow-md transition`}
-            >
-              <div className={`h-44 md:h-32 flex items-center justify-center ${color.bg}`}>
-                {r.activity.icon && (
-                  <Image
-                    src={urlFor(r.activity.icon).width(64).height(64).fit("crop").url()}
-                    alt={r.activity.title + " icon"}
-                    width={64}
-                    height={64}
-                    className="mx-auto mb-2"
-                  />
-                )}
-              </div>
-              <div className={`bg-white py-3 text-center font-inria font-extrabold text-xl ${color.text}`}>
-                {r.activity.title}
-              </div>
-            </Link>
-          );
-        })}
+        {(!data.resources || data.resources.length === 0) ? (
+          <div className="w-full text-center text-slate-500 py-8">No resources available for this grade.</div>
+        ) : (
+          data.resources.map((r, i) => {
+            const href = `/grade/${gradeHref}/virtues/${data.slug}/${r.category.slug}`;
+            const color = colorConfigs[i % colorConfigs.length];
+            return (
+              <Link
+                key={r._id}
+                href={href}
+                className={`w-full md:w-[200px] rounded-2xl overflow-hidden shadow-sm border border-transparent hover:shadow-md transition`}
+              >
+                <div className={`h-44 md:h-32 flex items-center justify-center ${color.bg}`}>
+                  {r.category.icon && (
+                    <Image
+                      src={urlFor(r.category.icon).width(64).height(64).fit("crop").url()}
+                      alt={r.category.title + " icon"}
+                      width={64}
+                      height={64}
+                      className="mx-auto mb-2"
+                    />
+                  )}
+                </div>
+                <div className={`bg-white py-3 text-center font-inria font-extrabold text-xl ${color.text}`}>
+                  {r.category.title}
+                </div>
+              </Link>
+            );
+          })
+        )}
       </div>
     </div>
   );

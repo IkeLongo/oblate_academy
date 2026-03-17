@@ -28,6 +28,16 @@ export default async function SaintPage({ params }: PageProps) {
     params: { slug, grade: gradeKey, resourceGrade, isDraft },
   });
 
+  // 🔍 Debug: Log what we're getting from Sanity
+  // console.log('🔍 Saint Page Debug:', {
+  //   slug,
+  //   gradeKey,
+  //   resourceGrade,
+  //   hasData: !!data,
+  //   resourceCount: data?.resources?.length ?? 0,
+  //   resources: data?.resources
+  // });
+
   // ✅ Never notFound() while in draft/presentation
   if (!data) {
     if (isDraft) {

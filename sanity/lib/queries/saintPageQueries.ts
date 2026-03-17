@@ -24,24 +24,28 @@ export const saintPageQuery = groq`
   "overviewTitle": coalesce(select($grade == "gk_2" => gk_2.overviewTitle, g3_5.overviewTitle), name),
   "overview": select($grade == "gk_2" => gk_2.overview, g3_5.overview),
 
-  "activities": *[
-    _type == "resource" &&
-    grade == $resourceGrade &&
-    saint._ref == ^._id
-  ]{
+  "resources": coalesce(
+    select(
+      $resourceGrade == "k2" => resourcesK_2,
+      $resourceGrade == "g3_5" => resources3_5
+    ), []
+  )[]->{
     _id,
+    title,
+    kind,
+    grade,
+    tags,
     "pdfUrl": pdf.asset->url,
-    activity->{
-      title,
-      icon,
-      "slug": slug.current,
-      sortOrder
-    }
-  } | order(activity.sortOrder asc)
+    pdfThumbnail{..., alt},
+    url,
+    body,
+    image{..., alt},
+    category->{ title, icon, "slug": slug.current, sortOrder }
+  } | order(category->sortOrder asc)
 }
 `;
 
-export const saintActivityPageQuery = groq`
+export const saintCategoryPageQuery = groq`
 *[
   _type == "saint" &&
   slug.current == $slug &&
@@ -51,19 +55,23 @@ export const saintActivityPageQuery = groq`
   name,
   "slug": slug.current,
 
-  "resource": *[
-    _type=="resource" &&
-    grade==$grade &&
-    saint._ref==^._id &&
-    activity->slug.current==$activity
-  ][0]{
+  "resources": coalesce(
+    select(
+      $resourceGrade == "k2" => resourcesK_2,
+      $resourceGrade == "g3_5" => resources3_5
+    ), []
+  )[]->{
     _id,
+    title,
+    kind,
+    grade,
+    tags,
     "pdfUrl": pdf.asset->url,
-    activity->{
-      title,
-      icon,
-      "slug": slug.current
-    }
-  }
+    pdfThumbnail{..., alt},
+    url,
+    body,
+    image{..., alt},
+    category->{ title, icon, "slug": slug.current, sortOrder }
+  } | order(category->sortOrder asc)
 }
 `;

@@ -1,3 +1,4 @@
+
 import type { SanityImage, PortableTextValue } from "./sanity";
 
 export type RowCard = {
@@ -7,10 +8,10 @@ export type RowCard = {
   cardImage: SanityImage;
 };
 
-export type PageActivity = {
+export type PageCategory = {
   _id: string;
   pdfUrl: string;
-  activity: {
+  category: {
     _id: string;
     title: string;
     icon: "crayon" | "pencil" | "clipboard" | "book" | "sparkles";
@@ -27,9 +28,28 @@ export type PageData = {
   overviewTitle: string;
   overview: PortableTextValue;
   cardImage: SanityImage;
-  activities: PageActivity[];
+  resources: PageCategory[];
   enableGradeK_2?: boolean;
   enableGrade3_5?: boolean;
+};
+
+export type ResourceKind = "pdf" | "image" | "link" | "video" | "richText";
+
+export type Resource = {
+  _id: string;
+  kind: ResourceKind;
+  pdfUrl?: string;
+  image?: { alt?: string };
+  url?: string;
+  body?: any[];
+  category: {
+    _id: string;
+    title: string;
+    icon: "crayon" | "pencil" | "clipboard" | "book" | "sparkles";
+    slug: string;
+    sortOrder?: number;
+  };
+  [key: string]: any;
 };
 
 export type Saint = {

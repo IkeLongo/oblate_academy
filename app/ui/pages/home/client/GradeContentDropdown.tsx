@@ -17,7 +17,7 @@ type GradeDropdownProps = {
 
 export function GradeDropdown({ grade, options, onChange, compact }: GradeDropdownProps) {
   return (
-    <div className={cn("block w-full my-6 max-w-[450px]")}> 
+    <div className={cn("block w-full max-w-[450px]")}> 
       <div className="flex w-full flex-col space-y-2">
         {!compact && (
           <Label className="text-gray-500 font-inria font-bold ml-2" htmlFor="tab-select">

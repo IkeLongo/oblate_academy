@@ -3,9 +3,12 @@ import type { StructureResolver } from "sanity/structure";
 import {
   UsersIcon,
   SparklesIcon,
-  DocumentIcon,
+  PackageIcon,
+  BookIcon,
   ListIcon,
+  FolderIcon,
 } from "@sanity/icons";
+import { TagsIcon } from "lucide-react";
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -77,8 +80,8 @@ export const structure: StructureResolver = (S) =>
 
       // Resources
       S.listItem()
-        .title("Resources Library")
-        .icon(DocumentIcon)
+        .title("Resource Library")
+        .icon(BookIcon)
         .child(
           S.list()
             .title("Resources")
@@ -106,12 +109,33 @@ export const structure: StructureResolver = (S) =>
             ])
         ),
 
+      S.listItem()
+        .title("Resource Categories")
+        .icon(TagsIcon)
+        .child(
+          S.documentTypeList("category")
+            .title("Resource Category")
+        ),
+
+      // Resource Collection
+      // Collections (conditionally show Groups if layout === "grouped")
+      S.listItem()
+        .title("Resource Collections")
+        .icon(PackageIcon)
+        .child(
+          S.documentTypeList("resourceCollection")
+            .title("Resource Collections")
+            .child((collectionId) =>
+              S.document().schemaType("resourceCollection").documentId(collectionId)
+            )
+        ),
+
       S.divider(),
 
       // Everything else (optional)
       ...S.documentTypeListItems().filter(
         (item) =>
           item.getId() &&
-          !["saint", "virtue", "resource"].includes(item.getId()!)
+          !["saint", "virtue", "category", "resourceCollection", "resourceGroup", "resource"].includes(item.getId()!)
       ),
     ]);

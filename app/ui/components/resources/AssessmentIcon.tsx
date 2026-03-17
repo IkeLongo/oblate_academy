@@ -1,0 +1,25 @@
+import * as React from "react";
+
+
+interface AssessmentIconProps {
+  className?: string;
+  color?: string;
+}
+
+const AssessmentIcon = ({ className, color = "white" }: AssessmentIconProps) => (
+  <svg
+    width="1em"
+    height="1em"
+    viewBox="0 0 48 48"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+    aria-hidden="true"
+  >
+    <path d="M42.84 21.8437C43.198 21.6858 43.5018 21.4263 43.7138 21.0973C43.9258 20.7684 44.0367 20.3845 44.0326 19.9932C44.0286 19.6019 43.9098 19.2204 43.6911 18.8959C43.4723 18.5714 43.1632 18.3182 42.802 18.1677L25.66 10.3597C25.1388 10.122 24.5727 9.99902 24 9.99902C23.4272 9.99902 22.8611 10.122 22.34 10.3597L5.19996 18.1597C4.8439 18.3157 4.54099 18.572 4.3283 18.8974C4.1156 19.2227 4.00232 19.603 4.00232 19.9917C4.00232 20.3805 4.1156 20.7607 4.3283 21.0861C4.54099 21.4115 4.8439 21.6678 5.19996 21.8237L22.34 29.6397C22.8611 29.8774 23.4272 30.0005 24 30.0005C24.5727 30.0005 25.1388 29.8774 25.66 29.6397L42.84 21.8437Z" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M44 20V32" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M12 25V32C12 33.5913 13.2643 35.1174 15.5147 36.2426C17.7652 37.3679 20.8174 38 24 38C27.1826 38 30.2348 37.3679 32.4853 36.2426C34.7357 35.1174 36 33.5913 36 32V25" stroke={color} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+export default AssessmentIcon;

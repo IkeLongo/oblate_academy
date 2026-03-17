@@ -1,0 +1,47 @@
+"use client";
+
+import Link from "next/link";
+import { HubIcon } from "./hubIcons";
+import type { HubTheme } from "@/app/ui/theme/resourceHubTheme";
+
+type Row = {
+  label: string;
+  iconKey: string;
+  comingSoon?: boolean;
+  target?: {
+    _type: "category" | "resourceCollection";
+    title?: string;
+    slug?: string;
+  };
+};
+
+export function ResourceRowLink({ row, theme }: { row: Row; theme: HubTheme }) {
+  const slug = row.target?.slug; // ✅ canonical slug from Sanity
+  const href = row.comingSoon || !slug ? null : `/resources/${slug}`;
+  const disabled = row.comingSoon || !href;
+
+  const content = (
+    <div
+      className={[
+        "flex items-center gap-2 rounded-lg px-3 py-2 text-md font-medium",
+        theme.pillBg,
+        theme.pillFg,
+        disabled ? "opacity-60 cursor-not-allowed" : "hover:opacity-90 transition",
+      ].join(" ")}
+    >
+      <HubIcon iconKey={row.iconKey} className="h-4 w-4" color={theme.iconColor} />
+      <span className="truncate">{row.label}</span>
+      {row.comingSoon ? (
+        <span className="ml-auto text-[11px] opacity-80">Coming soon</span>
+      ) : null}
+    </div>
+  );
+
+  if (disabled) return <div aria-disabled="true">{content}</div>;
+
+  return (
+    <Link href={href} className="block">
+      {content}
+    </Link>
+  );
+}

@@ -14,6 +14,7 @@ export const saint = defineType({
   ],
   fields: [
     // Shared identity fields...
+    defineField({ name: "isActive", type: "boolean", group: "shared", initialValue: true }),
     defineField({ name: "name", type: "string", group: "shared", validation: (R) => R.required() }),
     defineField({ name: "feastDay", type: "string", group: "shared", validation: (R) => R.required() }),
     defineField({ name: "slug", type: "slug", group: "shared", options: { source: "name" }, validation: (R) => R.required() }),
@@ -40,27 +41,16 @@ export const saint = defineType({
         },
       ],
     }),
-    defineField({ name: "isActive", type: "boolean", group: "shared", initialValue: true }),
-    // ✅ Enable toggles
     defineField({
       name: "enableGradeK_2",
       title: "Enable K–2 Version",
       type: "boolean",
-      group: "shared",
+      group: "k-2",
       initialValue: true,
     }),
     defineField({
-      name: "enableGrade3_5",
-      title: "Enable 3–5 Version",
-      type: "boolean",
-      group: "shared",
-      initialValue: false,
-    }),
-
-    // K–2 variant (optional, but required if enabled)
-    defineField({
       name: "gk_2",
-      title: "Kinder - 2nd Grade Page",
+      title: "Kinder - 2nd Grade Content",
       type: "gradeVariant",
       group: "k-2",
       hidden: ({ parent }) => !parent?.enableGradeK_2,
@@ -84,10 +74,35 @@ export const saint = defineType({
         }),
     }),
 
-    // 3–5 variant (optional, but required if enabled)
+    // Grade-specific resources: K-2
+    defineField({
+      name: "resourcesK_2",
+      title: "K–2 Resources",
+      type: "array",
+      group: "k-2",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "resource" }],
+          options: {
+            filter: 'grade == "k2" || grade == "all"',
+          },
+        },
+      ],
+      hidden: ({ parent }) => !parent?.enableGradeK_2,
+      description: "Select resources for K–2. Only resources for K–2 or All Grades are shown.",
+    }),
+
+    defineField({
+      name: "enableGrade3_5",
+      title: "Enable 3–5 Version",
+      type: "boolean",
+      group: "3-5",
+      initialValue: false,
+    }),
     defineField({
       name: "g3_5",
-      title: "3rd - 5th Grade Page",
+      title: "3rd - 5th Grade Content",
       type: "gradeVariant",
       group: "3-5",
       hidden: ({ parent }) => !parent?.enableGrade3_5,
@@ -105,6 +120,25 @@ export const saint = defineType({
 
           return true;
         }),
+    }),
+
+    // Grade-specific resources: 3-5
+    defineField({
+      name: "resources3_5",
+      title: "3–5 Resources",
+      type: "array",
+      group: "3-5",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "resource" }],
+          options: {
+            filter: 'grade == "g3_5" || grade == "all"',
+          },
+        },
+      ],
+      hidden: ({ parent }) => !parent?.enableGrade3_5,
+      description: "Select resources for 3–5. Only resources for 3–5 or All Grades are shown.",
     }),
   ],
 });

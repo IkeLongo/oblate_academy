@@ -136,11 +136,11 @@ const Dropdown = React.forwardRef<HTMLSelectElement, DropdownProps>(
           onMouseMove={handleMouseMove}
           onMouseEnter={() => setVisible(true)}
           onMouseLeave={() => setVisible(false)}
-          className="group/multiselect rounded-2xl p-[2px] transition duration-300"
+          className="group/multiselect rounded-lg p-[2px] transition duration-300"
         >
           <div
             className={cn(
-              "shadow-input flex min-h-10 w-full cursor-pointer items-center justify-between rounded-2xl! border-transparent !bg-white-100 px-3 py-2 text-white-500 transition duration-400 group-hover/multiselect:shadow-none placeholder:text-neutral-400 focus-visible:ring-[2px] focus-visible:ring-neutral-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+              "shadow-input flex min-h-10 w-full cursor-pointer items-center justify-between !rounded-lg border-transparent !bg-white-100 px-3 py-2 text-white-500 transition duration-400 group-hover/multiselect:shadow-none placeholder:text-neutral-400 focus-visible:ring-[2px] focus-visible:ring-neutral-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
               // removed dark: classes, set default to what dark: was
               // bg-white → bg-white (already set), text-black → text-black, shadow-input → shadow-input, focus-visible:ring-neutral-400 → focus-visible:ring-neutral-400
               className
@@ -181,7 +181,7 @@ const Dropdown = React.forwardRef<HTMLSelectElement, DropdownProps>(
         {isOpen && (
           <div
             className={cn(
-              "absolute z-50 w-full bg-white rounded-2xl border border-grey-300 shadow-lg",
+              "absolute z-50 w-full bg-white rounded-xl border border-gray-300 shadow-lg",
               dropdownPlacement === "top" ? "bottom-full mb-1" : "mt-1"
             )}
           >

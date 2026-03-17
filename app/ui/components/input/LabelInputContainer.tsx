@@ -9,7 +9,7 @@ export function LabelInputContainer({
   className?: string;
 }) {
   return (
-    <div className={cn("flex w-full flex-col space-y-2", className)}>
+    <div className={cn("flex w-full flex-col space-y-2 base", className)}>
       {children}
     </div>
   );

@@ -54,7 +54,7 @@ export default function GradeContentClient({
       />
 
       <section id="grade-content" className="space-y-16 bg-gray-100 relative z-20">
-        <div className="flex flex-col md:flex-row md:justify-end mb-0">
+        <div className="flex flex-col md:flex-row md:justify-end mb-10">
           <GradeDropdown grade={grade} options={options} onChange={setGrade} />
         </div>
         <ContentRow title="Meet the Saints" cards={current.saintsCards} startColorIndex={0} />
