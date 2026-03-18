@@ -2,6 +2,7 @@
 import { defineField, defineType } from "sanity";
 import { SquareIcon } from "@sanity/icons";
 import { ResourceHubCardPreview } from "@/sanity/components/ResourceHubCardPreview";
+import { IconKeyInput } from "@/sanity/components/IconKeyInput";
 
 export const resourceHubCard = defineType({
   name: "resourceHubCard",
@@ -26,14 +27,43 @@ export const resourceHubCard = defineType({
       name: "iconKey",
       title: "Icon",
       type: "string",
+      components: {
+        input: IconKeyInput,
+      },
       options: {
         list: [
           { title: "Lesson Plans", value: "lesson" },
-          { title: "Parent Guides", value: "parents" },
-          { title: "Printable Materials", value: "print" },
-          { title: "Training Videos", value: "video" },
-          { title: "Assessment Tools", value: "assessment" },
-          { title: "Tips & Strategies", value: "tips" },
+          { title: "Book", value: "book" },
+          { title: "Puzzle", value: "puzzle" },
+          { title: "Pray", value: "pray" },
+          { title: "Palette", value: "palette" },
+          { title: "Notebook", value: "notebook" },
+          { title: "Sparkles", value: "sparkles" },
+          { title: "Parents/Users", value: "users" },
+          { title: "Printable", value: "print" },
+          { title: "Video", value: "video" },
+          { title: "Assessment", value: "assessment" },
+          { title: "Tips/Lightbulb", value: "tips" },
+          { title: "File", value: "file" },
+          { title: "Checkmark", value: "check" },
+          { title: "Hand Heart", value: "handheart" },
+          { title: "Graduation Cap", value: "graduation" },
+          { title: "File Cog", value: "filecog" },
+          { title: "House/Home", value: "house" },
+          { title: "Discussion/Messages", value: "discussion" },
+          { title: "Crosshair/Target", value: "crosshair" },
+          { title: "Magnet", value: "magnet" },
+          { title: "Star", value: "star" },
+          { title: "Signal/Wifi", value: "signal" },
+          { title: "Table of Contents", value: "tableofcontents" },
+          { title: "Trending Up/Graph", value: "trendingup" },
+          { title: "List Checks", value: "listchecks" },
+          { title: "Briefcase Business", value: "briefcasebusiness" },
+          { title: "School", value: "school" },
+          { title: "Question/Help", value: "question" },
+          { title: "Smile", value: "smile" },
+          { title: "Target", value: "target" },
+          { title: "Family", value: "family" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -42,7 +72,7 @@ export const resourceHubCard = defineType({
     // THEME KEY (rows inherit)
     defineField({
       name: "themeKey",
-      title: "Theme",
+      title: "Color Theme",
       type: "string",
       options: {
         list: [
@@ -66,40 +96,40 @@ export const resourceHubCard = defineType({
       validation: (Rule) => Rule.min(1).max(6),
     }),
 
-    defineField({
-      name: "buttonLabel",
-      title: "Button Label (optional)",
-      type: "string",
-      description: 'Example: "Download Plans", "Get Guides", "Access Materials"',
-    }),
-    defineField({
-      name: "buttonLinkType",
-      title: "Button Link Type",
-      type: "string",
-      options: {
-        list: [
-          { title: "Internal Route (href)", value: "href" },
-          { title: "Open Collection", value: "collection" },
-          { title: "None", value: "none" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "none",
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: "buttonHref",
-      title: "Button href",
-      type: "string",
-      hidden: ({ parent }) => parent?.buttonLinkType !== "href",
-    }),
-    defineField({
-      name: "buttonCollection",
-      title: "Button Collection",
-      type: "reference",
-      to: [{ type: "resourceCollection" }],
-      hidden: ({ parent }) => parent?.buttonLinkType !== "collection",
-    }),
+    // defineField({
+    //   name: "buttonLabel",
+    //   title: "Button Label (optional)",
+    //   type: "string",
+    //   description: 'Example: "Download Plans", "Get Guides", "Access Materials"',
+    // }),
+    // defineField({
+    //   name: "buttonLinkType",
+    //   title: "Button Link Type",
+    //   type: "string",
+    //   options: {
+    //     list: [
+    //       { title: "Internal Route (href)", value: "href" },
+    //       { title: "Open Collection", value: "collection" },
+    //       { title: "None", value: "none" },
+    //     ],
+    //     layout: "radio",
+    //   },
+    //   initialValue: "none",
+    //   validation: (Rule) => Rule.required(),
+    // }),
+    // defineField({
+    //   name: "buttonHref",
+    //   title: "Button href",
+    //   type: "string",
+    //   hidden: ({ parent }) => parent?.buttonLinkType !== "href",
+    // }),
+    // defineField({
+    //   name: "buttonCollection",
+    //   title: "Button Collection",
+    //   type: "reference",
+    //   to: [{ type: "resourceCollection" }],
+    //   hidden: ({ parent }) => parent?.buttonLinkType !== "collection",
+    // }),
 
     defineField({
       name: "isActive",

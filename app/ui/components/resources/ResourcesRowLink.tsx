@@ -5,19 +5,14 @@ import { HubIcon } from "./hubIcons";
 import type { HubTheme } from "@/app/ui/theme/resourceHubTheme";
 
 type Row = {
-  label: string;
+  title: string;
   iconKey: string;
+  slug?: string;
   comingSoon?: boolean;
-  target?: {
-    _type: "category" | "resourceCollection";
-    title?: string;
-    slug?: string;
-  };
 };
 
 export function ResourceRowLink({ row, theme }: { row: Row; theme: HubTheme }) {
-  const slug = row.target?.slug; // ✅ canonical slug from Sanity
-  const href = row.comingSoon || !slug ? null : `/resources/${slug}`;
+  const href = row.comingSoon || !row.slug ? null : `/resources/${row.slug}`;
   const disabled = row.comingSoon || !href;
 
   const content = (
@@ -30,7 +25,7 @@ export function ResourceRowLink({ row, theme }: { row: Row; theme: HubTheme }) {
       ].join(" ")}
     >
       <HubIcon iconKey={row.iconKey} className="h-4 w-4" color={theme.iconColor} />
-      <span className="truncate">{row.label}</span>
+      <span className="truncate">{row.title}</span>
       {row.comingSoon ? (
         <span className="ml-auto text-[11px] opacity-80">Coming soon</span>
       ) : null}

@@ -23,11 +23,11 @@ export function ResourceHubSection({ hub }: { hub: HubData }) {
   const activeCards = (hub.cards || []).filter((c) => c.isActive !== false);
 
   // Debug logging for Sanity Studio preview mode
-  console.log("🔍 ResourceHubSection - hub data:", {
-    totalCards: hub.cards?.length,
-    activeCards: activeCards.length,
-    cardThemes: activeCards.map(c => ({ title: c.title, themeKey: c.themeKey, iconKey: c.iconKey }))
-  });
+  // console.log("🔍 ResourceHubSection - hub data:", {
+  //   totalCards: hub.cards?.length,
+  //   activeCards: activeCards.length,
+  //   cardThemes: activeCards.map(c => ({ title: c.title, themeKey: c.themeKey, iconKey: c.iconKey }))
+  // });
 
   return (
     <div className="base bg-linear-to-br from-[#EFF6FF] to-[#F0FDF4]">

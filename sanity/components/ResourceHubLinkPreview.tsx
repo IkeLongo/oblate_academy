@@ -29,6 +29,7 @@ import {
   School,
   MessageCircleQuestionMark,
   Smile,
+  Pencil,
 } from "lucide-react";
 
 // Map iconKey to SVG filename for custom icons
@@ -72,12 +73,13 @@ function getLucideIcon(iconKey: string) {
     question: MessageCircleQuestionMark,
     smile: Smile,
     graduation: GraduationCap,
+    pencil: Pencil,
   };
   return iconMap[iconKey] || Smile;
 }
 
 export function ResourceHubLinkPreview(props: PreviewProps) {
-  const { label, iconKey } = props as any;
+  const { title, iconKey } = props as any;
   
   const customIconSrc = iconKey ? CUSTOM_ICON_MAP[iconKey] : null;
 
@@ -109,7 +111,7 @@ export function ResourceHubLinkPreview(props: PreviewProps) {
           )}
         </Box>
         <Text size={1} weight="medium">
-          {label || "Untitled Row"}
+          {title || "Untitled Row"}
         </Text>
       </Flex>
     </Card>

@@ -1,6 +1,26 @@
 // sanity/schemaTypes/documents/resourceCollection.ts
 import { defineField, defineType } from "sanity";
 import { PackageIcon } from "@sanity/icons";
+import { IconKeyInput } from "@/sanity/components/IconKeyInput";
+import {
+  BookOpen, Users, FileText, Video, ClipboardCheck, Lightbulb, Sparkles,
+  HandHeart, GraduationCap, Printer, Palette, NotebookPen, Puzzle, FileCog,
+  House, MessagesSquare, Crosshair, Magnet, Star, Signal, TableOfContents,
+  TrendingUp, ListChecks, BriefcaseBusiness, School, MessageCircleQuestionMark,
+  Smile, Pencil,
+} from "lucide-react";
+
+const ICON_MAP: Record<string, any> = {
+  lesson: BookOpen, book: BookOpen, users: Users, parents: Users, family: Users,
+  file: FileText, video: Video, check: ClipboardCheck, assessment: ClipboardCheck,
+  tips: Lightbulb, bulb: Lightbulb, sparkles: Sparkles, handheart: HandHeart,
+  pray: HandHeart, graduation: GraduationCap, print: Printer, palette: Palette,
+  notebook: NotebookPen, puzzle: Puzzle, filecog: FileCog, house: House,
+  discussion: MessagesSquare, crosshair: Crosshair, target: Crosshair,
+  magnet: Magnet, star: Star, signal: Signal, tableofcontents: TableOfContents,
+  trendingup: TrendingUp, listchecks: ListChecks, briefcasebusiness: BriefcaseBusiness,
+  school: School, question: MessageCircleQuestionMark, smile: Smile, pencil: Pencil,
+};
 
 export const resourceCollection = defineType({
   name: "resourceCollection",
@@ -22,6 +42,15 @@ export const resourceCollection = defineType({
       name: "slug",
       type: "slug",
       options: { source: "title" },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "iconKey",
+      title: "Icon",
+      type: "string",
+      components: {
+        input: IconKeyInput,
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -90,10 +119,11 @@ export const resourceCollection = defineType({
     }),
   ],
   preview: {
-    select: { title: "title", subtitle: "grade" },
-    prepare({ title, subtitle }) {
+    select: { title: "title", subtitle: "grade", iconKey: "iconKey" },
+    prepare({ title, subtitle, iconKey }) {
       const g = subtitle === "k2" ? "K–2" : subtitle === "g3_5" ? "3–5" : "All";
-      return { title, subtitle: g };
+      const media = (iconKey && ICON_MAP[iconKey]) ? ICON_MAP[iconKey] : PackageIcon;
+      return { title, subtitle: g, media };
     },
   },
 });

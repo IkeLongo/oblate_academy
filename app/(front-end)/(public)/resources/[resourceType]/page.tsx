@@ -48,6 +48,7 @@ export default async function ResourceTypePage({
     query: resourceTypeResolverQuery,
     params: { slug: resourceType },
   });
+  console.log("Resolved resource type:", resolved.data);
 
   const isCategory = !!resolved.data?.category?._id;
   const isCollection = !!resolved.data?.collection?._id;

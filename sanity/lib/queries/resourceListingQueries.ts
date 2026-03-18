@@ -93,9 +93,8 @@ export const resourcesByCollectionSlugQuery = /* groq */ `
 *[
   _type == "resource" &&
   grade in [$grade, "all"] &&
-  defined(belongsTo) &&
-  belongsTo->_type == "resourceCollection" &&
-  belongsTo->slug.current == $collectionSlug
+  defined(collections) &&
+  $collectionSlug in collections[]->slug.current
 ] | order(_createdAt desc) {
   _id,
   title,
@@ -117,6 +116,6 @@ export const resourcesByCollectionSlugQuery = /* groq */ `
   image{..., alt},
   images[]{..., alt},
   category->{ title, "slug": slug.current },
-  belongsTo->{ _type, title, name }
+  collections[]->{ _type, title, "slug": slug.current }
 }
 `;

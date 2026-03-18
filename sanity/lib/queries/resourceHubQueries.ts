@@ -13,16 +13,10 @@ export const resourceHubQuery = /* groq */ `
     buttonCollection->{ title, "slug": slug.current },
 
     rows[]{
-      label,
-      iconKey,
-      comingSoon,
-
-      // ✅ canonical slug comes from the linked document
-      target->{
-        _type,
-        title,
-        "slug": slug.current
-      }
+      "title": target->title,
+      "iconKey": target->iconKey,
+      "slug": target->slug.current,
+      comingSoon
     }
   }
 }
@@ -33,7 +27,7 @@ export const resourceHubLabelBySlugQuery = /* groq */ `
   "label": (
     cards[].rows[
       target->slug.current == $slug
-    ][0].label
+    ][0].target->title
   )
 }
 `;

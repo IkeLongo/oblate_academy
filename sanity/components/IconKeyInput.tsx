@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { StringInputProps, set, unset } from "sanity";
-import { Box, Card, Flex, Stack, Text, Radio } from "@sanity/ui";
+import { Box, Card, Flex, Stack, Text } from "@sanity/ui";
+import { ChevronDownIcon } from "@sanity/icons";
 import {
   BookOpen,
   Users,
@@ -29,6 +30,7 @@ import {
   School,
   MessageCircleQuestionMark,
   Smile,
+  Pencil,
 } from "lucide-react";
 
 // Map iconKey to SVG filename for custom icons
@@ -72,109 +74,190 @@ function getLucideIcon(iconKey: string) {
     question: MessageCircleQuestionMark,
     smile: Smile,
     graduation: GraduationCap,
+    pencil: Pencil,
   };
   return iconMap[iconKey] || Smile;
 }
 
 const ICON_OPTIONS = [
-  { title: "Lesson Plans", value: "lesson" },
   { title: "Book", value: "book" },
-  { title: "Puzzle", value: "puzzle" },
-  { title: "Pray", value: "pray" },
-  { title: "Palette", value: "palette" },
-  { title: "Notebook", value: "notebook" },
-  { title: "Sparkles", value: "sparkles" },
-  { title: "Parents/Users", value: "users" },
-  { title: "Printable", value: "print" },
-  { title: "Video", value: "video" },
-  { title: "Assessment", value: "assessment" },
-  { title: "Tips/Lightbulb", value: "tips" },
-  { title: "File", value: "file" },
+  { title: "Briefcase Business", value: "briefcasebusiness" },
   { title: "Checkmark", value: "check" },
-  { title: "Hand Heart", value: "handheart" },
-  { title: "Graduation Cap", value: "graduation" },
-  { title: "File Cog", value: "filecog" },
-  { title: "House/Home", value: "house" },
-  { title: "Discussion/Messages", value: "discussion" },
   { title: "Crosshair/Target", value: "crosshair" },
+  { title: "Discussion/Messages", value: "discussion" },
+  { title: "Family", value: "family" },
+  { title: "File", value: "file" },
+  { title: "File Cog", value: "filecog" },
+  { title: "Graduation Cap", value: "graduation" },
+  { title: "Hand Heart", value: "handheart" },
+  { title: "House/Home", value: "house" },
+  { title: "Lesson Plans", value: "lesson" },
+  { title: "List Checks", value: "listchecks" },
   { title: "Magnet", value: "magnet" },
+  { title: "Notebook", value: "notebook" },
+  { title: "Palette", value: "palette" },
+  { title: "Parents/Users", value: "users" },
+  { title: "Pencil", value: "pencil" },
+  { title: "Pray", value: "pray" },
+  { title: "Printable", value: "print" },
+  { title: "Puzzle", value: "puzzle" },
+  { title: "Question/Help", value: "question" },
+  { title: "School", value: "school" },
   { title: "Star", value: "star" },
   { title: "Signal/Wifi", value: "signal" },
-  { title: "Table of Contents", value: "tableofcontents" },
-  { title: "Trending Up/Graph", value: "trendingup" },
-  { title: "List Checks", value: "listchecks" },
-  { title: "Briefcase Business", value: "briefcasebusiness" },
-  { title: "School", value: "school" },
-  { title: "Question/Help", value: "question" },
   { title: "Smile", value: "smile" },
+  { title: "Sparkles", value: "sparkles" },
+  { title: "Table of Contents", value: "tableofcontents" },
   { title: "Target", value: "target" },
-  { title: "Family", value: "family" },
+  { title: "Tips/Lightbulb", value: "tips" },
+  { title: "Trending Up/Graph", value: "trendingup" },
+  { title: "Video", value: "video" },
 ];
 
 export function IconKeyInput(props: StringInputProps) {
   const { onChange, value } = props;
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleChange = (newValue: string) => {
-    onChange(newValue ? set(newValue) : unset());
-  };
+  const handleChange = useCallback(
+    (newValue: string) => {
+      onChange(newValue ? set(newValue) : unset());
+      setOpen(false);
+    },
+    [onChange]
+  );
+
+  // Close on click outside
+  useEffect(() => {
+    if (!open) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open]);
+
+  const selectedOption = ICON_OPTIONS.find((o) => o.value === value);
+  const selectedCustomSrc = value ? CUSTOM_ICON_MAP[value] : null;
 
   return (
-    <Stack space={2}>
-      {ICON_OPTIONS.map((option) => {
-        const customIconSrc = CUSTOM_ICON_MAP[option.value];
-        const isSelected = value === option.value;
-
-        return (
-          <Card
-            key={option.value}
-            padding={2}
-            radius={2}
-            tone={isSelected ? "primary" : "default"}
-            border
-            style={{ cursor: "pointer" }}
-            onClick={() => handleChange(option.value)}
-          >
-            <Flex align="center" gap={3}>
-              <Radio
-                checked={isSelected}
-                readOnly
-                style={{ pointerEvents: "none" }}
-              />
+    <div ref={containerRef} style={{ position: "relative", width: "100%" }}>
+      {/* Trigger */}
+      <Card
+        as="button"
+        padding={2}
+        radius={2}
+        border
+        tone={open ? "primary" : "default"}
+        onClick={() => setOpen((prev) => !prev)}
+        style={{ width: "100%", cursor: "pointer", appearance: "none", background: "transparent" }}
+      >
+        <Flex align="center" justify="space-between">
+          <Flex align="center" gap={2}>
+            {value && (
               <Box
                 style={{
                   width: "28px",
                   height: "28px",
-                  borderRadius: "6px",
-                  backgroundColor: isSelected ? "#6366f1" : "#e5e7eb",
-                  padding: "6px",
+                  borderRadius: "4px",
+                  backgroundColor: "transparent",
+                  padding: "2px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   flexShrink: 0,
-                  color: isSelected ? "white" : "#6b7280",
+                  color: "white",
                 }}
               >
-                {customIconSrc ? (
+                {selectedCustomSrc ? (
                   <img
-                    src={customIconSrc}
-                    alt={option.value}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      filter: isSelected ? "brightness(0) invert(1)" : "none",
-                    }}
+                    src={selectedCustomSrc}
+                    alt={value}
+                    style={{ width: "100%", height: "100%", filter: "brightness(0) invert(1)" }}
                   />
                 ) : (
-                  React.createElement(getLucideIcon(option.value), { size: 18 })
+                  React.createElement(getLucideIcon(value), { size: 18 })
                 )}
               </Box>
-              <Text size={1} weight={isSelected ? "semibold" : "medium"}>
-                {option.title}
-              </Text>
-            </Flex>
-          </Card>
-        );
-      })}
-    </Stack>
+            )}
+            <Text size={2}>{selectedOption?.title ?? "Select an icon…"}</Text>
+          </Flex>
+          <ChevronDownIcon style={{ flexShrink: 0 }} />
+        </Flex>
+      </Card>
+
+      {/* Dropdown */}
+      {open && (
+        <Card
+          shadow={2}
+          radius={2}
+          padding={2}
+          style={{
+            position: "absolute",
+            top: "calc(100% + 4px)",
+            left: 0,
+            right: 0,
+            zIndex: 9999,
+            maxHeight: "320px",
+            overflowY: "auto",
+          }}
+        >
+          <Stack space={1}>
+            {ICON_OPTIONS.map((option) => {
+              const customIconSrc = CUSTOM_ICON_MAP[option.value];
+              const isSelected = value === option.value;
+
+              return (
+                <Card
+                  key={option.value}
+                  padding={2}
+                  radius={2}
+                  tone={isSelected ? "primary" : "default"}
+                  border
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleChange(option.value)}
+                >
+                  <Flex align="center" gap={3}>
+                    <Box
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        borderRadius: "6px",
+                        backgroundColor: isSelected ? "transparent" : "#e5e7eb",
+                        padding: "4px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                        color: isSelected ? "white" : "#6b7280",
+                      }}
+                    >
+                      {customIconSrc ? (
+                        <img
+                          src={customIconSrc}
+                          alt={option.value}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            filter: isSelected ? "brightness(0) invert(1)" : "none",
+                          }}
+                        />
+                      ) : (
+                        React.createElement(getLucideIcon(option.value), { size: 20 })
+                      )}
+                    </Box>
+                    <Text size={2} weight={isSelected ? "semibold" : "regular"}>
+                      {option.title}
+                    </Text>
+                  </Flex>
+                </Card>
+              );
+            })}
+          </Stack>
+        </Card>
+      )}
+    </div>
   );
 }

@@ -15,7 +15,7 @@ type Card = {
   buttonLabel?: string | null;
   buttonLinkType: "href" | "collection" | "none";
   buttonHref?: string | null;
-  buttonCollection?: { slug?: { current?: string } | null; slug?: any } | null;
+  buttonCollection?: { slug?: { current?: string } | null } | null;
 };
 
 function resolveButtonHref(card: Card) {
@@ -37,12 +37,12 @@ export function ResourceCategoryCard({ card, theme }: { card: Card; theme: HubTh
   const btnDisabled = !!card.buttonLabel && !btnHref;
 
   // Debug logging for Sanity Studio preview mode
-  console.log("🔍 ResourceCategoryCard - card data:", {
-    title: card.title,
-    themeKey: card.themeKey,
-    iconKey: card.iconKey,
-    theme: theme ? "defined" : "UNDEFINED"
-  });
+  // console.log("🔍 ResourceCategoryCard - card data:", {
+  //   title: card.title,
+  //   themeKey: card.themeKey,
+  //   iconKey: card.iconKey,
+  //   theme: theme ? "defined" : "UNDEFINED"
+  // });
 
   // Defensive checks for iconKey and theme
   if (!theme) {
