@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { sanityFetch } from "@/sanity/lib/live";
 import { saintPageQuery } from "@/sanity/lib/queries/saintPageQueries";
 import { SaintMain } from "@/app/ui/pages/saints/SaintMain";
-import ParentTeacherResources from "@/app/ui/shared/ParentTeacherResources";
+import ParentTeacherResources from "@/app/ui/shared/resources/ParentTeacherResources";
 import RelatedVirtues from "@/app/ui/pages/saints/RelatedVirtues";
 import { isGradeLink, toGradeKey } from "@/app/types";
 import { draftMode } from "next/headers";

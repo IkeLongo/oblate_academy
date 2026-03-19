@@ -15,11 +15,13 @@ type Resource = {
   title?: string | null;
   kind: "image" | "pdf" | "link" | "video" | "richText" | string;
   pdfThumbnail?: any;
+  pdfUrl?: string | null;
   url?: string | null;
   muxVideo?: { asset?: { playbackId?: string | null } | null } | null;
   image?: any;
   category?: { title?: string | null } | null;
   belongsTo?: { _type?: string; title?: string | null; name?: string | null } | null;
+  body?: any[];
 };
 
 type ResourceCard = {
@@ -33,6 +35,7 @@ type ResourceCard = {
   pdfThumbnail?: any;
   url?: string | null;
   muxPlaybackId?: string | null;
+  excerpt?: string;
 };
 
 const COLORS = [
@@ -45,12 +48,26 @@ const COLORS = [
 // Single function to transform resource -> card
 function toCard(r: Resource, index: number): ResourceCard {
   const label = r.belongsTo?.name || r.belongsTo?.title || r.title || "Resource";
-  
   let href = "#";
-  if (r.kind === "pdf" && r.pdfThumbnail) href = r.pdfThumbnail;
-  else if ((r.kind === "link" || r.kind === "video") && r.url) href = r.url;
-  else if (r.kind === "richText") href = `/resources/resource/${r._id}`;
-
+  let excerpt: string | undefined = undefined;
+  if (r.kind === "pdf" && r.pdfUrl) {
+    href = r.pdfUrl;
+  } else if (r.kind === "image" && r.image?.asset) {
+    // Use the direct image URL for printing
+    href = urlFor(r.image).url();
+  } else if ((r.kind === "link" || r.kind === "video") && r.url) {
+    href = r.url;
+  } else if (r.kind === "richText") {
+    href = `/resources/resource/${r._id}`;
+    // Try to extract excerpt from first block in body
+    if (Array.isArray(r.body)) {
+      const firstBlock = r.body.find(b => b._type === "block" && Array.isArray(b.children));
+      if (firstBlock) {
+        excerpt = firstBlock.children.map((c: any) => c.text).join("").slice(0, 160);
+        if (excerpt?.length === 160) excerpt += "...";
+      }
+    }
+  }
   return {
     id: r._id,
     label,
@@ -61,6 +78,7 @@ function toCard(r: Resource, index: number): ResourceCard {
     pdfThumbnail: r.pdfThumbnail,
     url: r.url,
     muxPlaybackId: r.muxVideo?.asset?.playbackId,
+    excerpt,
   };
 }
 
@@ -105,9 +123,20 @@ function CardContent({ card, index }: { card: ResourceCard; index: number }) {
     );
   }
   
+  if (card.kind === "richText" && card.excerpt) {
+    return (
+      <div className="flex flex-col items-center justify-center w-full h-full bg-white/80 px-4 py-6">
+        <span className="block text-4xl mb-2" role="img" aria-label="Memo" style={{fontFamily: 'Fredoka, Arial, sans-serif', fontWeight: 600}}>📝</span>
+        <span className="block text-gray-700 text-base text-center italic" style={{fontFamily: 'Poppins, Arial, sans-serif', lineHeight: 1.7}}>
+          {card.excerpt}
+        </span>
+      </div>
+    );
+  }
+  
   // Fallback icons for other types
-  const icon = card.kind === "link" ? "🔗" : card.kind === "video" ? "🎬" : card.kind === "richText" ? "📝" : "❓";
-  const text = card.kind === "link" ? "Visit Link" : card.kind === "video" ? "Watch Video" : card.kind === "richText" ? "Rich Text" : "Unknown Type";
+  const icon = card.kind === "link" ? "🔗" : card.kind === "video" ? "🎬" : "❓";
+  const text = card.kind === "link" ? "Visit Link" : card.kind === "video" ? "Watch Video" : "Unknown Type";
   
   return (
     <div className="flex flex-col items-center justify-center w-full h-full bg-white/80">
@@ -124,7 +153,7 @@ const ResourceCardItem = React.memo(
     hovered: number | null; 
     setHovered: (i: number | null) => void;
   }) => {
-    const isExternal = card.href.startsWith("http");
+    const isExternal = typeof card.href === "string" && /^https?:\/\//.test(card.href);
     const isDisabled = card.href === "#";
 
     const content = (

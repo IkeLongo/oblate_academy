@@ -1,0 +1,141 @@
+import { defineField, defineType } from "sanity";
+import { StarIcon } from "@sanity/icons";
+
+export const featuredResourceKit = defineType({
+  name: "featuredResourceKit",
+  title: "Featured Resource Kit",
+  type: "document",
+  icon: StarIcon,
+  fields: [
+    defineField({
+      name: "title",
+      title: "Title",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "title" },
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: "isActive",
+      title: "Show on Website",
+      type: "boolean",
+      initialValue: false,
+    }),
+
+    defineField({
+      name: "monthLabel",
+      title: "Month Label",
+      type: "string",
+      description: 'Example: "March 2026"',
+    }),
+
+    defineField({
+      name: "focusType",
+      title: "Focus Type",
+      type: "string",
+      options: {
+        list: [
+          { title: "Saint", value: "saint" },
+          { title: "Virtue", value: "virtue" },
+        ],
+        layout: "radio",
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: "saint",
+      title: "Featured Saint",
+      type: "reference",
+      to: [{ type: "saint" }],
+      hidden: ({ parent }) => parent?.focusType !== "saint",
+      validation: (Rule) =>
+        Rule.custom((val, ctx) => {
+          const focusType = (ctx.parent as any)?.focusType;
+          if (focusType === "saint" && !val) return "A saint is required.";
+          return true;
+        }),
+    }),
+
+    defineField({
+      name: "virtue",
+      title: "Featured Virtue",
+      type: "reference",
+      to: [{ type: "virtue" }],
+      hidden: ({ parent }) => parent?.focusType !== "virtue",
+      validation: (Rule) =>
+        Rule.custom((val, ctx) => {
+          const focusType = (ctx.parent as any)?.focusType;
+          if (focusType === "virtue" && !val) return "A virtue is required.";
+          return true;
+        }),
+    }),
+
+    defineField({
+      name: "intro",
+      title: "Intro / Biography",
+      type: "array",
+      of: [{ type: "block" }],
+      description: "Short intro shown above the featured resources.",
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: "resources",
+      title: "Featured Resources",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "resource" }] }],
+      validation: (Rule) => Rule.required().min(3).max(4),
+      description: "Choose 3–4 resources for this kit.",
+    }),
+
+    defineField({
+      name: "coverImage",
+      title: "Cover Image (optional)",
+      type: "image",
+      options: { hotspot: true },
+    }),
+
+    defineField({
+      name: "ctaLabel",
+      title: "CTA Button Label",
+      type: "string",
+      initialValue: "Explore the Kit",
+    }),
+
+    defineField({
+      name: "startsAt",
+      title: "Starts At (optional)",
+      type: "datetime",
+    }),
+
+    defineField({
+      name: "endsAt",
+      title: "Ends At (optional)",
+      type: "datetime",
+    }),
+  ],
+
+  preview: {
+    select: {
+      title: "title",
+      monthLabel: "monthLabel",
+      isActive: "isActive",
+      media: "coverImage",
+    },
+    prepare({ title, monthLabel, isActive, media }) {
+      return {
+        title: title || "Featured Resource Kit",
+        subtitle: `${monthLabel || "No month"} • ${isActive ? "Active" : "Inactive"}`,
+        media,
+      };
+    },
+  },
+});
