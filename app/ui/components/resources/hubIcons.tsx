@@ -26,6 +26,7 @@ import {
   School,
   MessageCircleQuestionMark,
   Smile,
+  Download,
 } from "lucide-react";
 import AssessmentIcon from "./AssessmentIcon";
 import PrayIcon from "./PrayIcon";
@@ -106,6 +107,8 @@ export function HubIcon({ iconKey, className, color }: { iconKey: string; classN
       ? MessageCircleQuestionMark
       : iconKey === "smile"
       ? Smile
+      : iconKey === "download"
+      ? Download
       : Smile; // Default icon
 
   return <Icon className={className} aria-hidden="true" />;

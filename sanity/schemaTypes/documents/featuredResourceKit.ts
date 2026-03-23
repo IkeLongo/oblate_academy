@@ -1,5 +1,7 @@
 import { defineField, defineType } from "sanity";
-import { StarIcon } from "@sanity/icons";
+import { IconKeyInput } from "../../components/IconKeyInput";
+import { StarIcon, TextIcon } from "@sanity/icons";
+import { HighlightPreview } from "../../components/HighlightPreview";
 
 export const featuredResourceKit = defineType({
   name: "featuredResourceKit",
@@ -21,7 +23,15 @@ export const featuredResourceKit = defineType({
       options: { source: "title" },
       validation: (Rule) => Rule.required(),
     }),
-
+    
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      description: "Short description for the kit, shown in the featured section.",
+      validation: (Rule) => Rule.required(),
+    }),
+    
     defineField({
       name: "isActive",
       title: "Show on Website",
@@ -62,7 +72,7 @@ export const featuredResourceKit = defineType({
           if (focusType === "saint" && !val) return "A saint is required.";
           return true;
         }),
-    }),
+      }),
 
     defineField({
       name: "virtue",
@@ -85,6 +95,57 @@ export const featuredResourceKit = defineType({
       of: [{ type: "block" }],
       description: "Short intro shown above the featured resources.",
       validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: "highlights",
+      title: "Highlights",
+      type: "array",
+      of: [
+        defineField({
+          name: "highlight",
+          type: "object",
+          fields: [
+            { name: "text", type: "string", title: "Text", validation: (Rule) => Rule.required() },
+            {
+              name: "icon",
+              type: "string",
+              title: "Icon",
+              description: "Icon name (e.g. lesson, printable, video)",
+              components: { input: IconKeyInput },
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: {
+              title: "text",
+              iconKey: "icon",
+            },
+            // @ts-expect-error Sanity custom preview component
+            component: HighlightPreview,
+          },
+        })
+      ],
+      description: "Key highlights for this kit (e.g. lesson plan, printables, video)",
+      validation: (Rule) => Rule.required().min(1),
+    }),
+
+    defineField({
+      name: "includedItems",
+      title: "Included Items",
+      icon: TextIcon,
+      type: "array",
+      of: [
+        defineField({
+          name: "item",
+          type: "object",
+          fields: [
+            { name: "text", type: "string", title: "Text", validation: (Rule) => Rule.required() },
+          ],
+        })
+      ],
+      description: "List of items included in the kit.",
+      validation: (Rule) => Rule.required().min(1),
     }),
 
     defineField({

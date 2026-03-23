@@ -1,9 +1,12 @@
+
 import Link from "next/link";
-import { Download, FileText, Printer, Video } from "lucide-react";
+import { Download } from "lucide-react";
+import { HubIcon } from "@/app/ui/components/resources/hubIcons";
+
 
 type KitItem = {
   text: string;
-  icon?: "lesson" | "printable" | "video";
+  icon?: string;
 };
 
 type IncludedItem = {
@@ -19,17 +22,9 @@ type FeaturedResourceKitProps = {
   includedItems?: IncludedItem[];
 };
 
+
 function getHighlightIcon(icon?: KitItem["icon"]) {
-  switch (icon) {
-    case "lesson":
-      return <Download className="h-4 w-4 shrink-0" />;
-    case "printable":
-      return <FileText className="h-4 w-4 shrink-0" />;
-    case "video":
-      return <Video className="h-4 w-4 shrink-0" />;
-    default:
-      return <Printer className="h-4 w-4 shrink-0" />;
-  }
+  return <HubIcon iconKey={icon || "smile"} className="h-4 w-4 shrink-0" />;
 }
 
 export default function FeaturedResourceKit({
@@ -41,7 +36,7 @@ export default function FeaturedResourceKit({
   includedItems = [],
 }: FeaturedResourceKitProps) {
   return (
-    <section className="bg-[#f6f6f6] px-6 py-16 md:px-10 lg:px-12">
+    <section className="bg-[#FFFFFF] px-6 py-16 md:px-10 lg:px-12">
       <div className="mx-auto max-w-5xl">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl font-fredoka tracking-wide">
@@ -81,7 +76,7 @@ export default function FeaturedResourceKit({
 
               <div className="mt-8">
                 <Link
-                  href={ctaHref}
+                  href={`/resources/featured-resource-of-the-month/${ctaHref}`}
                   className="inline-flex items-center gap-3 rounded-xl bg-[#09b23f] px-6 py-3.5 text-base font-semibold text-white shadow-sm transition hover:scale-[1.01] hover:bg-[#089a38]"
                 >
                   <Download className="h-4 w-4" />

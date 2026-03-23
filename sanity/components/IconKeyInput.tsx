@@ -31,6 +31,7 @@ import {
   MessageCircleQuestionMark,
   Smile,
   Pencil,
+  Download,
 } from "lucide-react";
 
 // Map iconKey to SVG filename for custom icons
@@ -75,6 +76,7 @@ function getLucideIcon(iconKey: string) {
     smile: Smile,
     graduation: GraduationCap,
     pencil: Pencil,
+    download: Download,
   };
   return iconMap[iconKey] || Smile;
 }
@@ -85,6 +87,7 @@ const ICON_OPTIONS = [
   { title: "Checkmark", value: "check" },
   { title: "Crosshair/Target", value: "crosshair" },
   { title: "Discussion/Messages", value: "discussion" },
+  { title: "Download", value: "download" },
   { title: "Family", value: "family" },
   { title: "File", value: "file" },
   { title: "File Cog", value: "filecog" },
