@@ -15,12 +15,15 @@ export default async function ResourcesPage() {
 
   return <>
     <ResourceHubSection hub={hub} />
-    <FeaturedResourceKit
-      title={featuredKit.title}
-      description={featuredKit.description}
-      ctaHref={featuredKit.slug?.current || ""}
-      highlights={featuredKit.highlights}
-      includedItems={featuredKit.includedItems}
-    />
+    {featuredKit && (
+      <FeaturedResourceKit
+        title={featuredKit.title}
+        description={featuredKit.description}
+        ctaHref={`${featuredKit.slug.current}`}
+        colorTheme={featuredKit.colorTheme}
+        highlights={featuredKit.highlights}
+        includedItems={featuredKit.includedItems}
+      />
+    )}
   </>;
 }

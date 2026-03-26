@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { IconKeyInput } from "../../components/IconKeyInput";
+import { ColorThemeInput } from "../../components/ColorThemeInput";
 import { StarIcon, TextIcon } from "@sanity/icons";
 import { HighlightPreview } from "../../components/HighlightPreview";
 
@@ -172,6 +173,15 @@ export const featuredResourceKit = defineType({
     }),
 
     defineField({
+      name: "colorTheme",
+      title: "Color Theme",
+      type: "string",
+      initialValue: "green",
+      description: "Choose the color theme for this resource kit.",
+      components: { input: ColorThemeInput },
+    }),
+
+    defineField({
       name: "startsAt",
       title: "Starts At (optional)",
       type: "datetime",
@@ -183,6 +193,25 @@ export const featuredResourceKit = defineType({
       type: "datetime",
     }),
   ],
+  validation: (Rule) =>
+  Rule.custom(async (_, context) => {
+    const { document, getClient } = context;
+    if (!document?.isActive) return true;
+
+    const client = getClient({ apiVersion: "2023-01-01" });
+
+    const rawId = document._id.replace(/^drafts\./, "");
+    const existing = await client.fetch(
+      `count(*[_type == "featuredResourceKit" && isActive == true && !(_id in [$id, $draftId])])`,
+      { id: rawId, draftId: `drafts.${rawId}` }
+    );
+
+    if (existing > 0) {
+      return "Only one Featured Resource Kit can be active at a time.";
+    }
+
+    return true;
+  }),
 
   preview: {
     select: {
