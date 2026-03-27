@@ -1,5 +1,4 @@
 // app/resources/[resourceType]/page.tsx
-import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/live";
@@ -69,6 +68,7 @@ export default async function ResourceTypePage({
   const isCollection = !!resolved.data?.collection?._id;
 
   // 2) Fetch resources based on what it resolves to
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let data: any[] = [];
 
   if (isCategory) {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { hubThemeMap, type HubThemeKey } from "@/app/ui/theme/resourceHubTheme";
 import { ResourceCategoryCard } from "./ResourceCategoryCard";
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // app/ui/components/resources/ResourceCardsFilter.tsx
 "use client";
 import React, { useState, useMemo } from "react";
