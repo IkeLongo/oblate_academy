@@ -7,7 +7,7 @@ import { useMemo } from "react"
 
 export interface DropdownProps
   extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'value' | 'onChange'> {
-  options: { value: string; label: string; availability?: string }[]
+  options: ReadonlyArray<{ value: string; label: string; availability?: string }>
   value?: string | string[]
   onChange?: (value: string | string[]) => void
   placeholder?: string

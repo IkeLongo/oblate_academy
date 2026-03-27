@@ -10,7 +10,7 @@ import type { GradeKey } from "@/app/types";
 
 type GradeDropdownProps = {
   grade: GradeKey;
-  options: { value: GradeKey; label: string }[];
+  options: ReadonlyArray<{ value: GradeKey; label: string }>;
   onChange: (grade: GradeKey) => void;
   compact?: boolean;
 };
