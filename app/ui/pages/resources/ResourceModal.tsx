@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X, Printer } from "lucide-react";
+import { X, Printer, ExternalLink } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 import { urlFor } from "@/sanity/lib/image";
+import MuxPlayer from "@mux/mux-player-react";
 import "./resources.css";
 
 export type ModalResource = {
@@ -13,6 +14,16 @@ export type ModalResource = {
   body?: any[];
   image?: any;
   pdfUrl?: string;
+  pdfThumbnail?: any;
+  url?: string;
+  muxVideo?: {
+    asset?: {
+      playbackId?: string;
+      aspectRatio?: string;
+      mp4Support?: string;
+      staticRenditions?: Array<{ name: string; ext: string; status: string }>;
+    };
+  };
 };
 
 type Props = {
@@ -135,6 +146,42 @@ export function ResourceModal({ resource, onClose, accentColor = "#168647" }: Pr
             <div id="modal-print-content" className="prose max-w-none" style={{ fontSize: "1.25rem", lineHeight: "1.9" }}>
               <PortableText value={resource.body} />
             </div>
+          )}
+
+          {resource.kind === "video" && resource.muxVideo?.asset?.playbackId && (
+            <MuxPlayer
+              playbackId={resource.muxVideo.asset.playbackId}
+              accentColor={accentColor}
+              className="w-full rounded-xl"
+              style={{ aspectRatio: resource.muxVideo.asset.aspectRatio ?? "16/9" }}
+              metadata={{ video_id: resource._id, video_title: resource.title }}
+            />
+          )}
+
+          {resource.kind === "video" && !resource.muxVideo?.asset?.playbackId && (
+            <p className="text-slate-500">Video is not available.</p>
+          )}
+
+          {resource.kind === "link" && resource.url && (
+            <div className="flex flex-col items-center gap-5 py-10">
+              <p className="text-slate-500 text-sm text-center break-all max-w-sm">
+                {resource.url}
+              </p>
+              <a
+                href={resource.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:opacity-90"
+                style={{ backgroundColor: accentColor }}
+              >
+                <ExternalLink className="h-4 w-4" />
+                Visit Link
+              </a>
+            </div>
+          )}
+
+          {resource.kind === "link" && !resource.url && (
+            <p className="text-slate-500">No URL provided for this resource.</p>
           )}
 
           {!resource.kind && (

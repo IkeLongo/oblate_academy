@@ -1,5 +1,7 @@
 // app/(public)/[grade]/virtues/[slug]/[category]/page.tsx
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { client } from "@/sanity/lib/client";
 import { draftMode } from "next/headers";
 
 import { CategoryTopControls } from "@/app/ui/components/buttons/CategoryTopControls";
@@ -7,6 +9,28 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { virtuePageQuery } from "@/sanity/lib/queries/virtuePageQueries";
 import { urlFor } from "@/sanity/lib/image";
 import type { Resource } from "@/app/types/pages";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ grade: string; slug: string; category: string }>;
+}): Promise<Metadata> {
+  const { slug, category } = await params;
+  const data = await client.fetch<{ name: string } | null>(
+    `*[_type == "virtue" && slug.current == $slug][0]{ name }`,
+    { slug }
+  );
+  const name = data?.name ?? slug;
+  const categoryTitle = category
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
+  return {
+    title: `${name} — ${categoryTitle}`,
+    description: `${categoryTitle} resources for the virtue of ${name} — Catholic activities for children.`,
+    openGraph: { title: `${name} — ${categoryTitle} | Oblate Academy` },
+  };
+}
 
 export default async function VirtueCategoryPage({
   params,

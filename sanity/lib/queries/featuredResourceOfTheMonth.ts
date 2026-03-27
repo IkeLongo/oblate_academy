@@ -50,6 +50,19 @@ export const featuredResourceKitByIdQuery = `
     kind,
     body,
     "pdfUrl": pdf.asset->url,
+    url,
+    muxVideo{
+      asset->{
+        playbackId,
+        aspectRatio,
+        "mp4Support": data.mp4_support,
+        "staticRenditions": data.static_renditions.files[]{
+          name,
+          ext,
+          status
+        }
+      }
+    },
     image
   }
 }

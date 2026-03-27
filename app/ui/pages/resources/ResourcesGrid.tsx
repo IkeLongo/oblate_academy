@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { MouseEvent } from "react";
-import { Download } from "lucide-react";
+import { Download, ExternalLink } from "lucide-react";
 import { urlFor } from "@/sanity/lib/image";
 import { ResourceModal, type ModalResource } from "./ResourceModal";
 import { ResourceHoverCard } from "./ResourceHoverCard";
@@ -103,6 +103,25 @@ export function ResourcesGrid({ resources, accentColor = "#168647" }: Props) {
                   <Download className="h-4 w-4" />
                 </button>
               )}
+              {resource.kind === "link" && resource.url && (
+                <a
+                  href={resource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  onMouseEnter={() => setHoveredDownload(resource._id)}
+                  onMouseLeave={() => setHoveredDownload(null)}
+                  className="shrink-0 rounded-lg p-1.5 transition"
+                  style={{
+                    color: accentColor,
+                    backgroundColor: hoveredDownload === resource._id ? `${accentColor}14` : "transparent",
+                  }}
+                  title="Open link"
+                  aria-label={`Open ${resource.title}`}
+                >
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              )}
             </div>
             {resource.kind === "pdf" && (
               <p className="mt-1 text-sm font-medium" style={{ color: accentColor }}>
@@ -117,6 +136,16 @@ export function ResourcesGrid({ resources, accentColor = "#168647" }: Props) {
             {resource.kind === "richText" && (
               <p className="mt-1 text-sm text-slate-500 font-medium">
                 Reading material
+              </p>
+            )}
+            {resource.kind === "video" && (
+              <p className="mt-1 text-sm text-purple-500 font-medium">
+                Video
+              </p>
+            )}
+            {resource.kind === "link" && (
+              <p className="mt-1 text-sm text-blue-500 font-medium">
+                External link
               </p>
             )}
             </div>

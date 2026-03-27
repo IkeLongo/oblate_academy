@@ -154,8 +154,8 @@ export const featuredResourceKit = defineType({
       title: "Featured Resources",
       type: "array",
       of: [{ type: "reference", to: [{ type: "resource" }] }],
-      validation: (Rule) => Rule.required().min(3).max(4),
-      description: "Choose 3–4 resources for this kit.",
+      validation: (Rule) => Rule.required().min(3).max(15),
+      description: "Choose 3–15 resources for this kit.",
     }),
 
     defineField({

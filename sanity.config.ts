@@ -39,6 +39,6 @@ export default defineConfig({
         },
       },
     }),
-    muxInput(),
+    muxInput({ mp4_support: "standard" }),
   ],
 })

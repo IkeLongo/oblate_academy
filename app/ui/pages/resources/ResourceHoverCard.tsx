@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
 import { AnimatePresence, motion, useMotionValue, useSpring } from "motion/react";
-import { FileText, BookOpen } from "lucide-react";
+import { FileText, BookOpen, PlayCircle, Link2 } from "lucide-react";
 import { urlFor } from "@/sanity/lib/image";
 import type { ModalResource } from "./ResourceModal";
 
@@ -14,6 +14,19 @@ type Props = {
 
 export function ResourceHoverCard({ resource, children }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const [linkPreview, setLinkPreview] = useState<{ image: string | null } | null>(null);
+  const fetchedRef = useRef(false);
+
+  useEffect(() => {
+    if (!isOpen || resource.kind !== "link" || !resource.url || fetchedRef.current) return;
+    fetchedRef.current = true;
+    const controller = new AbortController();
+    fetch(`https://api.microlink.io?url=${encodeURIComponent(resource.url)}`, { signal: controller.signal })
+      .then((r) => r.json())
+      .then((data) => setLinkPreview({ image: data?.data?.image?.url ?? null }))
+      .catch(() => setLinkPreview({ image: null }));
+    return () => controller.abort();
+  }, [isOpen, resource.kind, resource.url]);
 
   const x = useMotionValue(0);
   const translateX = useSpring(x, { stiffness: 150, damping: 15 });
@@ -63,6 +76,100 @@ export function ResourceHoverCard({ resource, children }: Props) {
                       objectPosition: "top",
                     }}
                   />
+                ) : resource.kind === "pdf" && resource.pdfThumbnail ? (
+                  <img
+                    src={urlFor(resource.pdfThumbnail).width(520).url()}
+                    alt={resource.title}
+                    style={{
+                      width: 260,
+                      display: "block",
+                      height: 200,
+                      objectFit: "cover",
+                      objectPosition: "top",
+                    }}
+                  />
+                ) : resource.kind === "richText" && Array.isArray(resource.body) ? (
+                  <div
+                    className="bg-white p-4 flex flex-col justify-center gap-2"
+                    style={{ width: 260, height: 200, overflow: "hidden" }}
+                  >
+                    <BookOpen className="h-5 w-5 text-slate-400 shrink-0" />
+                    <p
+                      className="text-slate-600 text-sm leading-relaxed"
+                      style={{
+                        display: "-webkit-box",
+                        WebkitLineClamp: 6,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                        fontFamily: "Poppins, Arial, sans-serif",
+                      }}
+                    >
+                      {resource.body
+                        .filter((b) => b._type === "block" && Array.isArray(b.children))
+                        .map((b) => b.children.map((c: any) => c.text).join(""))
+                        .join(" ")}
+                    </p>
+                  </div>
+                ) : resource.kind === "video" && resource.muxVideo?.asset?.playbackId ? (
+                  <div style={{ width: 260, height: 200, position: "relative" }}>
+                    <img
+                      src={`https://image.mux.com/${resource.muxVideo.asset.playbackId}/thumbnail.jpg?width=520&fit_mode=crop&time=0`}
+                      alt={resource.title}
+                      style={{
+                        width: 260,
+                        display: "block",
+                        height: 200,
+                        objectFit: "cover",
+                      }}
+                    />
+                    <div
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "rgba(0,0,0,0.25)",
+                      }}
+                    >
+                      <PlayCircle className="h-12 w-12 text-white drop-shadow-lg" />
+                    </div>
+                  </div>
+                ) : resource.kind === "link" ? (
+                  linkPreview === null ? (
+                    // Loading shimmer
+                    <div className="animate-pulse bg-slate-200" style={{ width: 260, height: 200 }} />
+                  ) : linkPreview.image ? (
+                    <div style={{ width: 260, height: 200, position: "relative" }}>
+                      <img
+                        src={linkPreview.image}
+                        alt={resource.title}
+                        style={{ width: 260, height: 200, display: "block", objectFit: "cover" }}
+                      />
+                      <div
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          background: "rgba(0,0,0,0.18)",
+                        }}
+                      >
+                        <Link2 className="h-10 w-10 text-white drop-shadow-lg" />
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      className="flex flex-col items-center justify-center gap-3 p-6 bg-slate-50"
+                      style={{ width: 220 }}
+                    >
+                      <Link2 className="h-10 w-10 text-blue-400" />
+                      <p className="text-sm font-medium text-slate-600 text-center line-clamp-3">
+                        {resource.title}
+                      </p>
+                    </div>
+                  )
                 ) : (
                   <div
                     className="flex flex-col items-center justify-center gap-3 p-6 bg-slate-50"
@@ -70,6 +177,8 @@ export function ResourceHoverCard({ resource, children }: Props) {
                   >
                     {resource.kind === "pdf" ? (
                       <FileText className="h-10 w-10 text-green-500" />
+                    ) : resource.kind === "video" ? (
+                      <PlayCircle className="h-10 w-10 text-purple-400" />
                     ) : (
                       <BookOpen className="h-10 w-10 text-slate-400" />
                     )}

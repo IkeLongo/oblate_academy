@@ -32,7 +32,13 @@ export const resourcesByCategorySlugQuery = /* groq */ `
       playbackId,
       status,
       aspectRatio,
-      duration
+      duration,
+      "mp4Support": data.mp4_support,
+      "staticRenditions": data.static_renditions.files[]{
+        name,
+        ext,
+        status
+      }
     }
   },
   body,
@@ -73,7 +79,13 @@ export const resourcesByTagQuery = /* groq */ `
       playbackId,
       status,
       aspectRatio,
-      duration
+      duration,
+      "mp4Support": data.mp4_support,
+      "staticRenditions": data.static_renditions.files[]{
+        name,
+        ext,
+        status
+      }
     }
   },
   image{
@@ -109,7 +121,13 @@ export const resourcesByCollectionSlugQuery = /* groq */ `
       playbackId,
       status,
       aspectRatio,
-      duration
+      duration,
+      "mp4Support": data.mp4_support,
+      "staticRenditions": data.static_renditions.files[]{
+        name,
+        ext,
+        status
+      }
     }
   },
   body,

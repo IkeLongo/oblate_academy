@@ -3,7 +3,7 @@ import pool from "@/app/lib/mysql"; // Ensure you have the correct import for yo
 
 export async function GET() {
   try {
-    console.log("Testing connection to database:", process.env.DB_SCHEMA);
+    //console.log("Testing connection to database:", process.env.DB_SCHEMA);
     
     // Simple connection test - just check if we can connect to the database
     const [rows] = await pool.execute('SELECT 1 as connection_test');

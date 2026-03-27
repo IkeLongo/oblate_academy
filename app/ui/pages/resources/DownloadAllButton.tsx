@@ -14,6 +14,7 @@ type Resource = {
   body?: any[];
   image?: any;
   pdfUrl?: string;
+  pdfThumbnail?: any;
 };
 
 type Props = {
@@ -33,6 +34,26 @@ function getFileName(resource: Resource, index: number): string {
   const safe = resource.title.replace(/[^a-z0-9 _-]/gi, "").trim() || `resource-${index + 1}`;
   const ext = resource.kind === "image" ? ".webp" : ".pdf";
   return `${safe}${ext}`;
+}
+
+function getRichTextPreviewUrl(): string {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="64" viewBox="0 0 96 64">
+    <rect width="96" height="64" fill="#f8fafc"/>
+    <rect x="8" y="9"  width="56" height="4" rx="2" fill="#94a3b8"/>
+    <rect x="8" y="19" width="76" height="3" rx="1.5" fill="#e2e8f0"/>
+    <rect x="8" y="26" width="70" height="3" rx="1.5" fill="#e2e8f0"/>
+    <rect x="8" y="33" width="74" height="3" rx="1.5" fill="#e2e8f0"/>
+    <rect x="8" y="40" width="60" height="3" rx="1.5" fill="#e2e8f0"/>
+    <rect x="8" y="47" width="50" height="3" rx="1.5" fill="#e2e8f0"/>
+  </svg>`;
+  return `data:image/svg+xml;base64,${btoa(svg)}`;
+}
+
+function getPreviewUrl(resource: Resource): string | null {
+  if (resource.kind === "image" && resource.image) return urlFor(resource.image).width(96).height(64).url();
+  if (resource.kind === "pdf" && resource.pdfThumbnail) return urlFor(resource.pdfThumbnail).width(96).height(64).url();
+  if (resource.kind === "richText") return getRichTextPreviewUrl();
+  return null;
 }
 
 function buildPdfBlob(resource: Resource): Blob {
@@ -80,9 +101,9 @@ export function DownloadAllButton({
   );
 
   const previewImages = resources
-    .filter((r) => r.kind === "image" && r.image)
-    .slice(0, 3)
-    .map((r) => urlFor(r.image).width(96).height(64).url());
+    .map((r) => getPreviewUrl(r))
+    .filter((url): url is string => url !== null)
+    .slice(0, 3);
 
   async function handleDownloadAll() {
     if (loading || downloadableResources.length === 0) return;

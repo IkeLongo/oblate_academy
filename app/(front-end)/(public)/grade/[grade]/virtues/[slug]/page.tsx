@@ -1,5 +1,7 @@
 // app/[grade]/saints/[slug]/page.tsx
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
 import { virtuePageQuery } from "@/sanity/lib/queries/virtuePageQueries";
 import { VirtueMain } from "@/app/ui/pages/virtues/VirtueMain";
@@ -13,6 +15,20 @@ import { draftMode } from "next/headers";
 type PageProps = {
   params: Promise<{ grade: string; slug: string }>;
 };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await client.fetch<{ name: string } | null>(
+    `*[_type == "virtue" && slug.current == $slug][0]{ name }`,
+    { slug }
+  );
+  const name = data?.name ?? slug;
+  return {
+    title: name,
+    description: `Discover the virtue of ${name} — stories, activities, and resources for Catholic children.`,
+    openGraph: { title: `${name} | Oblate Academy` },
+  };
+}
 
 export default async function VirtuePage({ params }: PageProps) {
   const { grade, slug } = await params;

@@ -1,5 +1,7 @@
 // app/[grade]/saints/[slug]/page.tsx
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/live";
 import { saintPageQuery } from "@/sanity/lib/queries/saintPageQueries";
 import { SaintMain } from "@/app/ui/pages/saints/SaintMain";
@@ -13,6 +15,20 @@ import type { GradeKey } from "@/app/types";
 type PageProps = {
   params: Promise<{ grade: string; slug: string }>;
 };
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const data = await client.fetch<{ name: string } | null>(
+    `*[_type == "saint" && slug.current == $slug][0]{ name }`,
+    { slug }
+  );
+  const name = data?.name ?? slug;
+  return {
+    title: name,
+    description: `Learn about Saint ${name} — faith stories, virtues, and activities for Catholic children.`,
+    openGraph: { title: `Saint ${name} | Oblate Academy` },
+  };
+}
 
 export default async function SaintPage({ params }: PageProps) {
   const { grade, slug } = await params;

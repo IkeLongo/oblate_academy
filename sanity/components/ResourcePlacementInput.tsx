@@ -13,7 +13,7 @@ export function ResourcePlacementInput(props: ObjectInputProps) {
   const currentLayout = value?.collectionLayout;
 
   useEffect(() => {
-    console.log("⚡ useEffect triggered");
+    //console.log("⚡ useEffect triggered");
 
     if (!collectionRef) {
       // If no collection selected, clear layout and group

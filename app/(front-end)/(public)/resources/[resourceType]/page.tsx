@@ -1,5 +1,7 @@
 // app/resources/[resourceType]/page.tsx
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/live";
 import {
   resourcesByCategorySlugQuery,
@@ -31,6 +33,19 @@ function titleFromSlug(slug: string) {
     .join(" ");
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { resourceType: string };
+}): Promise<Metadata> {
+  const title = titleFromSlug(params.resourceType);
+  return {
+    title,
+    description: `Browse ${title} resources from Oblate Academy for Catholic education.`,
+    openGraph: { title: `${title} | Oblate Academy` },
+  };
+}
+
 export default async function ResourceTypePage({
   params,
   searchParams,
@@ -48,7 +63,7 @@ export default async function ResourceTypePage({
     query: resourceTypeResolverQuery,
     params: { slug: resourceType },
   });
-  console.log("Resolved resource type:", resolved.data);
+  //console.log("Resolved resource type:", resolved.data);
 
   const isCategory = !!resolved.data?.category?._id;
   const isCollection = !!resolved.data?.collection?._id;
@@ -62,14 +77,14 @@ export default async function ResourceTypePage({
       params: { grade: resourceGrade, categorySlug: resourceType },
     });
     data = res.data || [];
-    console.log("Fetched resources by category:", data);
+    //console.log("Fetched resources by category:", data);
   } else if (isCollection) {
     const res = await sanityFetch({
       query: resourcesByCollectionSlugQuery,
       params: { grade: resourceGrade, collectionSlug: resourceType },
     });
     data = res.data || [];
-    console.log("Fetched resources by collection:", data);
+    //console.log("Fetched resources by collection:", data);
   } else {
     // Optional fallback: treat unknown slugs as tags.
     // If you prefer strict routing, replace this block with: notFound();
@@ -78,7 +93,7 @@ export default async function ResourceTypePage({
       params: { grade: resourceGrade, tag: resourceType },
     });
     data = res.data || [];
-    console.log("Fetched resources by tag:", data);
+    //console.log("Fetched resources by tag:", data);
   }
 
   const hubLabelRes = await sanityFetch({
@@ -97,6 +112,16 @@ export default async function ResourceTypePage({
   return (
     <div className="base bg-linear-to-br from-[#EFF6FF] to-[#F0FDF4] mx-auto py-20 md:pt-10">
       <section className="mx-auto max-w-6xl px-6 py-12">
+        {/* BACK LINK */}
+        <div className="mb-8">
+          <Link
+            href="/resources"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-slate-800"
+          >
+            ← Back to Resources
+          </Link>
+        </div>
+
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <div>
             <h1 className="text-3xl font-extrabold text-slate-900">{pageTitle}</h1>

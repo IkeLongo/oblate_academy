@@ -1,8 +1,27 @@
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { PortableText } from "next-sanity";
 import { urlFor } from "@/sanity/lib/image";
 import PrintButton from "@/app/ui/components/buttons/PrintButton";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const data = await client.fetch<{ title: string } | null>(
+    `*[_type == "resource" && _id == $id][0]{ title }`,
+    { id }
+  );
+  const title = data?.title ?? "Resource";
+  return {
+    title,
+    description: `Access "${title}" — a Catholic educational resource from Oblate Academy.`,
+    openGraph: { title: `${title} | Oblate Academy` },
+  };
+}
 
 export default async function ResourcePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
