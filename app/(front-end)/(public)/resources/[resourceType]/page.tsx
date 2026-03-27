@@ -35,9 +35,10 @@ function titleFromSlug(slug: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: { resourceType: string };
+  params: Promise<{ resourceType: string }>;
 }): Promise<Metadata> {
-  const title = titleFromSlug(params.resourceType);
+  const { resourceType } = await params;
+  const title = titleFromSlug(resourceType);
   return {
     title,
     description: `Browse ${title} resources from Oblate Academy for Catholic education.`,
@@ -49,12 +50,13 @@ export default async function ResourceTypePage({
   params,
   searchParams,
 }: {
-  params: { resourceType: string };
-  searchParams: { grade?: GradeKey };
+  params: Promise<{ resourceType: string }>;
+  searchParams: Promise<{ grade?: GradeKey }>;
 }) {
-  const resourceType = params.resourceType;
+  const { resourceType } = await params;
+  const { grade } = await searchParams;
 
-  const uiGrade: GradeKey = searchParams.grade === "g3_5" ? "g3_5" : "gk_2";
+  const uiGrade: GradeKey = grade === "g3_5" ? "g3_5" : "gk_2";
   const resourceGrade = toResourceGrade(uiGrade);
 
   // 1) Resolve whether this slug is a category or a collection (or neither)
@@ -88,7 +90,8 @@ export default async function ResourceTypePage({
   } else {
     // Optional fallback: treat unknown slugs as tags.
     // If you prefer strict routing, replace this block with: notFound();
-    const res = await sanityFetch({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const res = await (sanityFetch as any)({
       query: resourcesByTagQuery,
       params: { grade: resourceGrade, tag: resourceType },
     });
