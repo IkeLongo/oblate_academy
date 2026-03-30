@@ -31,9 +31,9 @@ export function ResourceHubSection({ hub }: { hub: HubData }) {
   // });
 
   return (
-    <div className="base bg-linear-to-br from-[#EFF6FF] to-[#F0FDF4]">
+    <div className="base !py-20 bg-linear-to-br from-[#EFF6FF] to-[#F0FDF4]">
       <section className="w-full">
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-6xl px-0 md:px-6">
           <div className="text-center">
             <h2 className="text-3xl font-extrabold text-slate-900 md:text-4xl">
               {hub.title}

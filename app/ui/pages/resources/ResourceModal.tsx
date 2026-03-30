@@ -96,8 +96,8 @@ export function ResourceModal({ resource, onClose, accentColor = "#168647" }: Pr
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header — outside scroll area so it never scrolls away */}
-        <div className="flex shrink-0 items-center justify-between border-b bg-white px-6 py-4">
-          <h2 className="text-xl font-bold text-slate-800 pr-4">{resource.title}</h2>
+        <div className="relative flex shrink-0 flex-col gap-3 border-b bg-white px-6 py-4 pr-14 sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:pr-6">
+          <h2 className="text-xl font-bold text-slate-800 truncate">{resource.title}</h2>
           <div className="flex items-center gap-2 shrink-0">
             {(resource.kind === "richText" || resource.kind === "image" || resource.kind === "pdf") && (
               <button
@@ -115,14 +115,14 @@ export function ResourceModal({ resource, onClose, accentColor = "#168647" }: Pr
                 <span>Print / PDF</span>
               </button>
             )}
-            <button
-              onClick={onClose}
-              className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition"
-              aria-label="Close"
-            >
-              <X className="h-5 w-5" />
-            </button>
           </div>
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition"
+            aria-label="Close"
+          >
+            <X className="h-5 w-5" />
+          </button>
         </div>
 
         {/* Body — scrollable with custom scrollbar */}

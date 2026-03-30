@@ -112,6 +112,7 @@ export function ResourcesGrid({ resources, accentColor = "#168647" }: Props) {
             open={isTouchDevice ? mobilePreview === resource._id : undefined}
             onOpenChange={isTouchDevice ? (open) => { if (!open) setMobilePreview(null); } : undefined}
             showTapHint={isTouchDevice && mobilePreview === resource._id}
+            onPreviewClick={isTouchDevice ? () => { setMobilePreview(null); setSelected(resource); } : undefined}
           >
             <div
               onClick={(e) => handleCardClick(e, resource)}

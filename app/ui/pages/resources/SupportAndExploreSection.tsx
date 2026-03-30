@@ -5,7 +5,7 @@ export function SupportAndExploreSection() {
     <section className="w-full bg-[#edf2f1] py-16">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-4 sm:px-6 lg:px-8">
         {/* Top support card */}
-        <div className="w-full bg-[#f7f3f6] px-6 py-10 text-center sm:px-10">
+        <div className="w-full px-6 py-10 text-center sm:px-10">
           <div className="mx-auto max-w-6xl">
             <h2 className="text-2xl font-bold text-slate-800 sm:text-3xl">
               Need Additional Support?

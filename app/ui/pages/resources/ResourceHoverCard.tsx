@@ -14,9 +14,10 @@ type Props = {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   showTapHint?: boolean;
+  onPreviewClick?: () => void;
 };
 
-export function ResourceHoverCard({ resource, children, open: controlledOpen, onOpenChange, showTapHint }: Props) {
+export function ResourceHoverCard({ resource, children, open: controlledOpen, onOpenChange, showTapHint, onPreviewClick }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [linkPreview, setLinkPreview] = useState<{ image: string | null } | null>(null);
   const fetchedRef = useRef(false);
@@ -73,8 +74,9 @@ export function ResourceHoverCard({ resource, children, open: controlledOpen, on
                   transition: { type: "spring", stiffness: 260, damping: 20 },
                 }}
                 exit={{ opacity: 0, y: 12, scale: 0.92 }}
-                className="rounded-xl shadow-xl overflow-hidden bg-white border border-neutral-200"
+                className={`rounded-xl shadow-xl overflow-hidden bg-white border border-neutral-200${onPreviewClick ? " cursor-pointer" : ""}`}
                 style={{ x: translateX }}
+                onClick={onPreviewClick}
               >
                 {resource.kind === "image" && resource.image ? (
                   <img
@@ -201,7 +203,7 @@ export function ResourceHoverCard({ resource, children, open: controlledOpen, on
                 )}
                 {showTapHint && (
                   <div className="px-3 py-2 bg-slate-50 border-t border-neutral-100 text-center">
-                    <p className="text-xs text-slate-400 font-medium">Tap to open →</p>
+                    <p className="text-xs text-slate-400 font-medium">Tap preview to open →</p>
                   </div>
                 )}
               </motion.div>

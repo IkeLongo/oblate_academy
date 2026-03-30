@@ -232,7 +232,7 @@ const ResourceCardItem = React.memo(
             <CardContent card={card} index={index} />
           </div>
           
-          <div className={cn("shrink-0 w-full py-3 text-center text-lg font-semibold", card.color.bg, card.color.text)}>
+          <div className={cn("shrink-0 w-full py-3 text-center text-lg font-semibold line-clamp-2 truncate", card.color.bg, card.color.text)}>
             {card.label}
           </div>
         </div>
