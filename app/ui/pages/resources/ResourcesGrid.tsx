@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { MouseEvent } from "react";
 import { Download, ExternalLink } from "lucide-react";
 import { urlFor } from "@/sanity/lib/image";
@@ -16,6 +16,36 @@ type Props = {
 export function ResourcesGrid({ resources, accentColor = "#168647" }: Props) {
   const [selected, setSelected] = useState<ModalResource | null>(null);
   const [hoveredDownload, setHoveredDownload] = useState<string | null>(null);
+  const [mobilePreview, setMobilePreview] = useState<string | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia("(hover: none) and (pointer: coarse)").matches);
+  }, []);
+
+  // Close preview when user taps outside any card
+  useEffect(() => {
+    if (!mobilePreview) return;
+    const handler = () => setMobilePreview(null);
+    document.addEventListener("click", handler);
+    return () => document.removeEventListener("click", handler);
+  }, [mobilePreview]);
+
+  function handleCardClick(e: MouseEvent, resource: ModalResource) {
+    if (!isTouchDevice) {
+      setSelected(resource);
+      return;
+    }
+    e.stopPropagation(); // Prevent the document click listener from firing
+    if (mobilePreview === resource._id) {
+      // Second tap: open modal
+      setMobilePreview(null);
+      setSelected(resource);
+    } else {
+      // First tap: show preview
+      setMobilePreview(resource._id);
+    }
+  }
 
   function printResource(resource: ModalResource) {
     const printWindow = window.open("", "_blank");
@@ -76,13 +106,20 @@ export function ResourcesGrid({ resources, accentColor = "#168647" }: Props) {
     <>
       <div className="mt-6 grid gap-6 md:grid-cols-2">
         {resources.map((resource) => (
-          <ResourceHoverCard key={resource._id} resource={resource}>
+          <ResourceHoverCard
+            key={resource._id}
+            resource={resource}
+            open={isTouchDevice ? mobilePreview === resource._id : undefined}
+            onOpenChange={isTouchDevice ? (open) => { if (!open) setMobilePreview(null); } : undefined}
+            showTapHint={isTouchDevice && mobilePreview === resource._id}
+          >
             <div
-              onClick={() => setSelected(resource)}
+              onClick={(e) => handleCardClick(e, resource)}
               onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") setSelected(resource); }}
               role="button"
               tabIndex={0}
               className="text-left w-full rounded-2xl border bg-white p-5 shadow-sm hover:shadow-md transition cursor-pointer"
+              style={mobilePreview === resource._id ? { outline: `2px solid ${accentColor}`, outlineOffset: "2px" } : undefined}
             >
             <div className="flex items-start justify-between gap-2">
               <h3 className="font-semibold text-lg text-slate-800">

@@ -11,15 +11,21 @@ import type { ModalResource } from "./ResourceModal";
 type Props = {
   resource: ModalResource;
   children: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  showTapHint?: boolean;
 };
 
-export function ResourceHoverCard({ resource, children }: Props) {
+export function ResourceHoverCard({ resource, children, open: controlledOpen, onOpenChange, showTapHint }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [linkPreview, setLinkPreview] = useState<{ image: string | null } | null>(null);
   const fetchedRef = useRef(false);
 
+  const isControlled = controlledOpen !== undefined;
+  const effectiveOpen = isControlled ? controlledOpen : isOpen;
+
   useEffect(() => {
-    if (!isOpen || resource.kind !== "link" || !resource.url || fetchedRef.current) return;
+    if (!effectiveOpen || resource.kind !== "link" || !resource.url || fetchedRef.current) return;
     fetchedRef.current = true;
     const controller = new AbortController();
     fetch(`https://api.microlink.io?url=${encodeURIComponent(resource.url)}`, { signal: controller.signal })
@@ -27,7 +33,7 @@ export function ResourceHoverCard({ resource, children }: Props) {
       .then((data) => setLinkPreview({ image: data?.data?.image?.url ?? null }))
       .catch(() => setLinkPreview({ image: null }));
     return () => controller.abort();
-  }, [isOpen, resource.kind, resource.url]);
+  }, [effectiveOpen, resource.kind, resource.url]);
 
   const x = useMotionValue(0);
   const translateX = useSpring(x, { stiffness: 150, damping: 15 });
@@ -39,7 +45,12 @@ export function ResourceHoverCard({ resource, children }: Props) {
   };
 
   return (
-    <HoverCardPrimitive.Root openDelay={300} closeDelay={100} onOpenChange={setIsOpen}>
+      <HoverCardPrimitive.Root
+        {...(isControlled
+          ? { open: controlledOpen, onOpenChange }
+          : { openDelay: 300, closeDelay: 100, onOpenChange: setIsOpen }
+        )}
+      >
       <HoverCardPrimitive.Trigger asChild onMouseMove={handleMouseMove}>
         {children}
       </HoverCardPrimitive.Trigger>
@@ -52,7 +63,7 @@ export function ResourceHoverCard({ resource, children }: Props) {
           sideOffset={10}
         >
           <AnimatePresence>
-            {isOpen && (
+            {effectiveOpen && (
               <motion.div
                 initial={{ opacity: 0, y: 12, scale: 0.92 }}
                 animate={{
@@ -186,6 +197,11 @@ export function ResourceHoverCard({ resource, children }: Props) {
                     <p className="text-sm font-medium text-slate-600 text-center line-clamp-3">
                       {resource.title}
                     </p>
+                  </div>
+                )}
+                {showTapHint && (
+                  <div className="px-3 py-2 bg-slate-50 border-t border-neutral-100 text-center">
+                    <p className="text-xs text-slate-400 font-medium">Tap to open →</p>
                   </div>
                 )}
               </motion.div>
