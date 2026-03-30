@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Button from "@mui/material/Button";
+import Link from "next/link";
 import ParentTeacherResourcesClient from "../../pages/home/client/ParentTeacherResourcesClient";
 
 export default function ParentTeacherResources() {
@@ -29,33 +29,14 @@ export default function ParentTeacherResources() {
             Guides, lesson plans, and instructions to help you share the faith with children.
           </p>
 
-          <Button
-            variant="contained"
-            startIcon={
-              <Image
-                src="/folder-search.svg"
-                alt=""
-                width={20}
-                height={20}
-                style={{ marginRight: 4 }}
-              />
-            }
-            disableElevation
-            sx={{
-              textTransform: "uppercase",
-              borderRadius: "999px",
-              px: 4,
-              py: 1.4,
-              fontWeight: 800,
-              fontFamily: "Poppins, sans-serif",
-              bgcolor: "#067099",
-              color: "#FFFFFF",
-              mt: 6,
-              "&:hover": { bgcolor: "#085E7C" },
-            }}
+          <Link
+            href="/resources"
+            className="mt-10 inline-flex items-center gap-2 rounded-full bg-[#067099] px-8 py-[0.85rem] text-sm font-extrabold uppercase tracking-wide text-white transition-colors hover:bg-[#085E7C]"
+            style={{ fontFamily: "Poppins, sans-serif" }}
           >
+            <Image src="/folder-search.svg" alt="" width={20} height={20} />
             Explore Resources
-          </Button>
+          </Link>
         </div>
       </div>
     </section>
