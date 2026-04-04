@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import "../cookies.css"
-import { cn } from "@/lib/utils";
+import "../cookies.css";
+import { cn } from "@/app/lib/utils";
 
 export type DrawerProps = {
   open: boolean;
@@ -38,7 +38,7 @@ export function Drawer({
         <Dialog.Content
           className={cn(
             "fixed inset-x-0 bottom-0 z-[70]",
-            "rounded-t-2xl bg-navy-800 text-white shadow-2xl border-t border-white/10",
+            "rounded-t-2xl text-white shadow-2xl border-t border-white/10",
             "focus:outline-none cookie-drawer",
             className
           )}

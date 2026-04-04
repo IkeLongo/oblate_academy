@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
-import { cn } from "@/lib/utils";
+import { cn } from "@/app/lib/utils";
 
 export type SwitchProps = {
   checked: boolean;
@@ -22,9 +22,9 @@ export function Switch({ checked, onCheckedChange, disabled, id, ...rest }: Swit
       className={cn(
         "relative inline-flex h-6 w-11 items-center rounded-full border transition",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-        "data-[state=checked]:bg-green-500 data-[state=unchecked]:bg-white/10",
+        "data-[state=checked]:bg-blue-300 data-[state=unchecked]:bg-white/10",
         "border-white/30",
-        "focus-visible:ring-green-500 ring-offset-slate-950",
+        "focus-visible:ring-blue-300 ring-offset-slate-950",
         disabled && "opacity-60 cursor-not-allowed"
       )}
       {...rest}

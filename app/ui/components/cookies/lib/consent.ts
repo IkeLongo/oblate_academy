@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-import type { CookiePrefs } from "@/types/cookies";
+import type { CookiePrefs } from "@/app/types/cookies";
 
 export const COOKIE_KEY = "cookiePreferences";
 export const COOKIE_EXPIRES_DAYS = 365;

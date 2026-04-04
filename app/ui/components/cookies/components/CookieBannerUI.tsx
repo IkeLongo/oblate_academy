@@ -45,13 +45,13 @@ export default function CookieBannerUI() {
         className="fixed"
         footer={
           <div className="flex flex-wrap gap-2">
-            <Button variant="solid" onClick={acceptAllCookies}>
+            <Button variant="solid" className="bg-blue-300" onClick={acceptAllCookies}>
               Accept All
             </Button>
             <Button variant="bordered" onClick={rejectNonEssential}>
               Reject Non-Essential
             </Button>
-            <Button variant="bordered" className="border-green-500" onClick={configureCookies}>
+            <Button variant="bordered" className="border-blue-300" onClick={configureCookies}>
               Configure Cookies
             </Button>
           </div>

@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import "../cookies.css"
-import { cn } from "@/lib/utils";
+import { cn } from "@/app/lib/utils";
 
 export type ModalProps = {
   open: boolean;
@@ -36,7 +36,7 @@ export function Modal({
         <Dialog.Content
           className={cn(
             "fixed left-1/2 top-1/2 w-[min(92vw,560px)] -translate-x-1/2 -translate-y-1/2",
-            "rounded-lg bg-navy-800 text-white shadow-xl border border-white/10",
+            "rounded-lg text-white shadow-xl border border-white/10",
             "max-h-[80vh] z-50 overflow-x-auto",
             "focus:outline-none cookie-modal",
             className

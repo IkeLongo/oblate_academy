@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/app/lib/utils";
 
 type Variant = "solid" | "bordered";
 
@@ -21,7 +21,7 @@ export function Button({
     "disabled:opacity-60 disabled:cursor-not-allowed";
 
   const solid =
-    "bg-green-500 text-white hover:opacity-95 focus-visible:ring-green-500 ring-offset-slate-950";
+    "bg-blue-300 text-white hover:opacity-95 focus-visible:ring-green-500 ring-offset-slate-950";
 
   const bordered =
     "border border-white/40 text-white hover:bg-white/10 focus-visible:ring-white ring-offset-slate-950";

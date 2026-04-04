@@ -10,6 +10,10 @@
   font-size: 18px;
 }
 
+.cookie-drawer {
+  background-color: rgb(49, 44, 44);
+}
+
 .cookie-modal h2 {
   color: white;
   font-family: "Maven Pro", sans-serif;
@@ -22,7 +26,11 @@
 }
 
 .cookie-modal a {
-  color: #bfee3c;
+  color: #5ec4ff;
   font-family: "Source Sans 3", sans-serif;
   letter-spacing: 0.02em;
+}
+
+.cookie-modal {
+  background-color: rgb(49, 44, 44);
 }

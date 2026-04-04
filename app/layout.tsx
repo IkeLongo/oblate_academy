@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import { Fredoka } from "next/font/google";
 import { Inria_Sans } from "next/font/google";
 import "./globals.css";
+import CookieBanner from "./ui/components/cookies/components/CookieBanner";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -76,6 +77,7 @@ export default async function RootLayout({
       <body
         className={`${poppins.className} ${fredoka.variable} ${inriaSans.variable} antialiased overflow-x-hidden`}
       >
+        <CookieBanner />
         {children}
       </body>
     </html>

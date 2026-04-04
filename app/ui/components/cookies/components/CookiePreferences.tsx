@@ -5,7 +5,7 @@ import { Modal } from "../ui/modal";
 import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
 import { DEFAULT_PREFS, readPrefs, writePrefs } from "../lib/consent";
-import type { CookiePrefs } from "@/types/cookies";
+import type { CookiePrefs } from "@/app/types/cookies";
 
 export type PreferencesModalProps = {
   isOpen: boolean;
