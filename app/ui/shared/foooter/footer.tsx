@@ -12,7 +12,8 @@ const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 import ScrollToTopButton from './scroll-to-top';
 
-const BUSINESS_EMAIL = process.env.NEXT_PUBLIC_BUSINESS_EMAIL ?? "contact@oblateacademy.com";
+const BUSINESS_EMAIL = process.env.NEXT_PUBLIC_BUSINESS_EMAIL ?? "support@mail.oblateacademy.com";
+const BUSINESS_PHONE = process.env.NEXT_PUBLIC_BUSINESS_PHONE ?? "210-313-4393";
 
 function getCurrentYear() {
   return new Date().getFullYear();
@@ -41,16 +42,16 @@ export default function Footer() {
     {
       title: 'Learning',
       links: [
-        { name: 'CATHOLIC FAITH', href: '/privacy' },
-        { name: 'RESOURCES', href: '/terms' },
-        { name: 'SUPPORT', href: '/cookies' },
+        { name: 'CATHOLIC FAITH', href: '/catholic' },
+        { name: 'RESOURCES', href: '/resources' },
+        { name: 'CONTACT', href: '/contact' },
       ],
     },
     {
       title: 'Contact',
       links: [
         { name: 'Email', href: `mailto:${BUSINESS_EMAIL}` },
-        { name: 'Phone', href: 'tel:2107306232' },
+        { name: 'Phone', href: `tel:${BUSINESS_PHONE}` },
         { name: 'Social', href: '#' },
       ],
     },
@@ -117,6 +118,11 @@ export default function Footer() {
       </div>
       <div className="font-inria mt-10 md:-mt-10 text-center text-sm text-gray-100">
         &copy; {getCurrentYear()}  Oblate Academy. All Rights Reserved. Built with love for Catholic education.
+      </div>
+      <div className="mt-4 flex justify-center gap-6 text-xs text-gray-200">
+        <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
+        <span>|</span>
+        <Link href="/terms" className="hover:underline">Terms &amp; Conditions</Link>
       </div>
       {/* <div className="flex justify-center mt-4">
         <ScrollToTopButton />
