@@ -8,7 +8,7 @@ export async function POST(request: Request) {
 		const body = await request.json();
 		// console.log("[LEAD API] Received request body:", body);
 		
-		const { name, email, phone, message, source, status, tags } = body;
+		const { name, email, phone, message, status, tags } = body;
 		// console.log("[LEAD API] Destructured message:", message);
 		// console.log("[LEAD API] Message type:", typeof message);
 		// console.log("[LEAD API] Message length:", message?.length);
@@ -44,9 +44,9 @@ export async function POST(request: Request) {
       }
 
       ghlWebhookSuccess = true;
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("GHL Webhook Error:", err);
-      ghlWebhookError = err?.message || "Unknown webhook error";
+      ghlWebhookError = err instanceof Error ? err.message : "Unknown webhook error";
     }
 
 		return NextResponse.json({
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
 			ghlWebhookSuccess,
       ghlWebhookError,
 		});
-	} catch (error: any) {
+	} catch (error: unknown) {
 		console.error('Contact Lead Error:', error);
 		return NextResponse.json(
 			{ message: 'An error occurred while processing your contact.' },

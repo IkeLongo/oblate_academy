@@ -49,8 +49,9 @@ export function writePrefs(prefs: CookiePrefs) {
   window.dispatchEvent(new CustomEvent("cookie_consent_update", { detail: prefs }));
 
   // 2) Optional: dataLayer for GTM setups
-  (window as any).dataLayer = (window as any).dataLayer || [];
-  (window as any).dataLayer.push({
+  const w = window as unknown as Window & { dataLayer: Record<string, unknown>[] };
+  w.dataLayer = w.dataLayer || [];
+  w.dataLayer.push({
     event: "cookie_consent_update",
     cookiePreferences: prefs,
   });
