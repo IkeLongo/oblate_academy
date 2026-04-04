@@ -1,0 +1,28 @@
+.cookie-drawer h2 {
+  color: white;
+  font-family: "Maven Pro", sans-serif;
+}
+
+.cookie-drawer p {
+  color: white;
+  font-family: "Source Sans 3", sans-serif;
+  letter-spacing: 0.02em;
+  font-size: 18px;
+}
+
+.cookie-modal h2 {
+  color: white;
+  font-family: "Maven Pro", sans-serif;
+}
+
+.cookie-modal p {
+  color: white;
+  font-family: "Source Sans 3", sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.cookie-modal a {
+  color: #bfee3c;
+  font-family: "Source Sans 3", sans-serif;
+  letter-spacing: 0.02em;
+}

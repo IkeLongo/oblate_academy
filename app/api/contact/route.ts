@@ -8,7 +8,7 @@ export async function POST(request: Request) {
 		const body = await request.json();
 		// console.log("[LEAD API] Received request body:", body);
 		
-		const { name, email, phone, company, message, source, status, tags } = body;
+		const { name, email, phone, message, source, status, tags } = body;
 		// console.log("[LEAD API] Destructured message:", message);
 		// console.log("[LEAD API] Message type:", typeof message);
 		// console.log("[LEAD API] Message length:", message?.length);
@@ -22,7 +22,6 @@ export async function POST(request: Request) {
         name,
         email,
         phone: phone || "",
-        company: company || "",
         message: message || "",
         source: "Website Contact Form - Inquiry",
         status: status || "new",

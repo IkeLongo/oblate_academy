@@ -79,7 +79,12 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
                   : "h-[40px] grow font-poppins justify-start md:justify-center md:flex-none md:justify-start md:p-2 md:px-3"
               )}
             >
-              <Icon className="w-5 h-5 stroke-[1.5] group-hover:stroke-[2] text-neutral-700 transition" />
+              <Icon
+                className={clsx(
+                  "w-5 h-5 text-neutral-700 transition group-hover:stroke-[2]",
+                  pathname === link.href ? "stroke-[2]" : "stroke-[1.5]"
+                )}
+              />
               <span
                 className={clsx(
                   'ml-1',

@@ -10,12 +10,43 @@ type ContactSectionProps = {
 export function ContactSectionWithShader({
   colors,
 }: ContactSectionProps) {
-  const handleSubmit = (
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
   ) => {
     e.preventDefault();
-    const target = e.target as HTMLFormElement;
-    console.log(target);
+    setSuccessMessage(null);
+    setSubmitting(true);
+    const form = (e.target as HTMLFormElement);
+    // Get form data
+    const formData = new FormData(form);
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
+    const phone = formData.get('phone') as string;
+    const message = formData.get('message') as string;
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        form.reset();
+        setSuccessMessage('Thank you for reaching out! We have received your message and will be in touch soon.');
+      } else {
+        setSuccessMessage('Sorry, there was a problem submitting your message. Please try again.');
+      }
+    } catch (error) {
+      setSuccessMessage('Sorry, there was a problem submitting your message. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -53,6 +84,7 @@ export function ContactSectionWithShader({
                 <div className="mt-2">
                   <input
                     id="name"
+                    name="name"
                     type="text"
                     placeholder="John Doe"
                     className="block w-full rounded-md border-0 bg-white px-4 py-1.5 text-black shadow-sm ring-1 shadow-black/10 ring-black/10 placeholder:text-gray-400 focus:ring-2 focus:ring-neutral-400 focus:outline-none sm:text-sm sm:leading-6"
@@ -69,6 +101,7 @@ export function ContactSectionWithShader({
                 <div className="mt-2">
                   <input
                     id="email"
+                    name="email"
                     type="email"
                     placeholder="hello@johndoe.com"
                     className="block w-full rounded-md border-0 bg-white px-4 py-1.5 text-black shadow-sm ring-1 shadow-black/10 ring-black/10 placeholder:text-gray-400 focus:ring-2 focus:ring-neutral-400 focus:outline-none sm:text-sm sm:leading-6"
@@ -85,6 +118,7 @@ export function ContactSectionWithShader({
                 <div className="mt-2">
                   <input
                     id="phone"
+                    name="phone"
                     type="tel"
                     placeholder="+1 (555) 000-0000"
                     className="block w-full rounded-md border-0 bg-white px-4 py-1.5 text-black shadow-sm ring-1 shadow-black/10 ring-black/10 placeholder:text-gray-400 focus:ring-2 focus:ring-neutral-400 focus:outline-none sm:text-sm sm:leading-6"
@@ -102,14 +136,23 @@ export function ContactSectionWithShader({
                   <textarea
                     rows={5}
                     id="message"
+                    name="message"
                     placeholder="Enter your message here"
                     className="block w-full rounded-md border-0 bg-white px-4 py-1.5 text-black shadow-sm ring-1 shadow-black/10 ring-black/10 placeholder:text-gray-400 focus:ring-2 focus:ring-neutral-400 focus:outline-none sm:text-sm sm:leading-6"
                   />
                 </div>
 
-                <div className="mt-8">
-                  <button className="relative z-10 flex w-full items-center justify-center rounded-full bg-blue-500 px-4 py-4 text-sm font-medium text-white transition duration-200 hover:bg-blue-500/90 md:text-sm">
-                    Submit
+                <div className="mt-8 flex flex-col gap-2">
+                  {successMessage && (
+                    <div className="rounded-md bg-green-100 text-green-800 px-4 mb-4 py-2 text-center text-sm font-medium border border-green-200">
+                      {successMessage}
+                    </div>
+                  )}
+                  <button
+                    className="relative z-10 flex w-full items-center justify-center rounded-full bg-blue-500 px-4 py-4 text-sm font-medium text-white transition duration-200 hover:bg-blue-500/90 md:text-sm disabled:opacity-60 disabled:cursor-not-allowed"
+                    disabled={submitting}
+                  >
+                    {submitting ? 'Submitting...' : 'Submit'}
                   </button>
                 </div>
               </form>
@@ -124,31 +167,31 @@ export function ContactSectionWithShader({
 const testimonials = [
   {
     quote:
-      "This platform has completely transformed how we approach customer outreach. The results speak for themselves.",
-    name: "Sarah Chen",
-    designation: "Head of Marketing, TechCorp",
-    image: "https://assets.aceternity.com/avatars/1.webp",
+      "Be who God meant you to be and you will set the world on fire.",
+    name: "St. Catherine of Siena",
+    designation: "Feast Day: April 29 | Patron Saint of Italy, Nurses, and Firefighters",
+    image: "/st-catherine-of-sienna-contact-avatar.png",
   },
   {
     quote:
-      "The AI-powered insights have helped us close 40% more deals. It's like having a superpower for sales.",
-    name: "Marcus Johnson",
-    designation: "VP of Sales, StartupXYZ",
-    image: "https://assets.aceternity.com/avatars/2.webp",
+      "There are not over a hundred people in the United States who hate the Catholic Church, but there are millions who hate what they mistakenly believe the Catholic Church to be.",
+    name: "Venerable Fulton Sheen",
+    designation: "Feast Day: June 9 | Patron Saint of Television, Radio, and Communications",
+    image: "/venerable-fulton-sheen-contact-avatar.png",
   },
   {
     quote:
-      "We've cut our response time in half and our customer satisfaction has never been higher. Incredible tool.",
-    name: "Emily Rodriguez",
-    designation: "Customer Success Lead, GrowthCo",
-    image: "https://assets.aceternity.com/avatars/3.webp",
+      "Spread love everywhere you go. Let no one ever come to you without leaving happier.",
+    name: "St. Teresa of Calcutta (Mother Teresa)",
+    designation: "Feast Day: September 5 | Patron Saint of Missionaries of Charity",
+    image: "/st-teresa-of-calcutta-contact-avatar.png",
   },
   {
     quote:
-      "The integration was seamless and the support team is phenomenal. Highly recommend to any growing business.",
-    name: "David Kim",
-    designation: "CTO, InnovateLabs",
-    image: "https://assets.aceternity.com/avatars/4.webp",
+      "It is not enough to love the young; they must know that they are loved.",
+    name: "St. John Bosco",
+    designation: "Feast Day: January 31 | Patron Saint of Youth, Educators, and Orphans",
+    image: "/st-john-bosco-contact-avatar.png",
   },
 ];
 
