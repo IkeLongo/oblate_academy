@@ -1,31 +1,27 @@
-// app/ui/shared/navbar/nav-links.tsx
-
 'use client';
 
 import clsx from 'clsx';
 import Link from 'next/link';
-import Image from 'next/image';
+import { GraduationCap, Church, Folder, Mail } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import Submenu from './submenu';
 import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
-
 import type { GradeKey } from "@/app/types";
 
-// Map of links to display in the side navigation.
-// Depending on the size of the application, this would be stored in a database.
-const links = [
+const navLinks = [
   {
     name: 'Grade Levels',
     href: '/#why',
-    icon: "/book-and-pencil.svg",
+    icon: GraduationCap,
     submenu: [
       { name: 'Kinder - 2nd Grade', href: '/grade/k-5' },
       { name: '3rd - 5th Grade', href: '/grade/6-8' },
     ],
   },
-  { name: 'Catholic Faith', href: '/catholic', icon: "/church.svg" },
-  { name: 'Resources', href: '/resources', icon: "/folder.svg" },
+  { name: 'Catholic Faith', href: '/catholic', icon: Church },
+  { name: 'Resources', href: '/resources', icon: Folder },
+  { name: 'Contact', href: '/contact', icon: Mail },
 ];
 
 interface NavLinksProps {
@@ -40,10 +36,11 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
 
   return (
     <>
-      {links.map((link) => {
+      {navLinks.map((link) => {
         const isGradeLevels = link.name === "Grade Levels";
         const hasSubmenu = !!link.submenu;
         const isOpen = openSubmenu === link.name;
+        const Icon = link.icon;
 
         // Desktop: hover, Mobile: click
         const handleMouseEnter = () => {
@@ -75,31 +72,27 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
             <Link
               href={link.href}
               onClick={handleClick}
-              className={
+              className={clsx(
+                "flex items-center gap-2 group transition",
                 isMobile
-                  ? "flex w-full h-[40px] font-poppins items-center justify-start gap-2 px-2 py-2 border-b border-gray-200"
-                  : "flex h-[40px] grow font-poppins items-center justify-start md:justify-center gap-2 hover:font-bold md:flex-none md:justify-start md:p-2 md:px-3"
-              }
+                  ? "w-full h-[40px] font-poppins justify-start px-2 py-2 border-b border-gray-200"
+                  : "h-[40px] grow font-poppins justify-start md:justify-center md:flex-none md:justify-start md:p-2 md:px-3"
+              )}
             >
-              <Image
-                src={link.icon}
-                alt={`${link.name} icon`}
-                width={link.name === "Catholic Faith" ? 28 : 24}
-                height={link.name === "Catholic Faith" ? 28 : 24}
-                className={link.name === "Catholic Faith" ? "w-7 h-7 -mr-1" : "w-6 h-6"}
-              />
-              <p
+              <Icon className="w-5 h-5 stroke-[1.5] group-hover:stroke-[2] text-neutral-700 transition" />
+              <span
                 className={clsx(
+                  'ml-1',
                   pathname === link.href
-                    ? 'text-green-600 font-bold'
-                    : 'font-medium hover:font-bold text-black md:text-navy-500 ml-1'
+                    ? 'font-bold text-neutral-700'
+                    : 'font-medium group-hover:font-bold text-neutral-700'
                 )}
               >
                 {link.name}
-              </p>
+              </span>
               {isGradeLevels && (
                 <svg
-                  className={`w-4 h-4 text-black transition-transform duration-300 ${isOpen ? '-rotate-180' : 'rotate-0'}`}
+                  className={`w-4 h-4 text-neutral-700 transition-transform duration-300 ${isOpen ? '-rotate-180' : 'rotate-0'}`}
                   fill="none"
                   stroke="currentColor"
                   strokeWidth={2}
@@ -144,9 +137,7 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
                         grade={grade}
                         className={`block px-4 py-2 text-md text-black ${hoverClass}`}
                         onClick={() => {
-                          // ✅ close the mobile menu
                           onClick();
-                          // ✅ also close submenu state
                           setOpenSubmenu(null);
                           onSubmenuState?.(false);
                         }}

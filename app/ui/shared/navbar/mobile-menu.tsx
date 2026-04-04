@@ -36,7 +36,7 @@ export default function MobileMenu() {
 
   return (
     <div className="w-full align-center md:hidden">
-      <div className="absolute z-20 w-full bg-white border-x-[1px] border-blue-800">
+      <div className="absolute z-20 w-full bg-white border-x-[1px] border-neutral-800">
         <div className="flex flex-row justify-between h-[65px] pl-0 px-6 pt-[10px] items-center">
           <Link href="/">
             <Image
@@ -65,7 +65,7 @@ export default function MobileMenu() {
 
       <div
         style={{ height: menuOpen ? menuHeight : 200, transition: 'height 0.3s' }}
-        className={`absolute top-[20px] w-full flex flex-col justify-between px-6 py-6 bg-white border-[1px] border-t-0 border-blue-800 rounded-b-[13px] drop-shadow-[0_14px_16.2px_rgba(0,0,0,0.25)] backdrop-blur-[7px] transition-transform duration-500 ease-in-out z-10 ${
+        className={`absolute top-[20px] w-full flex flex-col justify-between px-6 py-6 bg-white border-[1px] border-t-0 border-neutral-800 rounded-b-[13px] drop-shadow-[0_14px_16.2px_rgba(0,0,0,0.25)] backdrop-blur-[7px] transition-transform duration-500 ease-in-out z-10 ${
           menuOpen ? "translate-y-8" : "-translate-y-[140px]"
         }`}
       >
