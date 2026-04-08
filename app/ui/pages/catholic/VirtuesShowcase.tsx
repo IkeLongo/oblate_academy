@@ -28,7 +28,7 @@ export default async function VirtuesShowcase() {
             Learn Virtue
           </p>
           <Link
-            href="/resources"
+            href={`/grade/k-2/virtues`}
             className="text-sm font-poppins font-semibold text-blue-300 hover:text-blue-400 underline underline-offset-2"
           >
             View all virtues →

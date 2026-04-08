@@ -28,7 +28,7 @@ export default async function SaintsShowcase() {
             Meet the Saints
           </p>
           <Link
-            href="/resources"
+            href={`/grade/k-2/saints`}
             className="text-sm font-poppins font-semibold text-red-500 hover:text-red-600 underline underline-offset-2"
           >
             View all saints →

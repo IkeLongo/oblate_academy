@@ -4,7 +4,6 @@ import { PortableText } from "next-sanity";
 import { components } from "@/app/ui/components/texts/PortableTextComponent";
 import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
 import { urlFor } from "@/sanity/lib/image";
-import { GradeAnchorLink } from "@/app/ui/components/nav/GradeAnchorLink";
 
 import type { GradeKey, GradeKeyLink, PageData } from "@/app/types";
 
@@ -29,11 +28,12 @@ export function VirtueMain({ grade, gradeHref, slug, data }: VirtueMainProps) {
   return (
     <div className="base bg-gradient-to-b from-blue-100 via-gray-100 to-blue-100 mx-auto px-6 py-20 md:pt-10">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-8 max-w-6xl mx-auto pt-16 md:pt-0">
-        <GradeAnchorLink grade={grade}>
-          <span className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 cursor-pointer">
-            ← Back to Home
-          </span>
-        </GradeAnchorLink>
+        <Link
+          href={`/grade/${gradeHref}/virtues`}
+          className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400"
+        >
+          ← Back to Virtues
+        </Link>
         <div className="text-blue-300 font-extrabold min-w-none md:min-w-sm md:static md:mt-0 mt-2">
           <GradeSwitcher
             grade={grade}
