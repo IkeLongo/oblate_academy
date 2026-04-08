@@ -17,7 +17,7 @@ type PageProps = {
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { grade, slug } = await params;
   const data = await client.fetch<{ name: string } | null>(
     `*[_type == "virtue" && slug.current == $slug][0]{ name }`,
     { slug }
@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: name,
     description: `Discover the virtue of ${name} — stories, activities, and resources for Catholic children.`,
     openGraph: { title: `${name} | Oblate Academy` },
+    alternates: { canonical: `/grade/${grade}/virtues/${slug}` },
   };
 }
 

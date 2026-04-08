@@ -8,7 +8,8 @@ import { LEGAL } from '@/app/ui/components/legal/lib/constants';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Learn how River City Creatives collects, uses, and protects your personal information when you use our website and services.',
+  description:
+    'Learn how Oblate Academy collects, uses, and protects your personal information when you visit our website.',
   twitter: {
     card: 'summary_large_image',
   },
@@ -16,15 +17,15 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://rivercitycreatives.com/opengraph-image.png',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Privacy Policy | RiverCity Creatives Web Design & Branding',
+        alt: 'Privacy Policy | Oblate Academy',
       },
     ],
   },
   alternates: {
-    canonical: 'https://rivercitycreatives.com/privacy', // Add your canonical URL here
+    canonical: '/privacy',
   },
   robots: {
     index: false,

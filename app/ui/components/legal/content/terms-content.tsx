@@ -14,8 +14,9 @@ type TermsContentProps = {
 };
 
 export default function TermsContent({
-  lastUpdated = process.env.NEXT_PUBLIC_TERMS_LAST_UPDATED ?? "March 9, 2026",
-  siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rivercitycreatives.com",
+  lastUpdated = process.env.NEXT_PUBLIC_TERMS_LAST_UPDATED,
+  // TODO: Confirm the correct production URL for Oblate Academy.
+  siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://oblateacademy.com",
   businessLocation =
     process.env.NEXT_PUBLIC_BUSINESS_LOCATION ??
     "San Antonio, Texas, United States of America",
@@ -23,10 +24,6 @@ export default function TermsContent({
   return (
     <section id="terms-of-service">
       <h2 id="terms-of-use">Website Terms of Use</h2>
-
-      <p>
-        <strong>Last Updated:</strong> {lastUpdated}
-      </p>
 
       <p>
         These Website Terms of Use (“Terms”) govern your access to and use of{" "}
@@ -38,9 +35,8 @@ export default function TermsContent({
       </p>
 
       <p>
-        This Site is intended to provide general information about our gym,
-        training programs, schedules, and services.{" "}
-        <strong>No purchases or transactions are processed directly on this Site.</strong>
+        This Site provides Catholic educational content, resources, and informational
+        material for families, parents, educators, and supporters of Catholic education.
       </p>
 
       <h2 id="acceptance">Acceptance of Terms</h2>
@@ -49,12 +45,12 @@ export default function TermsContent({
         If you do not agree, please do not use the Site.
       </p>
 
-      <h2 id="informational-use">Informational and Promotional Use</h2>
+      <h2 id="site-content">Site Content and Educational Resources</h2>
       <p>
-        Content on this Site is provided for informational and promotional
-        purposes only. We may update, change, or remove content at any time
-        without notice, including class schedules, pricing, promotions,
-        and program details.
+        Content on this Site is provided for informational and educational purposes only.
+        We strive to ensure all content is accurate and current, but we make no guarantees
+        about the completeness or timeliness of any information provided. We may update,
+        modify, or remove content at any time without prior notice.
       </p>
 
       <h2 id="user-conduct">User Conduct</h2>
@@ -64,41 +60,35 @@ export default function TermsContent({
         unlawful purposes.
       </p>
 
-      <h2 id="scope-of-services">Scope of Services</h2>
+      {/* LEGAL REVIEW: Review this section before publishing, particularly if the site collects any data from minors directly. */}
+      <h2 id="children-and-family-use">Children and Family Use</h2>
       <p>
-        We offer web design, web development, branding, and hosting services. The scope, timeline, and deliverables for each project will be outlined
-        in a separate agreement between us and the client.
+        Oblate Academy is designed to serve families, parents, and educators. While our content is
+        family-friendly and may be accessed alongside children, we do not knowingly enter into
+        agreements with or collect personal information directly from minors without appropriate
+        parental or guardian involvement. By using this Site, adult users represent that they are
+        at least 18 years of age, or that they are accessing the Site under appropriate parental
+        or guardian supervision.
       </p>
-      <h3 id="web-design-development">Web Design & Development</h3>
-      <ul>
-        <li>Clients must provide all required content and assets in a timely manner.</li>
-        <li>Revisions are limited to the number specified in the service agreement.</li>
-      </ul>
-      <h3 id="branding">Branding</h3>
-      <ul>
-        <li>Deliverables may include logos, brand guidelines, and marketing materials as agreed upon.</li>
-        <li>Clients must ensure they have the rights to any assets provided to us.</li>
-      </ul>
-      <h3 id="hosting-services">Hosting Services</h3>
-      <ul>
-        <li>Hosting services are subject to third-party provider terms and may require periodic maintenance and updates.</li>
-        <li>We are not liable for service interruptions due to factors beyond our control (e.g., server downtime, third-party failures).</li>
-      </ul>
 
       <h2 id="intellectual-property">Intellectual Property</h2>
       <p>
-        Unless otherwise stated, the Site and its content (including text,
-        images, graphics, logos, and design elements) are owned by{" "}
-        <strong><LegalCompanyName /></strong> and are protected by
-        intellectual property laws. You may not copy, reproduce,
-        or distribute Site content without our written permission.
+        Unless otherwise noted, all content on this Site — including text, images, graphics,
+        logos, downloadable resources, and design elements — is owned by or licensed to{" "}
+        <strong><LegalCompanyName /></strong> (doing business as <strong><DBAName /></strong>)
+        and is protected by applicable intellectual property laws.
+      </p>
+      <p>
+        You may not copy, reproduce, distribute, republish, or commercially exploit any content
+        from this Site without our prior written permission. Personal or non-commercial educational
+        use of individual materials may be permitted where clearly noted on the Site.
       </p>
 
       <h2 id="third-party-links">Third-Party Links</h2>
       <p>
-        The Site may include links to third-party websites or services
-        (for example, social platforms, scheduling tools, or map
-        providers). We do not control these third parties and are not
+        The Site may include links to external websites or resources
+        (for example, referenced materials, social platforms, or other
+        educational tools). We do not control these third parties and are not
         responsible for their content, policies, or practices. Your use
         of third-party sites is at your own risk and subject to their terms.
       </p>
@@ -112,9 +102,29 @@ export default function TermsContent({
         through the Site’s cookie settings.
       </p>
 
+      {/* LEGAL REVIEW: Confirm donation/refund policy details and which payment processor(s) Oblate Academy uses before publishing. */}
+      <h2 id="donations">Donations and Payments</h2>
+      <p>
+        Oblate Academy may accept voluntary donations to support its Catholic educational mission.
+        Donations are processed through a secure third-party payment processor (such as Stripe).
+        We do not store full payment card details on our own servers.
+      </p>
+      <p>
+        All donations are voluntary. Unless otherwise stated or required by applicable law, donations
+        are non-refundable once processed. If you believe a donation was made in error, please
+        contact us promptly at <BusinessEmailLink /> and we will do our best to assist you.
+      </p>
+
+      {/* LEGAL REVIEW: Confirm SMS usage details and the legal entity name for Oblate Academy before publishing. */}
       <h2 id="sms-terms">SMS Terms &amp; Conditions</h2>
       <p>
-        By opting in to receive SMS messages from RiverCity Creatives (operated by Inventive Collective LLC), you agree to receive conversational and transactional messages related to your inquiry, including follow-ups, appointment confirmations, and scheduling coordination.
+        By opting in to receive SMS messages from Oblate Academy, you agree to receive
+        conversational and transactional text messages related to your inquiry, including
+        follow-ups, requested information, reminders, and similar communications.
+      </p>
+      <p>
+        You opt in by submitting a contact or inquiry form on our website and checking the
+        consent checkbox to receive text messages.
       </p>
       <p>
         To stop receiving messages, reply <strong>STOP</strong> to any text message.
@@ -132,7 +142,7 @@ export default function TermsContent({
         Carriers are not liable for delayed or undelivered messages.
       </p>
       <p>
-        You must be 18 years of age or older to use this SMS service.
+        You must be 18 years of age or older to directly use this SMS service.
       </p>
 
       <h2 id="disclaimer-of-warranties">Disclaimer of Warranties</h2>

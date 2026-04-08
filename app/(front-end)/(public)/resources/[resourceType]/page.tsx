@@ -43,6 +43,7 @@ export async function generateMetadata({
     title,
     description: `Browse ${title} resources from Oblate Academy for Catholic education.`,
     openGraph: { title: `${title} | Oblate Academy` },
+    alternates: { canonical: `/resources/${resourceType}` },
   };
 }
 

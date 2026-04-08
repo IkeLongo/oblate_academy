@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   },
   description:
     "Faith-filled Catholic resources for families and educators — saints, virtues, and learning kits for grades K–5.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Oblate Academy — Catholic Resources for Kids",
     description:

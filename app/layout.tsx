@@ -26,7 +26,7 @@ const inriaSans = Inria_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.oblateacademy.com"),
   title: {
     template: "%s | Oblate Academy",
     default: "Oblate Academy — Catholic Resources for Kids",
@@ -36,6 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Oblate Academy",
+    url: "https://www.oblateacademy.com",
     images: [
       {
         url: "/og-image.png",

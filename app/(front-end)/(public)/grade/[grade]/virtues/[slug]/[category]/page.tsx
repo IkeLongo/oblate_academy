@@ -15,7 +15,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ grade: string; slug: string; category: string }>;
 }): Promise<Metadata> {
-  const { slug, category } = await params;
+  const { grade, slug, category } = await params;
   const data = await client.fetch<{ name: string } | null>(
     `*[_type == "virtue" && slug.current == $slug][0]{ name }`,
     { slug }
@@ -29,6 +29,7 @@ export async function generateMetadata({
     title: `${name} — ${categoryTitle}`,
     description: `${categoryTitle} resources for the virtue of ${name} — Catholic activities for children.`,
     openGraph: { title: `${name} — ${categoryTitle} | Oblate Academy` },
+    alternates: { canonical: `/grade/${grade}/virtues/${slug}/${category}` },
   };
 }
 

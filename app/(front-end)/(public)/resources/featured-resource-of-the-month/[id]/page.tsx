@@ -22,6 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title,
     description,
     openGraph: { title: `${title} | Oblate Academy`, description },
+    alternates: { canonical: `/resources/featured-resource-of-the-month/${slug}` },
   };
 }
 
