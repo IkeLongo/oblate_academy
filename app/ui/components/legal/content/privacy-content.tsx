@@ -223,7 +223,7 @@ export default function PrivacyContent() {
       <hr />
 
       {/* LEGAL REVIEW: Review this section carefully given Oblate Academy's audience of families and children. Consider whether COPPA compliance steps are needed. */}
-      <h2 id="minors">Children's privacy</h2>
+      <h2 id="minors">{"Children's privacy"}</h2>
       <p>
         <strong>In Short:</strong>{" "}
         <em>We do not knowingly collect personal information directly from children without appropriate parental involvement.</em>
