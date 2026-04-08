@@ -10,7 +10,7 @@ export type ContentCardProps = ContentCardModel & {
 };
 
 export type PillarCardProps = {
-  imageSrc: string;
+  imageSrc?: string;
   imageAlt: string;
   title: string;
   description: string;

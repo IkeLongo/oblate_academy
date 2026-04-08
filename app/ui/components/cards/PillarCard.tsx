@@ -1,14 +1,20 @@
 import Image from "next/image";
 import type { PillarCardProps } from "@/app/types";
+import type { ReactNode } from "react";
+
+type PillarCardExtendedProps = PillarCardProps & {
+  icon?: ReactNode;
+};
 
 export function PillarCard({
   imageSrc,
   imageAlt,
+  icon,
   title,
   description,
   borderClassName,
   className = "",
-}: PillarCardProps) {
+}: PillarCardExtendedProps) {
   return (
     <div
       className={[
@@ -25,16 +31,20 @@ export function PillarCard({
           borderClassName,
         ].join(" ")}
       >
-        {/* Image */}
-        <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden">
-          <Image
-            src={imageSrc}
-            alt={imageAlt}
-            fill
-            className="object-contain"
-            sizes="(max-width: 768px) 90vw, 360px"
-            priority={false}
-          />
+        {/* Icon or Image */}
+        <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden flex items-center justify-center">
+          {icon ? (
+            <span className="flex items-center justify-center w-full h-full">{icon}</span>
+          ) : imageSrc ? (
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 90vw, 360px"
+              priority={false}
+            />
+          ) : null}
         </div>
 
         {/* Title */}
