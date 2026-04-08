@@ -2,6 +2,7 @@
 
 import Navbar from "@/app/ui/shared/navbar/navbar";
 import Footer from "@/app/ui/shared/foooter/footer";
+import { BreadcrumbBar } from "@/app/ui/shared/breadcrumbs/BreadcrumbBar";
 
 export default function PublicLayout({
   children,
@@ -11,6 +12,7 @@ export default function PublicLayout({
   return (
     <>
       <Navbar />
+      <BreadcrumbBar />
       {children}
       <Footer />
     </>
