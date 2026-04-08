@@ -19,7 +19,7 @@ const navLinks = [
       { name: '3rd - 5th Grade', href: '/grade/6-8' },
     ],
   },
-  { name: 'Catholic Faith', href: '/catholic', icon: Church },
+  { name: 'Catholic Faith', href: '/catholic-faith', icon: Church },
   { name: 'Resources', href: '/resources', icon: Folder },
   { name: 'Contact', href: '/contact', icon: Mail },
 ];

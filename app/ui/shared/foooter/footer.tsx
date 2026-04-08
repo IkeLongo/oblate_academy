@@ -42,7 +42,7 @@ export default function Footer() {
     {
       title: 'Learning',
       links: [
-        { name: 'CATHOLIC FAITH', href: '/catholic' },
+        { name: 'CATHOLIC FAITH', href: '/catholic-faith' },
         { name: 'RESOURCES', href: '/resources' },
         { name: 'CONTACT', href: '/contact' },
       ],

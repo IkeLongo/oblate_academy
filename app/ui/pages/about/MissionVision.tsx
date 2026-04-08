@@ -11,7 +11,7 @@ type MissionCardProps = {
 
 function MissionCard({ label, heading, body, accentColor }: MissionCardProps) {
   return (
-    <div className="bg-gray-100 rounded-3xl p-8 flex flex-col gap-4">
+    <div className="bg-gray-100 rounded-3xl p-0 md:p-8 flex flex-col gap-4">
       {/* <div className={`${accentColor} w-12 h-12 flex items-center justify-center`}>
         {icon}
       </div> */}
@@ -41,7 +41,7 @@ export default function MissionVision() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-8">
           <MissionCard
             // icon={<Target size={48} strokeWidth={1.5} />}
             label="Our Mission"
