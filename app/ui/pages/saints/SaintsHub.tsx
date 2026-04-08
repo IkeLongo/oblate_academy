@@ -18,8 +18,8 @@ const GRADE_LABEL: Record<GradeKey, string> = {
 
 export function SaintsHub({ grade, gradeHref, cards }: SaintsHubProps) {
   return (
-    <div className="base bg-gradient-to-b from-yellow-200 via-gray-100 to-yellow-200 mx-auto px-6 py-20 md:py-16">
-      <div className="max-w-6xl mx-auto pt-16 md:pt-0">
+    <div className="base bg-gradient-to-b from-yellow-200 via-gray-100 to-yellow-200 mx-auto px-6 py-20 navdesk:py-16">
+      <div className="max-w-6xl mx-auto pt-16 navdesk:pt-0">
 
         {/* Header row */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10">

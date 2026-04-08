@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Button from "@mui/material/Button";
+import Link from "next/link";
 import FaithAndFunClient from "./client/FaithAndFunClient";
 
 export default function FaithAndFun() {
@@ -64,6 +65,8 @@ export default function FaithAndFun() {
             </p>
 
             <Button
+              component={Link}
+              href="/catholic-faith"
               variant="contained"
               startIcon={
                 <Image

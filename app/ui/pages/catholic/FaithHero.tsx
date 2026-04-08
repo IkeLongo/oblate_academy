@@ -4,7 +4,7 @@ import { FaithHeroClient } from "./client/FaithHeroClient";
 export default function FaithHero() {
   return (
     <section className="hero relative w-full bg-gradient-to-b from-blue-400 to-blue-500 overflow-hidden min-h-[55vh] flex items-center">
-      <div className="relative mx-auto max-w-6xl px-6 py-24 pt-36 md:py-32 md:pt-32 flex flex-col items-center text-center w-full">
+      <div className="relative mx-auto max-w-6xl px-6 py-24 pt-36 navdesk:py-32 navdesk:pt-32 flex flex-col items-center text-center w-full">
         <FaithHeroClient
           heading="The Heart of Everything We Do"
           subheading="At Oblate Academy, every resource flows from the Catholic faith — rooted in Christ, shaped by the saints, and formed through virtue."

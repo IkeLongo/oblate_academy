@@ -26,8 +26,8 @@ export function VirtueMain({ grade, gradeHref, slug, data }: VirtueMainProps) {
     : "";
 
   return (
-    <div className="base bg-gradient-to-b from-blue-100 via-gray-100 to-blue-100 mx-auto px-6 py-20 md:pt-10">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-8 max-w-6xl mx-auto pt-16 md:pt-0">
+    <div className="base bg-gradient-to-b from-blue-100 via-gray-100 to-blue-100 mx-auto px-6 py-20 navdesk:pt-10">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-8 max-w-6xl mx-auto pt-16 navdesk:pt-0">
         <Link
           href={`/grade/${gradeHref}/virtues`}
           className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400"

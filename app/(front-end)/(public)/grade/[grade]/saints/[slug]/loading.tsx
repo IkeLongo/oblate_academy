@@ -1,7 +1,7 @@
 export default function LoadingSaint() {
   return (
-    <div className="base bg-gradient-to-b from-yellow-200 via-gray-100 to-yellow-200 mx-auto px-6 py-20 md:pt-10">
-      <div className="max-w-6xl mx-auto pt-16 md:pt-0">
+    <div className="base bg-gradient-to-b from-yellow-200 via-gray-100 to-yellow-200 mx-auto px-6 py-20 navdesk:pt-10">
+      <div className="max-w-6xl mx-auto pt-16 navdesk:pt-0">
         <div className="h-6 w-32 rounded bg-white/50 animate-pulse" />
       </div>
 

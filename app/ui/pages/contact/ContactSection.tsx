@@ -51,7 +51,7 @@ export function ContactSectionWithShader({
 
   return (
     <div className="w-full bg-gray-50">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 pt-20 py-10 md:px-8 lg:grid-cols-2 lg:py-20">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-4 pt-28 navdesk:pt-10 py-10 md:px-8 lg:grid-cols-2 lg:py-20">
         {/* Left - Shader with Testimonials */}
         <div className="relative order-last h-[500px] overflow-hidden rounded-3xl md:order-first lg:h-auto">
           <ShaderBackground colors={colors} />

@@ -66,10 +66,10 @@ export function FeaturedResourceKitMain({ data }: Props) {
 
   return (
     <div
-      className="base mx-auto px-6 py-20 md:pt-10"
+      className="base mx-auto px-6 py-20 navdesk:pt-10"
       style={{ background: `linear-gradient(to bottom, ${palette.pageBg}, #f9fafb, ${palette.pageBg})` }}
     >
-      <div className="mx-auto max-w-5xl pt-16 md:pt-0">
+      <div className="mx-auto max-w-5xl pt-16 navdesk:pt-0">
 
         {/* BACK LINK */}
         <div className="mb-8">

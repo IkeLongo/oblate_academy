@@ -22,7 +22,7 @@ export default function Navbar() {
       <div className="z-60">
         <MobileMenu />
         <div className="flex items-center justify-center">
-          <div className='hidden md:w-full md:flex md:flex-col md:justify-center md:gap-[10px]'>
+          <div className='hidden navdesk:w-full navdesk:flex navdesk:flex-col navdesk:justify-center navdesk:gap-[10px]'>
             <div className='flex py-[13px] px-[20px] justify-between items-center self-stretch'>
               <div>
                 <Link href="/" onClick={handleLogoClick}>

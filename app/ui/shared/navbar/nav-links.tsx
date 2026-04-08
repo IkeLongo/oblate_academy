@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import Link from 'next/link';
-import { GraduationCap, Church, Folder, Mail } from 'lucide-react';
+import { GraduationCap, Church, Folder, Info, Mail } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import Submenu from './submenu';
@@ -20,6 +20,7 @@ const navLinks = [
     ],
   },
   { name: 'Catholic Faith', href: '/catholic-faith', icon: Church },
+  { name: 'About', href: '/about', icon: Info },
   { name: 'Resources', href: '/resources', icon: Folder },
   { name: 'Contact', href: '/contact', icon: Mail },
 ];
@@ -76,7 +77,7 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
                 "flex items-center gap-2 group transition",
                 isMobile
                   ? "w-full h-[40px] font-poppins justify-start px-2 py-2 border-b border-gray-200"
-                  : "h-[40px] grow font-poppins justify-start md:justify-center md:flex-none md:justify-start md:p-2 md:px-3"
+                  : "h-[40px] grow font-poppins justify-start navdesk:justify-center navdesk:flex-none navdesk:justify-start navdesk:p-2 navdesk:px-3"
               )}
             >
               <Icon

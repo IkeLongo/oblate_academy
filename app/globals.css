@@ -113,6 +113,7 @@
   /* Breakpoints */
   --breakpoint-2xs: 450px;
   --breakpoint-xs: 550px;
+  --breakpoint-navdesk: 1100px;
 }
 
 @theme inline {

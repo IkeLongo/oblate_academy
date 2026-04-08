@@ -7,7 +7,7 @@ import { AutoplayMuxVideo } from "@/app/ui/components/videos/AutoPlayMux";
 
 export default function OblateAcademyHero() {
   return (
-    <section className="hero w-full bg-blue-200 min-h-screen pt-20 md:pt-0 pb-10 lg:pb-0">
+    <section className="hero w-full bg-blue-200 min-h-screen pt-20 navdesk:pt-0 pb-10 lg:pb-0">
       <div className="mx-auto max-w-6xl px-6 py-14 text-center">
         <h1
           className="leading-tight sm:text-6xl font-extrabold text-blue-400"

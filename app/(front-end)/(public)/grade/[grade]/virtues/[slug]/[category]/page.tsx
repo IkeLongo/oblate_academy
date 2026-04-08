@@ -82,7 +82,7 @@ export default async function VirtueCategoryPage({
   const pageTitle = `${categoryTitle} — ${data?.name ?? ""}`;
 
   return (
-    <div className="base min-h-screen relative pt-28 md:pt-16 pb-16">
+    <div className="base min-h-screen relative pt-28 navdesk:pt-16 pb-16">
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center"

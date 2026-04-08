@@ -114,7 +114,7 @@ export default async function ResourceTypePage({
     titleFromSlug(resourceType);
 
   return (
-    <div className="base bg-linear-to-br from-[#EFF6FF] to-[#F0FDF4] mx-auto py-20 md:pt-10">
+    <div className="base bg-linear-to-br from-[#EFF6FF] to-[#F0FDF4] mx-auto py-20 navdesk:pt-10">
       <section className="mx-auto max-w-6xl px-6 py-12">
         {/* BACK LINK */}
         <div className="mb-8">
