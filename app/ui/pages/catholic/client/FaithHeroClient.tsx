@@ -15,10 +15,10 @@ export function FaithHeroClient({ heading, subheading }: FaithHeroClientProps) {
       <GiggleIcon
         src="/chalice.svg"
         alt=""
-        width={50}
+        width={35}
         height={80}
         styleClass="absolute left-0 -top-8 pointer-events-none select-none"
-        className="opacity-40 w-[44px] h-[44px] md:w-[40px] md:h-[70px] rotate-12"
+        className="opacity-40 w-[44px] h-[44px] md:w-[35px] md:h-[70px] rotate-12"
         delay={0.5}
       />
       <GiggleIcon
