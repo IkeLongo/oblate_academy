@@ -129,6 +129,17 @@ export default function Footer() {
                     )
                   )}
             </div>
+            {/* Donate button directly below About Oblate Academy */}
+            {col.title === 'About Oblate Academy' && (
+              <div className="flex justify-start mt-6">
+                <Link
+                  href="/donate"
+                  className="inline-flex items-center justify-center rounded-full bg-yellow-400 px-6 py-2 font-poppins font-semibold text-base text-yellow-900 shadow hover:bg-yellow-300 transition-colors"
+                >
+                  Donate
+                </Link>
+              </div>
+            )}
           </div>
         ))}
       </div>
