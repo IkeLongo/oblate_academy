@@ -8,7 +8,6 @@ type FaithPillar = {
   label: string;
   heading: string;
   body: string;
-  href?: string;
 };
 
 const PILLARS: FaithPillar[] = [
@@ -17,28 +16,24 @@ const PILLARS: FaithPillar[] = [
     label: "Pillar 1 of 5",
     heading: "Jesus Christ",
     body: "Every resource flows from a personal relationship with Jesus. We don't just teach about Christ — we invite children to encounter Him through story, prayer, and the witness of the saints who loved Him.",
-    href: "/resources",
   },
   {
     icon: <BookOpen size={48} strokeWidth={1.5} />,
     label: "Pillar 2 of 5",
     heading: "Sacred Scripture",
     body: "The Word of God is living and active. Our lessons are woven with Scripture, helping children develop an early and lasting love for the Bible as God's own word spoken directly to them.",
-    href: "/resources",
   },
   {
     icon: <IconShieldCheck size={48} stroke={1.5} />,
     label: "Pillar 3 of 5",
     heading: "Virtue",
     body: "Virtue is the foundation of a well-formed conscience. Through age-appropriate activities and the stories of holy men and women, we help children cultivate the virtues they need to live a life of freedom and love.",
-    href: "/resources",
   },
   {
     icon: <Star size={48} strokeWidth={1.5} />,
     label: "Pillar 4 of 5",
     heading: "The Saints",
     body: "The saints are friends and models — real people who chose God with everything they had. Their stories spark imagination, inspire heroism, and show children that holiness is possible for everyone.",
-    href: "/resources",
   },
   {
     icon: <Home size={48} strokeWidth={1.5} />,
@@ -53,7 +48,6 @@ function FaithPillarRow({
   label,
   heading,
   body,
-  href,
   reverse = false,
 }: FaithPillar & { reverse?: boolean }) {
   return (
@@ -74,14 +68,6 @@ function FaithPillarRow({
         <p className="mt-3 font-inria text-base leading-relaxed text-black/70 mx-auto lg:mx-0">
           {body}
         </p>
-        {href && (
-          <Link
-            href={href}
-            className="mt-4 inline-flex items-center gap-1 font-poppins font-semibold text-sm text-blue-300 hover:text-blue-400 underline underline-offset-2"
-          >
-            Explore resources →
-          </Link>
-        )}
       </div>
     </div>
   );
@@ -89,8 +75,8 @@ function FaithPillarRow({
 
 export default function FaithPillars() {
   return (
-    <section>
-      <div className="text-center pt-16 px-6 bg-gray-100">
+    <section className="w-full bg-gray-100 py-24">
+      <div className="text-center px-6">
         <p className="text-xs font-poppins font-bold uppercase tracking-widest text-blue-300">
           Five Pillars
         </p>
@@ -108,6 +94,15 @@ export default function FaithPillars() {
           <FaithPillarRow {...pillar} reverse={i % 2 !== 0} />
         </div>
       ))}
+
+      <div className="flex justify-center mt-10">
+        <Link
+          href="/resources"
+          className="inline-flex items-center gap-1 font-poppins font-semibold text-sm rounded-full bg-blue-100 text-blue-500 px-6 py-2 shadow-sm hover:bg-blue-200 hover:text-blue-600 transition-colors cursor-pointer"
+        >
+          Explore resources →
+        </Link>
+      </div>
     </section>
   );
 }
