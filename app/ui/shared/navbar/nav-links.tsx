@@ -38,7 +38,6 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
   return (
     <>
       {navLinks.map((link) => {
-        const isGradeLevels = link.name === "Grade Levels";
         const hasSubmenu = !!link.submenu;
         const isOpen = openSubmenu === link.name;
         const Icon = link.icon;
@@ -73,6 +72,8 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
             <Link
               href={link.href}
               onClick={handleClick}
+              aria-haspopup={hasSubmenu ? "true" : undefined}
+              aria-expanded={hasSubmenu ? isOpen : undefined}
               className={clsx(
                 "flex items-center gap-2 group transition",
                 isMobile
@@ -96,7 +97,7 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
               >
                 {link.name}
               </span>
-              {isGradeLevels && (
+              {hasSubmenu && (
                 <svg
                   className={`w-4 h-4 text-neutral-700 transition-transform duration-300 ${isOpen ? '-rotate-180' : 'rotate-0'}`}
                   fill="none"

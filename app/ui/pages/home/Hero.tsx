@@ -103,7 +103,7 @@ export default function OblateAcademyHero() {
               },
             }}
           >
-            START YOU FAITH JOURNEY TODAY
+            Support our Mission
           </Button>
         </div>
       </div>
