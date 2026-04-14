@@ -3,7 +3,10 @@
 
 import Link from 'next/link';
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 import { Mail, Phone, Facebook, Instagram } from "lucide-react";
+import { setSelectedGrade } from '@/app/lib/gradeSelection';
+import type { GradeKey } from '@/app/types';
 // Official X (Twitter) SVG icon
 const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width={props.width || 20} height={props.height || 20} {...props}>
@@ -20,6 +23,13 @@ function getCurrentYear() {
 }
 
 export default function Footer() {
+  const router = useRouter();
+
+  function handleGradeLink(grade: GradeKey) {
+    setSelectedGrade(grade);
+    router.push('/#grade-content');
+  }
+
   const columns = [
     {
       title: 'About Oblate Academy',
@@ -35,8 +45,8 @@ export default function Footer() {
       title: 'Quick Links',
       links: [
         { name: 'HOME', href: '/' },
-        { name: 'K - 2nd GRADE', href: '/k-2nd-grade' },
-        { name: '3 - 5th GRADE', href: '/3-5th-grade' },
+        { name: 'K - 2nd GRADE', href: '#', grade: 'gk_2' as GradeKey },
+        { name: '3 - 5th GRADE', href: '#', grade: 'g3_5' as GradeKey },
       ],
     },
     {
@@ -103,11 +113,21 @@ export default function Footer() {
                       </Link>
                     );
                   })
-                : col.links.map((link) => (
-                    <Link key={link.name} href={link.href} className="font-inria text-md text-gray-100">
-                      {link.name}
-                    </Link>
-                  ))}
+                : col.links.map((link) =>
+                    'grade' in link ? (
+                      <button
+                        key={link.name}
+                        onClick={() => handleGradeLink(link.grade as GradeKey)}
+                        className="font-inria text-md text-gray-100 text-left cursor-pointer"
+                      >
+                        {link.name}
+                      </button>
+                    ) : (
+                      <Link key={link.name} href={link.href} className="font-inria text-md text-gray-100">
+                        {link.name}
+                      </Link>
+                    )
+                  )}
             </div>
           </div>
         ))}
