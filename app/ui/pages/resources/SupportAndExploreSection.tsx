@@ -1,6 +1,18 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { setSelectedGrade } from "@/app/lib/gradeSelection";
+import type { GradeKey } from "@/app/types";
 
 export function SupportAndExploreSection() {
+  const router = useRouter();
+
+  function handleGradeLink(grade: GradeKey) {
+    setSelectedGrade(grade);
+    router.push("/#grade-content");
+  }
+
   return (
     <section className="w-full bg-[#edf2f1] py-16">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-4 sm:px-6 lg:px-8">
@@ -18,20 +30,23 @@ export function SupportAndExploreSection() {
               Contact our support team for personalized assistance.
             </p>
 
-            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
+            <div className="mt-6 flex flex-col items-start justify-center gap-3 sm:flex-row">
+              <Link
                 href="/contact"
                 className="inline-flex min-w-[150px] items-center justify-center rounded-full bg-blue-600 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700"
               >
                 Contact Support
               </Link>
 
-              <Link
-                href="#"
-                className="inline-flex min-w-[170px] items-center justify-center rounded-full border border-blue-500 bg-white px-6 py-2.5 text-sm font-medium text-blue-600 transition hover:bg-blue-50"
-              >
-                Join Community Forum
-              </Link>
+              <div className="relative inline-flex flex-col items-center gap-1">
+                <button
+                  disabled
+                  className="inline-flex min-w-[170px] cursor-not-allowed items-center justify-center rounded-full border border-blue-200 bg-white px-6 py-2.5 text-sm font-medium text-blue-300"
+                >
+                  Join Community Forum
+                </button>
+                <span className="text-xs text-slate-400">Coming soon</span>
+              </div>
             </div>
           </div>
         </div>
@@ -43,19 +58,19 @@ export function SupportAndExploreSection() {
           </h3>
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="#"
-              className="inline-flex items-center justify-center rounded-full bg-red-500 px-5 py-2 text-sm font-medium text-white transition hover:opacity-90"
+            <button
+              onClick={() => handleGradeLink("gk_2")}
+              className="inline-flex items-center justify-center rounded-full bg-red-500 px-5 py-2 text-sm font-medium text-white transition hover:opacity-90 hover:cursor-pointer"
             >
-              K-2 Activities
-            </Link>
+              Kinder &ndash; 2nd Grade
+            </button>
 
-            <Link
-              href="#"
-              className="inline-flex items-center justify-center rounded-full bg-green-500 px-5 py-2 text-sm font-medium text-white transition hover:opacity-90"
+            <button
+              onClick={() => handleGradeLink("g3_5")}
+              className="inline-flex items-center justify-center rounded-full bg-green-500 px-5 py-2 text-sm font-medium text-white transition hover:opacity-90 hover:cursor-pointer"
             >
-              3-5 Challenges
-            </Link>
+              3rd &ndash; 5th Grade
+            </button>
 
             <Link
               href="/catholic-faith"
