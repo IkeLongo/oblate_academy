@@ -78,7 +78,7 @@ export default function Footer() {
                       return (
                         <Link key={link.name} href={link.href} className="flex items-center gap-2 font-inria text-md text-gray-100">
                           <Phone size={18} />
-                          210-730-6232
+                          {BUSINESS_PHONE}
                         </Link>
                       );
                     }

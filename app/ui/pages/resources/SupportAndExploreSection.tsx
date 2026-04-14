@@ -20,7 +20,7 @@ export function SupportAndExploreSection() {
 
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
-                href="#"
+                href="/contact"
                 className="inline-flex min-w-[150px] items-center justify-center rounded-full bg-blue-600 px-6 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700"
               >
                 Contact Support
@@ -58,7 +58,7 @@ export function SupportAndExploreSection() {
             </Link>
 
             <Link
-              href="#"
+              href="/catholic-faith"
               className="inline-flex items-center justify-center rounded-full bg-purple-500 px-5 py-2 text-sm font-medium text-white transition hover:opacity-90"
             >
               Catholic Faith
