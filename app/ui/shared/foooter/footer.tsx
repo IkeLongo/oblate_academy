@@ -7,13 +7,15 @@ import { useRouter } from 'next/navigation';
 import { Mail, Phone, Facebook, Instagram } from "lucide-react";
 import { setSelectedGrade } from '@/app/lib/gradeSelection';
 import type { GradeKey } from '@/app/types';
+import { useNewsletter } from '../newsletter/useNewsletter';
+import FooterNewsletterSignup from '../newsletter/NewsletterInput';
+import NewsletterSignupModal from '../newsletter/NewsletterModal';
 // Official X (Twitter) SVG icon
 const XIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width={props.width || 20} height={props.height || 20} {...props}>
     <path d="M17.53 3H21.5L14.5 10.71L22.75 21H16.19L11.13 14.62L5.5 21H1.5L8.84 12.82L1 3H7.69L12.29 9.73L17.53 3ZM16.37 19H18.23L7.7 5H5.73L16.37 19Z" fill="currentColor"/>
   </svg>
 );
-import ScrollToTopButton from './scroll-to-top';
 
 const BUSINESS_EMAIL = process.env.NEXT_PUBLIC_BUSINESS_EMAIL ?? "support@mail.oblateacademy.com";
 const BUSINESS_PHONE = process.env.NEXT_PUBLIC_BUSINESS_PHONE ?? "210-313-4393";
@@ -24,6 +26,12 @@ function getCurrentYear() {
 
 export default function Footer() {
   const router = useRouter();
+  const {
+    email, modalOpen, isLoading, isSuccess,
+    apiError, inputKey,
+    handleStartSignup, handleModalOpenChange,
+    handleModalSubmit, handleReset,
+  } = useNewsletter();
 
   function handleGradeLink(grade: GradeKey) {
     setSelectedGrade(grade);
@@ -131,13 +139,19 @@ export default function Footer() {
             </div>
             {/* Donate button directly below About Oblate Academy */}
             {col.title === 'About Oblate Academy' && (
-              <div className="flex justify-start mt-6">
+              <div className="flex flex-col justify-start gap-6 mt-6">
                 <Link
                   href="/donate"
-                  className="inline-flex items-center justify-center rounded-full bg-yellow-400 px-6 py-2 font-poppins font-semibold text-base text-yellow-900 shadow hover:bg-yellow-300 transition-colors"
+                  className="inline-flex items-center justify-center rounded-full max-w-40 bg-yellow-400 px-6 py-2 font-poppins font-semibold text-base text-yellow-900 shadow hover:bg-yellow-300 transition-colors"
                 >
                   Donate
                 </Link>
+                <FooterNewsletterSignup
+                  key={inputKey}                    // ← remounts + clears on reset
+                  onStartSignup={handleStartSignup}
+                  isSuccess={isSuccess}
+                  onReset={handleReset}
+                />
               </div>
             )}
           </div>
@@ -158,6 +172,16 @@ export default function Footer() {
       {/* <div className="flex justify-center mt-4">
         <ScrollToTopButton />
       </div> */}
+      <NewsletterSignupModal
+        open={modalOpen}
+        onOpenChange={handleModalOpenChange}
+        initialEmail={email}
+        onSubmit={handleModalSubmit}
+        isLoading={isLoading}
+        isSuccess={isSuccess}
+        apiError={apiError}
+      />
     </footer>
+    
   );
 }
