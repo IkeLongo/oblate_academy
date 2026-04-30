@@ -133,8 +133,8 @@ export default function TermsContent({
 
       <p>
         If you are experiencing issues with the messaging program, you can reply with the keyword
-        <strong>HELP</strong> for more assistance, or you can contact us directly at
-        <strong><BusinessEmailLink /></strong>.
+        <strong> HELP</strong> for more assistance, or you can contact us directly at
+        <strong> <BusinessEmailLink /></strong>.
       </p>
 
       <p>
@@ -157,7 +157,7 @@ export default function TermsContent({
 
       <p>
         For more information on how your data is handled, please review our Privacy Policy:
-        <a href="/privacy-policy">Privacy Policy</a>.
+        <a href="/privacy-policy"> Privacy Policy</a>.
       </p>
 
       <h2 id="disclaimer-of-warranties">Disclaimer of Warranties</h2>
