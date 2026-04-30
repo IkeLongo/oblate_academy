@@ -8,13 +8,11 @@ import {
 } from "../components/LegalTokens";
 
 type TermsContentProps = {
-  lastUpdated?: string;
   siteUrl?: string;
   businessLocation?: string;
 };
 
 export default function TermsContent({
-  lastUpdated = process.env.NEXT_PUBLIC_TERMS_LAST_UPDATED,
   // TODO: Confirm the correct production URL for Oblate Academy.
   siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://oblateacademy.com",
   businessLocation =
@@ -128,7 +126,7 @@ export default function TermsContent({
 
       <p>
         You can cancel the SMS service at any time. Just text <strong>STOP</strong> to <strong><BusinessPhone /></strong>.
-        After you send the SMS message "STOP" to us, we will send you a confirmation SMS to confirm that you
+        After you send the SMS message &ldquo;STOP&rdquo; to us, we will send you a confirmation SMS to confirm that you
         have been unsubscribed. After this, you will no longer receive SMS messages from us.
         If you want to join again, simply opt in again through our website forms.
       </p>
