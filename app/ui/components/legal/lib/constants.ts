@@ -1,8 +1,8 @@
 export const LEGAL = {
-  companyLegalName: process.env.NEXT_PUBLIC_LEGAL_COMPANY_NAME ?? "To-do List, Inc.",
+  companyLegalName: process.env.NEXT_PUBLIC_LEGAL_COMPANY_NAME ?? "Oblate Academy",
   dbaName: process.env.NEXT_PUBLIC_DBA_NAME ?? "Oblate Academy",
   businessEmail: process.env.NEXT_PUBLIC_BUSINESS_EMAIL ?? "support@mail.oblateacademy.com",
-  phone: process.env.NEXT_PUBLIC_BUSINESS_PHONE ?? "210-313-4396",
+  phone: process.env.NEXT_PUBLIC_BUSINESS_PHONE ?? "210-111-1111",
 
   address: {
     line1: process.env.NEXT_PUBLIC_BUSINESS_ADDRESS_LINE1 ?? "323 Oblate Dr.",

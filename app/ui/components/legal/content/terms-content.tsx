@@ -117,32 +117,49 @@ export default function TermsContent({
 
       {/* LEGAL REVIEW: Confirm SMS usage details and the legal entity name for Oblate Academy before publishing. */}
       <h2 id="sms-terms">SMS Terms &amp; Conditions</h2>
+
       <p>
-        By opting in to receive SMS messages from Oblate Academy, you agree to receive
-        conversational and transactional text messages related to your inquiry, including
-        follow-ups, requested information, reminders, and similar communications.
+        <strong><DBAName /></strong> (operated by <strong><LegalCompanyName /></strong>) is a Catholic educational nonprofit
+        dedicated to providing faith-based learning resources, programs, and support for children and families.
+        By opting in to receive SMS messages from us, you agree to receive conversational and informational
+        messages related to your inquiry or participation, including program updates, event reminders,
+        enrollment information, volunteer opportunities, and general communications related to our mission.
       </p>
+
       <p>
-        You opt in by submitting a contact or inquiry form on our website and checking the
-        consent checkbox to receive text messages.
+        You can cancel the SMS service at any time. Just text <strong>STOP</strong> to <strong><BusinessPhone /></strong>.
+        After you send the SMS message "STOP" to us, we will send you a confirmation SMS to confirm that you
+        have been unsubscribed. After this, you will no longer receive SMS messages from us.
+        If you want to join again, simply opt in again through our website forms.
       </p>
+
       <p>
-        To stop receiving messages, reply <strong>STOP</strong> to any text message.
+        If you are experiencing issues with the messaging program, you can reply with the keyword
+        <strong>HELP</strong> for more assistance, or you can contact us directly at
+        <strong><BusinessEmailLink /></strong>.
       </p>
+
       <p>
-        For assistance, reply <strong>HELP</strong> or contact us directly through our website.
+        Message frequency may vary depending on your interaction with us, including program participation,
+        events, and educational updates.
       </p>
+
       <p>
-        Message frequency may vary depending on your interaction with us.
+        As always, message and data rates may apply for any messages sent to you from us and to us from you.
+        If you have any questions about your text plan or data plan, it is best to contact your wireless provider.
       </p>
-      <p>
-        Message and data rates may apply. Check with your carrier for details.
-      </p>
+
       <p>
         Carriers are not liable for delayed or undelivered messages.
       </p>
+
       <p>
-        You must be 18 years of age or older to directly use this SMS service.
+        You must be 18 years of age or older to use this SMS service.
+      </p>
+
+      <p>
+        For more information on how your data is handled, please review our Privacy Policy:
+        <a href="/privacy-policy">Privacy Policy</a>.
       </p>
 
       <h2 id="disclaimer-of-warranties">Disclaimer of Warranties</h2>

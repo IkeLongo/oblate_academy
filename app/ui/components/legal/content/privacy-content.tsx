@@ -2,7 +2,9 @@ import React from "react";
 import {
   BusinessAddressBlock,
   BusinessEmailLink,
-  BusinessPhone
+  BusinessPhone,
+  DBAName,
+  LegalCompanyName,
 } from "../components/LegalTokens";
 import CookiePreferencesLink from "../../cookies/components/CookiePreferencesLink";
 
@@ -11,7 +13,7 @@ export default function PrivacyContent() {
     <>
       <h2 id="privacy-notice">Privacy Notice</h2>
       <p>
-        This Privacy Policy explains how Oblate Academy collects, uses, and protects information when you visit
+        This Privacy Policy explains how <strong><DBAName /></strong> (operated by <strong><LegalCompanyName /></strong>) collects, uses, and protects information when you visit
         our website, contact us, sign up for updates, or make a donation. We are committed to handling your
         information with care and respect. If you do not agree with this policy, please do not use our site.
       </p>
@@ -45,7 +47,7 @@ export default function PrivacyContent() {
       {/* LEGAL REVIEW: Confirm which payment processor(s) Oblate Academy uses for donations before publishing. */}
       <p>
         <strong>Donations.</strong> If you make a donation through our website, payment processing is handled by a
-        trusted third-party payment processor (such as Stripe). Oblate Academy does not store full payment card
+        trusted third-party payment processor (such as Stripe). <DBAName /> does not store full payment card
         details on our own servers. You can review Stripe&#39;s privacy policy at{" "}
         <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">
           https://stripe.com/privacy
@@ -130,15 +132,16 @@ export default function PrivacyContent() {
 
       {/* LEGAL REVIEW: Confirm Oblate Academy's SMS program details, including the legal entity name that should appear here, before publishing. */}
       <h2 id="sms-communications">SMS Communications</h2>
+
       <p>
-        If you choose to opt in to receive SMS messages from Oblate Academy, you may receive conversational or
-        transactional text messages related to your inquiry, requested information, follow-up communications,
-        reminders, or similar outreach.
+        If you choose to opt in to receive SMS messages from <strong><DBAName /></strong> (operated by <strong><LegalCompanyName /></strong>),
+        you may receive conversational and transactional messages related to your inquiry, including follow-ups,
+        appointment confirmations, reminders, and scheduling coordination.
       </p>
 
       <p>
-        You opt in to receive SMS messages by submitting a contact or inquiry form on our website and checking
-        the consent checkbox to receive text messages.
+        You opt in to receive SMS messages by submitting a contact form on our website and explicitly checking the consent
+        checkbox to receive SMS communications.
       </p>
 
       <p>
@@ -151,9 +154,20 @@ export default function PrivacyContent() {
       </p>
 
       <p>
-        No mobile information will be shared with third parties or affiliates for marketing or promotional purposes.
-        Sharing with service providers that support our operations (such as messaging platforms or customer support
-        providers) is permitted.
+        We do not sell, rent, or share your personal information, including your mobile number, with third parties
+        or affiliates for marketing or promotional purposes.
+      </p>
+
+      <p>
+        No mobile information will be shared with third parties or affiliates for marketing/promotional purposes.
+        Information sharing to subcontractors in support services, such as customer service, is permitted.
+        All other use case categories exclude text messaging originator opt-in data and consent; this information
+        will not be shared with any third parties.
+      </p>
+
+      <p>
+        Text messaging originator opt-in data and consent will not be shared with any third parties, except for
+        aggregators and providers of the Text Message services necessary to deliver the SMS functionality.
       </p>
 
       <hr />
