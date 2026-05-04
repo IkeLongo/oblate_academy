@@ -28,7 +28,7 @@ export default function Navbar() {
         </div>
 
         {/* Center: Nav links */}
-        <nav aria-label="Main navigation" className="flex items-center">
+        <nav aria-label="Main navigation" className="flex items-center gap-3">
           <NavLinks onClick={() => {}} />
         </nav>
 

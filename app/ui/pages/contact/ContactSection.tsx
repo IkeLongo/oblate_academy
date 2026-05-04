@@ -12,6 +12,8 @@ export function ContactSectionWithShader({
 }: ContactSectionProps) {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [consentNonMarketing, setConsentNonMarketing] = useState(false);
+  const [consentMarketing, setConsentMarketing] = useState(false);
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
@@ -33,11 +35,20 @@ export function ContactSectionWithShader({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, phone, message }),
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          message,
+          smsConsentNonMarketing: consentNonMarketing,
+          smsConsentMarketing: consentMarketing,
+        }),
       });
       const data = await res.json();
       if (res.ok) {
         form.reset();
+        setConsentNonMarketing(false);
+        setConsentMarketing(false);
         setSuccessMessage('Thank you for reaching out! We have received your message and will be in touch soon.');
       } else {
         setSuccessMessage('Sorry, there was a problem submitting your message. Please try again.');
@@ -142,6 +153,42 @@ export function ContactSectionWithShader({
                   />
                 </div>
 
+                <div className="flex items-start w-full pt-4">
+                  <input
+                    id="sms-consent-non-marketing"
+                    type="checkbox"
+                    checked={consentNonMarketing}
+                    onChange={(e) => setConsentNonMarketing(e.target.checked)}
+                    className="mt-1 mr-2 accent-blue-500"
+                  />
+                  <label htmlFor="sms-consent-non-marketing" className="text-sm text-gray-700 leading-tight">
+                    I agree to receive SMS messages from <strong>Oblate Academy</strong> related to my inquiry, 
+                    participation, or involvement, including follow-ups, program updates, event reminders, 
+                    and general school communications. Message frequency may vary. Message & data rates may apply. 
+                    Reply <strong>STOP</strong> to opt out or <strong>HELP</strong> for assistance. View our{" "}
+                    <a href="/privacy-policy" className="!text-sm underline">Privacy Policy</a> and{" "}
+                    <a href="/terms" className="!text-sm underline">Terms of Service</a>. 
+                    Consent is not required to submit this form.
+                  </label>
+                </div>
+                <div className="flex items-start w-full">
+                  <input
+                    id="sms-consent-marketing"
+                    type="checkbox"
+                    checked={consentMarketing}
+                    onChange={(e) => setConsentMarketing(e.target.checked)}
+                    className="mt-1 mr-2 accent-blue-500"
+                  />
+                  <label htmlFor="sms-consent-marketing" className="text-sm text-gray-700 leading-tight">
+                    I agree to receive promotional SMS messages from <strong>Oblate Academy</strong>, including 
+                    updates about events, fundraising opportunities, community initiatives, and school announcements. 
+                    Message frequency may vary. Message & data rates may apply. Reply <strong>STOP</strong> to opt out 
+                    or <strong>HELP</strong> for assistance. View our{" "}
+                    <a href="/privacy-policy" className="!text-sm underline">Privacy Policy</a> and{" "}
+                    <a href="/terms" className="!text-sm underline">Terms of Service</a>. 
+                    Consent is not required to submit this form.
+                  </label>
+                </div>
                 <div className="mt-8 flex flex-col gap-2">
                   {successMessage && (
                     <div className="rounded-md bg-green-100 text-green-800 px-4 mb-4 py-2 text-center text-sm font-medium border border-green-200">

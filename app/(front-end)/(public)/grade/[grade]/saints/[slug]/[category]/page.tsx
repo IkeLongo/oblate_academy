@@ -1,6 +1,6 @@
 // app/[grade]/saints/[slug]/[category]/page.tsx
 
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { draftMode } from "next/headers";
@@ -9,12 +9,11 @@ import { saintCategoryPageQuery } from "@/sanity/lib/queries/saintPageQueries";
 import { CategoryTopControls } from "@/app/ui/components/buttons/CategoryTopControls";
 import { urlFor } from "@/sanity/lib/image";
 import { isGradeLink, toGradeKey } from "@/app/types";
+import { PortableText } from "next-sanity";
+import { components } from "@/app/ui/components/texts/PortableTextComponent";
+import { AutoplayMuxVideo } from "@/app/ui/components/videos/AutoPlayMux";
 
 import type { Resource } from "@/app/types/pages";
-
-// (optional) if you render rich text:
-// import { PortableText } from "@portabletext/react";
-// import { PortableTextComponent } from "@/app/ui/components/texts/PortableTextComponent";
 type PageProps = {
   params: Promise<{ grade: string; slug: string; category: string }>;
 };
@@ -78,6 +77,11 @@ export default async function SaintCategoryPage({ params }: PageProps) {
   //   hasBody: !!resource?.body
   // });
 
+  // For link kind, redirect straight to the external URL
+  if (resource?.kind === "link" && resource.url) {
+    redirect(resource.url);
+  }
+
   // In preview, don't hard crash if resource is missing briefly
   if (!resource) {
     if (isDraft) {
@@ -97,12 +101,16 @@ export default async function SaintCategoryPage({ params }: PageProps) {
   const isMissingContent =
     (resource.kind === "pdf" && !resource.pdfUrl) ||
     (resource.kind === "image" && !resource.image) ||
-    ((resource.kind === "link" || resource.kind === "video") && !resource.url) ||
+    (resource.kind === "link" && !resource.url) ||
+    (resource.kind === "video" && !resource.url && !resource.muxPlaybackId) ||
     (resource.kind === "richText" && (!resource.body || resource.body.length === 0));
 
   const chipText = "Worksheets & Activities";
   const categoryTitle = resource.category?.title ?? "Category";
-  const pageTitle = `${categoryTitle} — ${data?.name ?? ""}`;
+  const pageTitle =
+    resource.kind === "richText"
+      ? resource.title ?? categoryTitle
+      : `${categoryTitle} — ${data?.name ?? ""}`;
 
   return (
     <div className="base min-h-screen relative pt-28 navdesk:pt-16 pb-16">
@@ -180,28 +188,40 @@ export default async function SaintCategoryPage({ params }: PageProps) {
                     />
                   )}
 
-                  {/* LINK / VIDEO */}
-                  {(resource.kind === "link" || resource.kind === "video") && resource.url && (
-                    <div className="p-6">
+                  {/* VIDEO — Mux player */}
+                  {resource.kind === "video" && resource.muxPlaybackId && (
+                    <div className="p-4">
+                      <AutoplayMuxVideo
+                        playbackId={resource.muxPlaybackId}
+                        videoId={resource._id}
+                        videoTitle={pageTitle}
+                        autoPlay={false}
+                        muted={false}
+                        loop={false}
+                        disablePointerEvents={false}
+                      />
+                    </div>
+                  )}
+
+                  {/* VIDEO — URL-only fallback */}
+                  {resource.kind === "video" && !resource.muxPlaybackId && resource.url && (
+                    <div className="p-6 flex flex-col items-center gap-3">
                       <a
                         href={resource.url}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="text-blue-600 font-bold underline"
                       >
-                        Open {resource.kind === "video" ? "video" : "link"}
+                        Watch video
                       </a>
                     </div>
                   )}
 
                   {/* RICH TEXT */}
-                  {(resource.kind === "richText" && (!resource.body || (Array.isArray(resource.body) && resource.body.length === 0))) && (
-                    <div className="p-6">
-                      {/* Uncomment if you want to render PortableText */}
-                      {/* <PortableText value={resource.body} components={PortableTextComponent} /> */}
-                      <p className="text-slate-700">
-                        (Render rich text here)
-                      </p>
+                  {resource.kind === "richText" && resource.body && Array.isArray(resource.body) && resource.body.length > 0 && (
+                    <div id="print-section" className="p-6 prose max-w-none">
+                      <h1>{pageTitle}</h1>
+                      <PortableText value={resource.body} components={components} />
                     </div>
                   )}
                 </>

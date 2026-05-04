@@ -69,6 +69,7 @@ export const saintCategoryPageQuery = groq`
     "pdfUrl": pdf.asset->url,
     pdfThumbnail{..., alt},
     url,
+    "muxPlaybackId": muxVideo.asset->playbackId,
     body,
     image{..., alt},
     category->{ title, icon, "slug": slug.current, sortOrder }

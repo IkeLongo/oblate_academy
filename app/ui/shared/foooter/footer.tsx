@@ -165,9 +165,9 @@ export default function Footer() {
         &copy; {getCurrentYear()}  Oblate Academy. All Rights Reserved. Built with love for Catholic education.
       </div>
       <div className="mt-4 flex justify-center gap-6 text-xs text-gray-200">
-        <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
+        <Link href="/privacy" className="hover:underline !text-sm">Privacy Policy</Link>
         <span>|</span>
-        <Link href="/terms" className="hover:underline">Terms &amp; Conditions</Link>
+        <Link href="/terms" className="hover:underline !text-sm">Terms &amp; Conditions</Link>
       </div>
       {/* <div className="flex justify-center mt-4">
         <ScrollToTopButton />

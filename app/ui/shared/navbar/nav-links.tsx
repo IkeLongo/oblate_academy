@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import { GraduationCap, Church, Folder, Info, Mail } from 'lucide-react';
+import { PiCross } from "react-icons/pi";
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import Submenu from './submenu';
@@ -20,7 +21,7 @@ const navLinks = [
     ],
   },
   { name: 'Catholic Faith', href: '/catholic-faith', icon: Church },
-  { name: 'About', href: '/about', icon: Info },
+  { name: 'About', href: '/about', icon: PiCross },
   { name: 'Resources', href: '/resources', icon: Folder },
   { name: 'Contact', href: '/contact', icon: Mail },
 ];
@@ -75,7 +76,7 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
               aria-haspopup={hasSubmenu ? "true" : undefined}
               aria-expanded={hasSubmenu ? isOpen : undefined}
               className={clsx(
-                "flex items-center gap-2 group transition",
+                "flex items-center gap-1 group transition",
                 isMobile
                   ? "w-full h-[40px] font-poppins justify-start px-2 py-2 border-b border-gray-200"
                   : "h-[40px] grow font-poppins justify-start navdesk:justify-center navdesk:flex-none navdesk:justify-start navdesk:p-2 navdesk:px-3"
