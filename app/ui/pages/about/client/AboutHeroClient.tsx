@@ -11,24 +11,13 @@ type AboutHeroClientProps = {
 export function AboutHeroClient({ heading, subheading }: AboutHeroClientProps) {
   return (
     <div className="relative w-full">
-      {/* Decorative corner icons */}
-      <GiggleIcon
-        src="/cross-plus.svg"
-        alt=""
-        width={80}
-        height={80}
-        styleClass="absolute left-0 -top-8 pointer-events-none select-none"
-        className="opacity-40 w-[44px] h-[44px] md:w-[70px] md:h-[70px]"
-        delay={0.5}
-      />
-      <GiggleIcon
-        src="/rosary.svg"
-        alt=""
-        width={80}
-        height={80}
-        styleClass="absolute right-0 -top-8 pointer-events-none select-none"
-        className="opacity-40 w-[44px] h-[44px] md:w-[70px] md:h-[70px] rotate-[18deg]"
-        delay={0.7}
+      {/* Radial gradient overlay behind text */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[260px] w-[90%] max-w-4xl -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.18) 70%, transparent 85%)",
+        }}
       />
 
       {/* Heading */}

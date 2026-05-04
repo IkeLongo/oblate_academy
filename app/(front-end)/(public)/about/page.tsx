@@ -8,6 +8,7 @@ import WhyItMatters from "@/app/ui/pages/about/WhyItMatters";
 import Leadership from "@/app/ui/pages/about/Leadership";
 import ImpactNumbers from "@/app/ui/pages/about/ImpactNumbers";
 import DonateCTA from "@/app/ui/pages/about/DonateCTA";
+import { AboutTeam } from "@/app/ui/pages/about/AboutTeam";
 
 export const metadata: Metadata = {
   title: "About Oblate Academy — Our Mission & Story",
@@ -28,11 +29,12 @@ export default function AboutPage() {
     <div className="overflow-hidden">
       <AboutHero />
       <MissionVision />
-      <OurStory />
+      <AboutTeam />
       <CoreValues />
+      {/* <OurStory /> */}
       <Programs />
       <WhyItMatters />
-      <Leadership />
+      {/* <Leadership /> */}
       <ImpactNumbers />
       <DonateCTA />
     </div>

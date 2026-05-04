@@ -18,7 +18,7 @@ export function PillarCard({
   return (
     <div
       className={[
-        "bg-white rounded-3xl border-[4px] shadow-sm",
+        "rounded-3xl border-[4px] shadow-sm",
         "p-3 flex flex-col justify-start items-start",
         borderClassName,
         className,
@@ -26,7 +26,7 @@ export function PillarCard({
     >
       <div
         className={[
-          "bg-white rounded-2xl border-[3px] shadow-sm flex-1 flex flex-col",
+          "rounded-2xl border-[3px] shadow-sm flex-1 flex flex-col",
           "px-6 pt-6 pb-5",
           borderClassName,
         ].join(" ")}

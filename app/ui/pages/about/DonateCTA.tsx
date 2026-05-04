@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function DonateCTA() {
   return (
-    <section className="base relative bg-gray-100 overflow-hidden">
+    <section className="base relative bg-blue-100 overflow-hidden">
       <div className="relative mx-auto max-w-6xl px-6 py-16 md:py-24">
         {/* Decorative background underline */}
         <div className="absolute left-1/2 bottom-10 w-full -translate-x-1/2 pointer-events-none select-none">
@@ -32,7 +32,7 @@ export default function DonateCTA() {
           {/* TODO: Replace href with the actual donation page URL */}
           <Link
             href="/contact"
-            className="mt-2 inline-flex items-center gap-2 rounded-full bg-blue-300 px-10 py-[0.9rem] text-sm font-extrabold uppercase tracking-wide text-white transition-colors hover:bg-blue-400"
+            className="mt-2 inline-flex items-center gap-2 rounded-full bg-yellow-400 px-10 py-[0.9rem] text-sm font-extrabold uppercase tracking-wide text-yellow-900 transition-colors hover:bg-yellow-300"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >
             Donate to Oblate Academy
