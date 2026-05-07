@@ -27,7 +27,7 @@ export function VirtuesHubClient({ cards }: VirtuesHubClientProps) {
   return (
     <>
       {/* Search input */}
-      <div className="mb-8 max-w-sm">
+      <div className="my-8 mt-4 navdesk:max-w-sm max-w-md">
         <Input
           value={filter}
           onChange={(e) => setFilter(e.target.value)}

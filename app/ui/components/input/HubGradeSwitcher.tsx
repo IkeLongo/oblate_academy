@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { GradeDropdown } from "@/app/ui/pages/home/client/GradeContentDropdown";
 import { toGradeLink } from "@/app/types";
 
@@ -13,11 +13,11 @@ const GRADE_OPTIONS = [
 
 type HubGradeSwitcherProps = {
   grade: GradeKey;
-  basePath: "saints" | "virtues";
 };
 
-export function HubGradeSwitcher({ grade, basePath }: HubGradeSwitcherProps) {
+export function HubGradeSwitcher({ grade }: HubGradeSwitcherProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <GradeDropdown
@@ -25,8 +25,11 @@ export function HubGradeSwitcher({ grade, basePath }: HubGradeSwitcherProps) {
       options={GRADE_OPTIONS}
       compact
       onChange={(nextGrade) => {
-        const gradeLink = toGradeLink(nextGrade);
-        router.push(`/grade/${gradeLink}/${basePath}`, { scroll: false });
+        // pathname is always /grade/{gradeLink}/...
+        // Replace only the grade segment (index 2) and preserve everything else.
+        const segments = pathname.split("/");
+        segments[2] = toGradeLink(nextGrade);
+        router.push(segments.join("/"), { scroll: false });
       }}
     />
   );

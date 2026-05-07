@@ -78,13 +78,13 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
               className={clsx(
                 "flex items-center gap-1 group transition",
                 isMobile
-                  ? "w-full h-[40px] font-poppins justify-start px-2 py-2 border-b border-gray-200"
+                  ? "w-full h-[40px] font-poppins justify-start px-2 py-2 border-b border-blue-400"
                   : "h-[40px] grow font-poppins justify-start navdesk:justify-center navdesk:flex-none navdesk:justify-start navdesk:p-2 navdesk:px-3"
               )}
             >
               <Icon
                 className={clsx(
-                  "w-5 h-5 text-neutral-700 transition group-hover:stroke-[2]",
+                  "w-5 h-5 text-white transition group-hover:stroke-[2]",
                   pathname === link.href ? "stroke-[2]" : "stroke-[1.5]"
                 )}
               />
@@ -92,15 +92,15 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
                 className={clsx(
                   'ml-1',
                   pathname === link.href
-                    ? 'font-bold text-neutral-700'
-                    : 'font-medium group-hover:font-bold text-neutral-700'
+                    ? 'font-bold text-white'
+                    : 'font-medium group-hover:font-bold text-white'
                 )}
               >
                 {link.name}
               </span>
               {hasSubmenu && (
                 <svg
-                  className={`w-4 h-4 text-neutral-700 transition-transform duration-300 ${isOpen ? '-rotate-180' : 'rotate-0'}`}
+                  className={`w-4 h-4 text-white transition-transform duration-300 ${isOpen ? '-rotate-180' : 'rotate-0'}`}
                   fill="none"
                   stroke="currentColor"
                   strokeWidth={2}
@@ -125,7 +125,7 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
                   isOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
-                <div className="flex flex-col w-full bg-gray-50 rounded-b-md">
+                <div className="flex flex-col w-full bg-blue-400 rounded-b-md">
                   {link.submenu.map((item) => {
                     let hoverClass = "";
                     if (item.name === "Kinder - 2nd Grade") {
@@ -143,7 +143,7 @@ export default function NavLinks({ onClick, isMobile = false, onSubmenuState }: 
                       <GradeAnchorLink
                         key={item.name}
                         grade={grade}
-                        className={`block px-4 py-2 text-md text-black ${hoverClass}`}
+                        className={`block px-4 py-2 text-md text-white ${hoverClass}`}
                         onClick={() => {
                           onClick();
                           setOpenSubmenu(null);

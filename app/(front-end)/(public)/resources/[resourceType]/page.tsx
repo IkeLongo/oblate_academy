@@ -98,17 +98,17 @@ export default async function ResourceTypePage({
     titleFromSlug(resourceType);
 
   return (
-    <div className="base bg-linear-to-br from-[#EFF6FF] to-[#F0FDF4] mx-auto py-20 navdesk:pt-10">
+    <div className="base bg-linear-to-br from-[#EFF6FF] to-[#F0FDF4] mx-auto">
       <section className="mx-auto max-w-6xl px-6 py-12">
         {/* BACK LINK */}
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <Link
             href="/resources"
             className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-slate-800"
           >
             ← Back to Resources
           </Link>
-        </div>
+        </div> */}
 
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <div>

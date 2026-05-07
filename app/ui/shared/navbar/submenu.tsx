@@ -19,7 +19,7 @@ export default function Submenu({ items, open, onItemClick }: SubmenuProps) {
   if (!open) return null;
 
   return (
-    <div className="absolute left-0 mt-2 min-w-[200px] bg-white border border-gray-200 rounded shadow-lg z-50">
+    <div className="absolute left-0 mt-2 min-w-[200px] bg-blue-500 border border-blue-400 rounded z-50">
       {items.map((item) => {
         let hoverClass = "";
         if (item.name === "Kinder - 2nd Grade") {
@@ -38,7 +38,7 @@ export default function Submenu({ items, open, onItemClick }: SubmenuProps) {
             <GradeAnchorLink
               key={item.name}
               grade={grade}
-              className={`block px-4 py-2 text-md text-black ${hoverClass}`}
+              className={`block px-4 py-2 text-md text-white ${hoverClass}`}
               onClick={onItemClick}
             >
               {item.name}
@@ -51,7 +51,7 @@ export default function Submenu({ items, open, onItemClick }: SubmenuProps) {
           <a
             key={item.name}
             href={item.href}
-            className={`block px-4 py-2 text-md text-black ${hoverClass}`}
+            className={`block px-4 py-2 text-md text-white ${hoverClass}`}
             onClick={onItemClick}
           >
             {item.name}

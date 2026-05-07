@@ -9,7 +9,7 @@ import MobileMenu from './mobile-menu';
 
 export default function Navbar() {
   return (
-    <div className="sticky top-0 left-0 w-full z-50 bg-white shadow-sm">
+    <div className="sticky top-0 left-0 w-full z-50 bg-blue-500">
       {/* Mobile */}
       <MobileMenu />
 
@@ -19,7 +19,7 @@ export default function Navbar() {
         <div className="flex-1">
           <Link href="/">
             <Image
-              src="/oblate-logo-black.png"
+              src="/oblate-logo-white.png"
               alt="Oblate Academy"
               width={200}
               height={88}

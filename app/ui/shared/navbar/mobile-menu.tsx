@@ -35,11 +35,11 @@ export default function MobileMenu() {
 
   return (
     <div className="w-full align-center navdesk:hidden">
-      <div className="absolute z-20 w-full bg-white border-x-[1px] border-neutral-800">
+      <div className="absolute z-20 w-full bg-blue-500 border-x-[1px] border-blue-400">
         <div className="flex flex-row justify-between h-[65px] pl-0 px-6 pt-[10px] items-center">
           <Link href="/">
             <Image
-              src="/oblate-logo-black.png"
+              src="/oblate-logo-white.png"
               alt="Logo"
               width={200}
               height={100}
@@ -56,7 +56,7 @@ export default function MobileMenu() {
             distance="sm"
             rounded
             label="Show menu"
-            color="#000000"
+            color="#ffffff"
             easing="ease-in"
           />
         </div>
@@ -64,8 +64,8 @@ export default function MobileMenu() {
 
       <div
         style={{ height: menuOpen ? menuHeight : 277, transition: 'height 0.3s' }}
-        className={`absolute top-[20px] w-full flex flex-col justify-between px-6 py-6 bg-white border-[1px] border-t-0 border-neutral-800 rounded-b-[13px] drop-shadow-[0_14px_16.2px_rgba(0,0,0,0.25)] backdrop-blur-[7px] transition-transform duration-500 ease-in-out z-10 ${
-          menuOpen ? "translate-y-8" : "-translate-y-[220px]"
+        className={`absolute top-[20px] w-full flex flex-col justify-between px-6 py-6 bg-blue-500 border-[1px] border-t-0 rounded-b-[13px] backdrop-blur-[7px] transition-transform duration-500 ease-in-out z-10 ${
+          menuOpen ? "translate-y-8 border-blue-400 drop-shadow-[0_14px_16.2px_rgba(0,0,0,0.35)]" : "-translate-y-[220px] border-transparent"
         }`}
       >
         <NavLinks key={resetKey} onClick={() => setMenuOpen(false)} isMobile={true} onSubmenuState={handleSubmenuState} />
