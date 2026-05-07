@@ -56,7 +56,7 @@ const COLORS = [
 
 // Single function to transform resource -> card
 function toCard(r: Resource, index: number): ResourceCard {
-  const label = r.belongsTo?.name || r.belongsTo?.title || r.title || "Resource";
+  const label = r.belongsTo?.name || r.belongsTo?.title || r.title || r.category?.title || "Resource";
   let href = "#";
   let excerpt: string | undefined = undefined;
   if (r.kind === "pdf" && r.pdfUrl) {
@@ -243,7 +243,7 @@ const ResourceCardItem = React.memo(
 
 ResourceCardItem.displayName = "ResourceCardItem";
 
-export function ResourceFocusCards({ resources }: { resources: Resource[] }) {
+export function ResourceFocusCards({ resources, showFilter = true }: { resources: Resource[]; showFilter?: boolean }) {
   const [hovered, setHovered] = useState<number | null>(null);
   const [filter, setFilter] = useState("");
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
@@ -267,18 +267,20 @@ export function ResourceFocusCards({ resources }: { resources: Resource[] }) {
 
   return (
     <div className="w-full flex flex-col">
-      <div className="w-full max-w-xs mb-10 self-start md:self-end">
-        <LabelInputContainer>
-          <Label htmlFor="filter">Filter by name</Label>
-          <Input
-            id="filter"
-            value={filter}
-            onChange={e => setFilter(e.target.value)}
-            placeholder="Search..."
-            type="text"
-          />
-        </LabelInputContainer>
-      </div>
+      {showFilter && (
+        <div className="w-full max-w-xs mb-10 self-start md:self-end">
+          <LabelInputContainer>
+            <Label htmlFor="filter">Filter by name</Label>
+            <Input
+              id="filter"
+              value={filter}
+              onChange={e => setFilter(e.target.value)}
+              placeholder="Search..."
+              type="text"
+            />
+          </LabelInputContainer>
+        </div>
+      )}
       
       <div className="grid grid-cols-1 2xs:grid-cols-2 md:grid-cols-3 gap-5 md:gap-10 max-w-6xl mx-auto w-full">
         {cards.map((card, index) => (

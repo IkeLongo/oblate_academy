@@ -6,7 +6,23 @@ import { X, Printer, ExternalLink } from "lucide-react";
 import { PortableText } from "@portabletext/react";
 import { urlFor } from "@/sanity/lib/image";
 import MuxPlayer from "@mux/mux-player-react";
+import { cn } from "@/app/lib/utils";
 import "./resources.css";
+
+function ModalLoadingSkeleton() {
+  return (
+    <div className="flex flex-col gap-4" aria-busy="true" aria-label="Loading resource">
+      {/* Preview placeholder */}
+      <div className="w-full rounded-xl bg-slate-100 animate-pulse" style={{ height: "60vh" }}>
+        <div className="flex flex-col items-center justify-center h-full gap-3">
+          <div className="w-12 h-12 rounded-full bg-slate-200" />
+          <div className="h-4 w-32 rounded-md bg-slate-200" />
+        </div>
+      </div>
+      <p className="text-center text-slate-400 text-sm font-medium">Loading resource…</p>
+    </div>
+  );
+}
 
 export type ModalResource = {
   _id: string;
@@ -35,7 +51,11 @@ type Props = {
 
 export function ResourceModal({ resource, onClose, accentColor = "#168647" }: Props) {
   const [printHovered, setPrintHovered] = useState(false);
+  // Only image and pdf have async preview content that requires a loading state.
+  // richText renders from in-memory data, link renders a button, and Mux has its own spinner.
+  const [isLoading, setIsLoading] = useState(false);
 
+  // Keyboard close
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -43,6 +63,13 @@ export function ResourceModal({ resource, onClose, accentColor = "#168647" }: Pr
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   }, [onClose]);
+
+  // Reset loading state whenever a new resource is opened
+  useEffect(() => {
+    if (!resource) return;
+    setIsLoading(resource.kind === "image" || resource.kind === "pdf");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resource?._id]);
 
   if (!resource) return null;
 
@@ -127,11 +154,15 @@ export function ResourceModal({ resource, onClose, accentColor = "#168647" }: Pr
 
         {/* Body — scrollable with custom scrollbar */}
         <div className="modal-scroll overflow-y-auto p-6">
+          {/* Skeleton — visible while image/pdf preview is loading */}
+          {isLoading && <ModalLoadingSkeleton />}
+
           {resource.kind === "image" && resource.image?.asset && (
             <img
               src={urlFor(resource.image).url()}
               alt={resource.title}
-              className="w-full h-auto rounded-xl"
+              className={cn("w-full h-auto rounded-xl", isLoading && "hidden")}
+              onLoad={() => setIsLoading(false)}
             />
           )}
 
@@ -139,7 +170,8 @@ export function ResourceModal({ resource, onClose, accentColor = "#168647" }: Pr
             <iframe
               src={resource.pdfUrl}
               title={resource.title}
-              className="w-full h-[70vh] rounded-xl border-0"
+              className={cn("w-full h-[70vh] rounded-xl border-0", isLoading && "hidden")}
+              onLoad={() => setIsLoading(false)}
             />
           )}
 

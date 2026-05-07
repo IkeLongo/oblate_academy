@@ -39,6 +39,7 @@ export const virtuePageQuery = groq`
     url,
     body,
     image{..., alt},
+    muxVideo{ asset->{ playbackId, aspectRatio } },
     category->{ title, icon, "slug": slug.current, sortOrder }
   } | order(category->sortOrder asc)
 }

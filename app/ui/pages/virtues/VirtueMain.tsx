@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PortableText } from "next-sanity";
 import { components } from "@/app/ui/components/texts/PortableTextComponent";
 import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
+import { ResourceFocusCards } from "@/app/ui/components/resources/ResourceFocusCards";
 import { urlFor } from "@/sanity/lib/image";
 
 import type { GradeKey, GradeKeyLink, PageData } from "@/app/types";
@@ -14,11 +15,7 @@ type VirtueMainProps = {
   data: PageData;
 };
 
-const colorConfigs = [
-  { text: "text-green-400", bg: "bg-green-400" },
-  { text: "text-blue-300", bg: "bg-blue-300" },
-  { text: "text-red-400", bg: "bg-red-400" },
-];
+
 
 export function VirtueMain({ grade, gradeHref, slug, data }: VirtueMainProps) {
   const imageUrl = data.cardImage
@@ -71,36 +68,17 @@ export function VirtueMain({ grade, gradeHref, slug, data }: VirtueMainProps) {
         </div>
       </div>
 
-      <div className="mt-12 flex justify-between md:justify-center gap-8 max-w-lg md:max-w-none flex-wrap mx-auto">
+      <div className="mt-12 max-w-6xl mx-auto w-full px-2">
         {(!data.resources || data.resources.length === 0) ? (
           <div className="w-full text-center text-slate-500 py-8">No resources available for this grade.</div>
         ) : (
-          data.resources.map((r, i) => {
-            const href = `/grade/${gradeHref}/virtues/${data.slug}/${r.category.slug}`;
-            const color = colorConfigs[i % colorConfigs.length];
-            return (
-              <Link
-                key={r._id}
-                href={href}
-                className={`w-full md:w-[200px] rounded-2xl overflow-hidden shadow-sm border border-transparent hover:shadow-md transition`}
-              >
-                <div className={`h-44 md:h-32 flex items-center justify-center ${color.bg}`}>
-                  {r.category.icon && (
-                    <Image
-                      src={urlFor(r.category.icon).width(64).height(64).fit("crop").url()}
-                      alt={r.category.title + " icon"}
-                      width={64}
-                      height={64}
-                      className="mx-auto mb-2"
-                    />
-                  )}
-                </div>
-                <div className={`bg-white py-3 text-center font-inria font-extrabold text-xl ${color.text}`}>
-                  {r.category.title}
-                </div>
-              </Link>
-            );
-          })
+          <ResourceFocusCards
+            resources={data.resources.map(r => ({
+              ...r,
+              title: r.title || r.category?.title || "Resource",
+            }))}
+            showFilter={false}
+          />
         )}
       </div>
     </div>

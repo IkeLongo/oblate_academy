@@ -29,7 +29,7 @@ export type PageData = {
   overviewTitle: string;
   overview: PortableTextValue;
   cardImage: SanityImage;
-  resources: PageCategory[];
+  resources: Resource[];
   enableGradeK_2?: boolean;
   enableGrade3_5?: boolean;
 };
@@ -38,15 +38,23 @@ export type ResourceKind = "pdf" | "image" | "link" | "video" | "richText";
 
 export type Resource = {
   _id: string;
+  title?: string | null;
   kind: ResourceKind;
   pdfUrl?: string;
-  image?: { alt?: string };
+  pdfThumbnail?: any;
+  image?: any;
   url?: string;
   body?: any[];
+  muxVideo?: {
+    asset?: {
+      playbackId?: string | null;
+      aspectRatio?: string | null;
+    } | null;
+  } | null;
   category: {
     _id: string;
     title: string;
-    icon: "crayon" | "pencil" | "clipboard" | "book" | "sparkles";
+    icon: any;
     slug: string;
     sortOrder?: number;
   };

@@ -16,15 +16,18 @@ export async function generateMetadata({
   params: Promise<{ grade: string; slug: string; category: string }>;
 }): Promise<Metadata> {
   const { grade, slug, category } = await params;
-  const data = await client.fetch<{ name: string } | null>(
-    `*[_type == "virtue" && slug.current == $slug][0]{ name }`,
-    { slug }
-  );
-  const name = data?.name ?? slug;
-  const categoryTitle = category
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+  const [virtueData, resourceData] = await Promise.all([
+    client.fetch<{ name: string } | null>(
+      `*[_type == "virtue" && slug.current == $slug][0]{ name }`,
+      { slug }
+    ),
+    client.fetch<{ categoryTitle: string } | null>(
+      `*[_type == "resource" && _id == $resourceId][0]{ "categoryTitle": category->title }`,
+      { resourceId: category }
+    ),
+  ]);
+  const name = virtueData?.name ?? slug;
+  const categoryTitle = resourceData?.categoryTitle ?? "Activity";
   return {
     title: `${name} — ${categoryTitle}`,
     description: `${categoryTitle} resources for the virtue of ${name} — Catholic activities for children.`,
@@ -50,9 +53,9 @@ export default async function VirtueCategoryPage({
     params: { slug, grade: resourceGrade, resourceGrade, isDraft },
   });
 
-  // Find the resource matching the category param
+  // Find the resource by its unique _id (the URL segment is now the resource _id)
   const resource = (data?.resources as Resource[] | undefined)?.find(
-    (r: Resource) => r.category?.slug === category
+    (r: Resource) => r._id === category
   );
 
   // In preview, don't hard crash if resource is missing briefly

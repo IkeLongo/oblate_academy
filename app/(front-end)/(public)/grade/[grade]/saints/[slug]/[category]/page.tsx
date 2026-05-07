@@ -20,15 +20,18 @@ type PageProps = {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { grade, slug, category } = await params;
-  const data = await client.fetch<{ name: string } | null>(
-    `*[_type == "saint" && slug.current == $slug][0]{ name }`,
-    { slug }
-  );
-  const name = data?.name ?? slug;
-  const categoryTitle = category
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+  const [saintData, resourceData] = await Promise.all([
+    client.fetch<{ name: string } | null>(
+      `*[_type == "saint" && slug.current == $slug][0]{ name }`,
+      { slug }
+    ),
+    client.fetch<{ categoryTitle: string } | null>(
+      `*[_type == "resource" && _id == $resourceId][0]{ "categoryTitle": category->title }`,
+      { resourceId: category }
+    ),
+  ]);
+  const name = saintData?.name ?? slug;
+  const categoryTitle = resourceData?.categoryTitle ?? "Activity";
   return {
     title: `${name} — ${categoryTitle}`,
     description: `${categoryTitle} resources for Saint ${name} — Catholic activities for children.`,
@@ -61,9 +64,9 @@ export default async function SaintCategoryPage({ params }: PageProps) {
   //   resources: data?.resources
   // });
 
-  // Find the resource matching the category param
+  // Find the resource by its unique _id (the URL segment is now the resource _id)
   const resource = (data?.resources as Resource[] | undefined)?.find(
-    (r: Resource) => r.category?.slug === category
+    (r: Resource) => r._id === category
   );
 
   // 🔍 Debug: Log resource details
