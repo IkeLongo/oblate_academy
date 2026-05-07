@@ -9,18 +9,6 @@ export type RowCard = {
   cardImage: SanityImage;
 };
 
-export type PageCategory = {
-  _id: string;
-  pdfUrl: string;
-  category: {
-    _id: string;
-    title: string;
-    icon: "crayon" | "pencil" | "clipboard" | "book" | "sparkles";
-    slug: string;
-    sortOrder?: number;
-  };
-};
-
 export type PageData = {
   _id: string;
   name: string;
@@ -51,13 +39,6 @@ export type Resource = {
       aspectRatio?: string | null;
     } | null;
   } | null;
-  category: {
-    _id: string;
-    title: string;
-    icon: any;
-    slug: string;
-    sortOrder?: number;
-  };
   [key: string]: any;
 };
 

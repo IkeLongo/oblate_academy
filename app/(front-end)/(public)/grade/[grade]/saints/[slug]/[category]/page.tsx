@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { client } from "@/sanity/lib/client";
 import { draftMode } from "next/headers";
 import { sanityFetch } from "@/sanity/lib/live";
-import { saintCategoryPageQuery } from "@/sanity/lib/queries/saintPageQueries";
+import { saintPageQuery } from "@/sanity/lib/queries/saintPageQueries";
 import { CategoryTopControls } from "@/app/ui/components/buttons/CategoryTopControls";
 import { urlFor } from "@/sanity/lib/image";
 import { isGradeLink, toGradeKey } from "@/app/types";
@@ -25,17 +25,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       `*[_type == "saint" && slug.current == $slug][0]{ name }`,
       { slug }
     ),
-    client.fetch<{ categoryTitle: string } | null>(
-      `*[_type == "resource" && _id == $resourceId][0]{ "categoryTitle": category->title }`,
+    client.fetch<{ title: string } | null>(
+      `*[_type == "resource" && _id == $resourceId][0]{ title }`,
       { resourceId: category }
     ),
   ]);
   const name = saintData?.name ?? slug;
-  const categoryTitle = resourceData?.categoryTitle ?? "Activity";
+  const resourceTitle = resourceData?.title ?? "Activity";
   return {
-    title: `${name} — ${categoryTitle}`,
-    description: `${categoryTitle} resources for Saint ${name} — Catholic activities for children.`,
-    openGraph: { title: `${name} — ${categoryTitle} | Oblate Academy` },
+    title: `${name} — ${resourceTitle}`,
+    description: `${resourceTitle} resources for Saint ${name} — Catholic activities for children.`,
+    openGraph: { title: `${name} — ${resourceTitle} | Oblate Academy` },
     alternates: { canonical: `/grade/${grade}/saints/${slug}/${category}` },
   };
 }
@@ -50,7 +50,7 @@ export default async function SaintCategoryPage({ params }: PageProps) {
   const resourceGrade = gradeKey === "gk_2" ? "k2" : "g3_5";
 
   const { data } = await sanityFetch({
-    query: saintCategoryPageQuery,
+    query: saintPageQuery,
     params: { slug, grade: gradeKey, resourceGrade, isDraft }
   });
 
@@ -109,11 +109,7 @@ export default async function SaintCategoryPage({ params }: PageProps) {
     (resource.kind === "richText" && (!resource.body || resource.body.length === 0));
 
   const chipText = "Worksheets & Activities";
-  const categoryTitle = resource.category?.title ?? "Category";
-  const pageTitle =
-    resource.kind === "richText"
-      ? resource.title ?? categoryTitle
-      : `${categoryTitle} — ${data?.name ?? ""}`;
+  const pageTitle = resource.title ?? data?.name ?? "Resource";
 
   return (
     <div className="base min-h-screen relative pt-28 navdesk:pt-16 pb-16">
@@ -175,7 +171,7 @@ export default async function SaintCategoryPage({ params }: PageProps) {
                     <iframe
                       src={resource.pdfUrl}
                       className="w-full h-[620px]"
-                      title={`${data?.name ?? ""} — ${categoryTitle}`}
+                    title={pageTitle}
                     />
                   )}
 
@@ -185,7 +181,7 @@ export default async function SaintCategoryPage({ params }: PageProps) {
                       src={urlFor(resource.image).width(1200).quality(80).url()}
                       alt={
                         resource.image.alt ??
-                        `Illustration for ${categoryTitle}`
+                        `Illustration for ${pageTitle}`
                       }
                       className="w-full h-auto"
                     />

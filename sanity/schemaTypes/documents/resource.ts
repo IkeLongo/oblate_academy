@@ -148,15 +148,14 @@ export const resource = defineType({
         }),
     }),
 
-    // Which category does this resource belong to?
+    // Which category does this resource belong to? (Deprecated — kept for legacy data only)
     defineField({
       name: "category",
-      title: "Resource Category",
+      title: "Resource Category (Legacy)",
       type: "reference",
       to: [{ type: "category" }],
       description:
-        "Which category this resource belongs to (helps with filtering).",
-      validation: (Rule) => Rule.required(),
+        "Deprecated — category is no longer used. Resources are now organised by Collections.",
     }),
 
     defineField({
@@ -189,16 +188,15 @@ export const resource = defineType({
       title: "title",
       kind: "kind",
       grade: "grade",
-      category: "category.title",
       collections: "collections",
       pdfThumbnail: "pdfThumbnail",
       image: "image",
     },
-    prepare({ title, kind, grade, category, collections, pdfThumbnail, image }) {
+    prepare({ title, kind, grade, collections, pdfThumbnail, image }) {
       const g =
         grade === "k2" ? "K–2" : grade === "g3_5" ? "3–5" : grade === "all" ? "All" : grade;
 
-      const autoTitle = title || category || "Resource";
+      const autoTitle = title || "Resource";
 
       const kindLabel =
         kind === "pdf"

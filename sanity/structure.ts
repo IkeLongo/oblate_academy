@@ -8,7 +8,6 @@ import {
   ListIcon,
   FolderIcon,
 } from "@sanity/icons";
-import { TagsIcon } from "lucide-react";
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -107,14 +106,6 @@ export const structure: StructureResolver = (S) =>
                     .filter('_type == "resource" && grade == "g3_5" && isActive == true')
                 ),
             ])
-        ),
-
-      S.listItem()
-        .title("Resource Categories")
-        .icon(TagsIcon)
-        .child(
-          S.documentTypeList("category")
-            .title("Resource Category")
         ),
 
       // Resource Collection

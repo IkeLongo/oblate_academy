@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/live";
 import {
-  resourcesByCategorySlugQuery,
   resourcesByCollectionSlugQuery,
   resourcesByTagQuery,
   resourceTypeResolverQuery,
@@ -19,8 +18,6 @@ import { ResourceFocusCards } from "@/app/ui/components/resources/ResourceFocusC
 import type { GradeKey } from "@/app/types";
 
 function toResourceGrade(grade: string | undefined): "k2" | "g3_5" {
-  // resource schema uses: k2 / g3_5 / all
-  // UI uses: gk_2 / g3_5
   if (grade === "g3_5") return "g3_5";
   return "k2";
 }
@@ -60,44 +57,32 @@ export default async function ResourceTypePage({
   const uiGrade: GradeKey = grade === "g3_5" ? "g3_5" : "gk_2";
   const resourceGrade = toResourceGrade(uiGrade);
 
-  // 1) Resolve whether this slug is a category or a collection (or neither)
+  // 1) Resolve whether this slug is a collection
   const resolved = await sanityFetch({
     query: resourceTypeResolverQuery,
     params: { slug: resourceType },
   });
-  //console.log("Resolved resource type:", resolved.data);
 
-  const isCategory = !!resolved.data?.category?._id;
   const isCollection = !!resolved.data?.collection?._id;
 
-  // 2) Fetch resources based on what it resolves to
+  // 2) Fetch resources — by collection first, tag fallback
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let data: any[] = [];
 
-  if (isCategory) {
-    const res = await sanityFetch({
-      query: resourcesByCategorySlugQuery,
-      params: { grade: resourceGrade, categorySlug: resourceType },
-    });
-    data = res.data || [];
-    //console.log("Fetched resources by category:", data);
-  } else if (isCollection) {
+  if (isCollection) {
     const res = await sanityFetch({
       query: resourcesByCollectionSlugQuery,
       params: { grade: resourceGrade, collectionSlug: resourceType },
     });
     data = res.data || [];
-    //console.log("Fetched resources by collection:", data);
   } else {
-    // Optional fallback: treat unknown slugs as tags.
-    // If you prefer strict routing, replace this block with: notFound();
+    // Fallback: treat unknown slugs as tags
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const res = await (sanityFetch as any)({
       query: resourcesByTagQuery,
       params: { grade: resourceGrade, tag: resourceType },
     });
     data = res.data || [];
-    //console.log("Fetched resources by tag:", data);
   }
 
   const hubLabelRes = await sanityFetch({
@@ -109,7 +94,6 @@ export default async function ResourceTypePage({
 
   const pageTitle =
     hubLabel ||
-    resolved.data?.category?.title ||
     resolved.data?.collection?.title ||
     titleFromSlug(resourceType);
 

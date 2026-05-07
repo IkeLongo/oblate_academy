@@ -1,60 +1,14 @@
+// Resolves a [resourceType] slug to a collection (category lookup removed — categories are deprecated)
 export const resourceTypeResolverQuery = /* groq */ `
 {
-  "category": *[_type == "category" && slug.current == $slug][0]{
-    _id, title, "slug": slug.current
-  },
   "collection": *[_type == "resourceCollection" && slug.current == $slug][0]{
     _id, title, "slug": slug.current
   }
 }
 `;
 
-export const resourcesByCategorySlugQuery = /* groq */ `
-*[
-  _type == "resource"
-  && grade in [$grade, "all"]
-  && defined(category)
-  && category->slug.current == $categorySlug
-] | order(_createdAt desc) {
-  _id,
-  title,
-  kind,
-  grade,
-  tags,
-  "pdfUrl": pdf.asset->url,
-  pdfThumbnail{
-    ...,
-    alt
-  },
-  url,
-  muxVideo{
-    asset->{
-      playbackId,
-      status,
-      aspectRatio,
-      duration,
-      "mp4Support": data.mp4_support,
-      "staticRenditions": data.static_renditions.files[]{
-        name,
-        ext,
-        status
-      }
-    }
-  },
-  body,
-  image{
-    ...,
-    alt
-  },
-  // optional gallery later
-  images[]{
-    ...,
-    alt
-  },
-  category->{ title, "slug": slug.current },
-  belongsTo->{ _type, title, name }
-}
-`;
+// Deprecated — kept for reference only; no longer called by the app
+// export const resourcesByCategorySlugQuery = ...
 
 export const resourcesByTagQuery = /* groq */ `
 *[
@@ -96,7 +50,6 @@ export const resourcesByTagQuery = /* groq */ `
     ...,
     alt
   },
-  category->{ title, "slug": slug.current },
   belongsTo->{ _type, title, name }
 }
 `;
@@ -133,7 +86,6 @@ export const resourcesByCollectionSlugQuery = /* groq */ `
   body,
   image{..., alt},
   images[]{..., alt},
-  category->{ title, "slug": slug.current },
   collections[]->{ _type, title, "slug": slug.current }
 }
 `;

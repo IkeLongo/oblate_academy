@@ -39,9 +39,8 @@ export const virtuePageQuery = groq`
     url,
     body,
     image{..., alt},
-    muxVideo{ asset->{ playbackId, aspectRatio } },
-    category->{ title, icon, "slug": slug.current, sortOrder }
-  } | order(category->sortOrder asc)
+    muxVideo{ asset->{ playbackId, aspectRatio } }
+  } | order(_createdAt asc)
 }
 `;
 
@@ -59,8 +58,8 @@ export const virtueCategoryPageQuery = groq`
     _type == "resource" &&
     grade in [$grade, "all"] &&
     virtue._ref == ^._id &&
-    category->slug.current == $category
-  ] | order(_createdAt desc)[0]{
+    _id == $category
+  ][0]{
     _id,
     title,
     kind,
@@ -73,9 +72,7 @@ export const virtueCategoryPageQuery = groq`
     body,
 
     pdfThumbnail{..., alt},
-    image{..., alt},
-
-    category->{ title, icon, "slug": slug.current, sortOrder }
+    image{..., alt}
   }
 }
 `;

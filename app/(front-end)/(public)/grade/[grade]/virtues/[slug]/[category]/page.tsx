@@ -21,17 +21,17 @@ export async function generateMetadata({
       `*[_type == "virtue" && slug.current == $slug][0]{ name }`,
       { slug }
     ),
-    client.fetch<{ categoryTitle: string } | null>(
-      `*[_type == "resource" && _id == $resourceId][0]{ "categoryTitle": category->title }`,
+    client.fetch<{ title: string } | null>(
+      `*[_type == "resource" && _id == $resourceId][0]{ title }`,
       { resourceId: category }
     ),
   ]);
   const name = virtueData?.name ?? slug;
-  const categoryTitle = resourceData?.categoryTitle ?? "Activity";
+  const resourceTitle = resourceData?.title ?? "Activity";
   return {
-    title: `${name} — ${categoryTitle}`,
-    description: `${categoryTitle} resources for the virtue of ${name} — Catholic activities for children.`,
-    openGraph: { title: `${name} — ${categoryTitle} | Oblate Academy` },
+    title: `${name} — ${resourceTitle}`,
+    description: `${resourceTitle} resources for the virtue of ${name} — Catholic activities for children.`,
+    openGraph: { title: `${name} — ${resourceTitle} | Oblate Academy` },
     alternates: { canonical: `/grade/${grade}/virtues/${slug}/${category}` },
   };
 }
@@ -81,8 +81,7 @@ export default async function VirtueCategoryPage({
     (resource.kind === "richText" && (!resource.body || (Array.isArray(resource.body) && resource.body.length === 0)));
 
   const chipText = "Worksheets & Activities";
-  const categoryTitle = resource.category?.title ?? "Activity";
-  const pageTitle = `${categoryTitle} — ${data?.name ?? ""}`;
+  const pageTitle = resource.title ?? data?.name ?? "Resource";
 
   return (
     <div className="base min-h-screen relative pt-28 navdesk:pt-16 pb-16">
@@ -144,7 +143,7 @@ export default async function VirtueCategoryPage({
                   <iframe
                     src={resource.pdfUrl}
                     className="w-full h-full"
-                    title={`${data?.name ?? ""} — ${categoryTitle}`}
+                    title={pageTitle}
                   />
                 )}
 
@@ -154,7 +153,7 @@ export default async function VirtueCategoryPage({
                     src={urlFor(resource.image).width(1200).quality(80).url()}
                     alt={
                       resource.image.alt ??
-                      `Illustration for ${categoryTitle}`
+                      `Illustration for ${pageTitle}`
                     }
                     className="w-full h-auto"
                   />
