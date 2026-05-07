@@ -69,7 +69,6 @@ export default function Footer() {
       title: 'Contact',
       links: [
         { name: 'Email', href: `mailto:${BUSINESS_EMAIL}` },
-        { name: 'Phone', href: `tel:${BUSINESS_PHONE}` },
         { name: 'Social', href: '#' },
       ],
     },

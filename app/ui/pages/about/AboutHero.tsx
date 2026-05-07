@@ -13,7 +13,7 @@ export default function AboutHero() {
           heading="Meet the Oblate Academy"
           subheading="Nurturing young hearts through faith, virtue, and joy — Catholic resources for families and educators, grades K–5."
         />
-
+ 
         <div className="mt-10 z-20 flex flex-col sm:flex-row gap-4 items-center justify-center">
           <Link
             href="/resources"
