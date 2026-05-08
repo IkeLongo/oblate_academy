@@ -31,6 +31,8 @@ export const virtuePageQuery = groq`
   )[]->{
     _id,
     title,
+    resourceType,
+    subject,
     kind,
     grade,
     tags,

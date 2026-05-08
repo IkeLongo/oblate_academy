@@ -1,21 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
+import { getResourceDisplayTitle } from "@/app/lib/utils";
 
 type Resource = {
   _id: string;
   title?: string;
+  resourceType?: string | null;
+  subject?: string | null;
   kind: "image" | "pdf" | "link" | "video" | "richText" | string;
   pdfUrl?: string | null;
   url?: string | null;
   imageUrl?: string | null;
   imageUrls?: (string | null)[] | null;
   body?: any;
-  category?: { title?: string | null } | null;
 };
 
 function getLabel(r: Resource) {
-  return r.title || r.category?.title || "Resource";
+  return getResourceDisplayTitle(r);
 }
 
 function isYouTube(url: string) {

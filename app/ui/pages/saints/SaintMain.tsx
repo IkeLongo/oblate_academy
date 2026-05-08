@@ -7,6 +7,7 @@ import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
 import { ResourceFocusCards } from "@/app/ui/components/resources/ResourceFocusCards";
 import { urlFor } from "@/sanity/lib/image";
 import { HubHeader } from "@/app/ui/components/nav/HubHeader";
+import { getResourceDisplayTitle } from "@/app/lib/utils";
 import type { GradeKey, GradeKeyLink, PageData } from "@/app/types";
 
 type SaintMainProps = {
@@ -86,7 +87,7 @@ export function SaintMain({ grade, gradeHref, slug, data }: SaintMainProps) {
             <ResourceFocusCards
               resources={data.resources.map(r => ({
                 ...r,
-                title: r.title || r.category?.title || "Resource",
+                title: getResourceDisplayTitle(r),
               }))}
               showFilter={false}
             />

@@ -4,6 +4,7 @@ import { components } from "@/app/ui/components/texts/PortableTextComponent";
 import { ResourceFocusCards } from "@/app/ui/components/resources/ResourceFocusCards";
 import { urlFor } from "@/sanity/lib/image";
 import { HubHeader } from "@/app/ui/components/nav/HubHeader";
+import { getResourceDisplayTitle } from "@/app/lib/utils";
 import type { GradeKey, GradeKeyLink, PageData } from "@/app/types";
 
 type VirtueMainProps = {
@@ -61,7 +62,7 @@ export function VirtueMain({ grade, gradeHref, slug, data }: VirtueMainProps) {
             <ResourceFocusCards
               resources={data.resources.map(r => ({
                 ...r,
-                title: r.title || r.category?.title || "Resource",
+                title: getResourceDisplayTitle(r),
               }))}
               showFilter={false}
             />

@@ -5,6 +5,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import MuxPlayer from "@mux/mux-player-react";
 import { cn } from "@/app/lib/utils";
+import { getResourceDisplayTitle } from "@/app/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { Label } from "@/app/ui/components/input/Label";
 import { Input } from "@/app/ui/components/input/Input";
@@ -15,6 +16,8 @@ import { ResourceModal, type ModalResource } from "@/app/ui/pages/resources/Reso
 type Resource = {
   _id: string;
   title?: string | null;
+  resourceType?: string | null;
+  subject?: string | null;
   kind: "image" | "pdf" | "link" | "video" | "richText" | string;
   pdfThumbnail?: any;
   pdfUrl?: string | null;
@@ -28,7 +31,6 @@ type Resource = {
     } | null;
   } | null;
   image?: any;
-  category?: { title?: string | null } | null;
   belongsTo?: { _type?: string; title?: string | null; name?: string | null } | null;
   body?: any[];
 };
@@ -56,7 +58,7 @@ const COLORS = [
 
 // Single function to transform resource -> card
 function toCard(r: Resource, index: number): ResourceCard {
-  const label = r.belongsTo?.name || r.belongsTo?.title || r.title || r.category?.title || "Resource";
+  const label = getResourceDisplayTitle(r);
   let href = "#";
   let excerpt: string | undefined = undefined;
   if (r.kind === "pdf" && r.pdfUrl) {

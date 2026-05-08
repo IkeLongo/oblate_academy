@@ -18,6 +18,8 @@ export const resourcesByTagQuery = /* groq */ `
 ] | order(_createdAt desc) {
   _id,
   title,
+  resourceType,
+  subject,
   kind,
   grade,
   tags,
@@ -63,6 +65,8 @@ export const resourcesByCollectionSlugQuery = /* groq */ `
 ] | order(_createdAt desc) {
   _id,
   title,
+  resourceType,
+  subject,
   kind,
   grade,
   tags,

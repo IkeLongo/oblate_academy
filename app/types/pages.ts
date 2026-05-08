@@ -27,6 +27,8 @@ export type ResourceKind = "pdf" | "image" | "link" | "video" | "richText";
 export type Resource = {
   _id: string;
   title?: string | null;
+  resourceType?: string | null;
+  subject?: string | null;
   kind: ResourceKind;
   pdfUrl?: string;
   pdfThumbnail?: any;

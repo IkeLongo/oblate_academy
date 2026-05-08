@@ -32,6 +32,8 @@ export const saintPageQuery = groq`
   )[]->{
     _id,
     title,
+    resourceType,
+    subject,
     kind,
     grade,
     tags,
@@ -63,6 +65,8 @@ export const saintCategoryPageQuery = groq`
   )[]->{
     _id,
     title,
+    resourceType,
+    subject,
     kind,
     grade,
     tags,

@@ -9,11 +9,41 @@ export const resource = defineType({
   icon: DocumentPdfIcon,
   fields: [
     defineField({
+      name: "resourceType",
+      title: "Resource Type",
+      type: "string",
+      description:
+        "The kind of resource. Appears first on resource cards. Examples: Worksheet, Word Search, Coloring Page, Prayer.",
+      options: {
+        list: [
+          { title: "Activity", value: "Activity" },
+          { title: "Coloring Page", value: "Coloring Page" },
+          { title: "Contract", value: "Contract" },
+          { title: "Draw About It", value: "Draw About It" },
+          { title: "Lesson", value: "Lesson" },
+          { title: "Other", value: "Other" },
+          { title: "Prayer", value: "Prayer" },
+          { title: "Word Search", value: "Word Search" },
+          { title: "Worksheet", value: "Worksheet" },
+        ],
+        layout: "dropdown",
+      },
+    }),
+
+    defineField({
+      name: "subject",
+      title: "Subject",
+      type: "string",
+      description:
+        "What the resource is about. Appears after the resource type on cards. Examples: Work, Loyalty, St. André Bessette, Act of Contrition.",
+    }),
+
+    defineField({
       name: "title",
       title: "Title (optional)",
       type: "string",
       description:
-        "Optional — if left blank, the site can display a generated title like “Coloring Page”.",
+        "Optional — if left blank, the card title is generated from Resource Type and Subject (e.g. \"Coloring Page – Loyalty\").",
     }),
 
     defineField({
@@ -148,16 +178,6 @@ export const resource = defineType({
         }),
     }),
 
-    // Which category does this resource belong to? (Deprecated — kept for legacy data only)
-    defineField({
-      name: "category",
-      title: "Resource Category (Legacy)",
-      type: "reference",
-      to: [{ type: "category" }],
-      description:
-        "Deprecated — category is no longer used. Resources are now organised by Collections.",
-    }),
-
     defineField({
       name: "collections",
       title: "Resource Collections",
@@ -186,17 +206,22 @@ export const resource = defineType({
   preview: {
     select: {
       title: "title",
+      resourceType: "resourceType",
+      subject: "subject",
       kind: "kind",
       grade: "grade",
       collections: "collections",
       pdfThumbnail: "pdfThumbnail",
       image: "image",
     },
-    prepare({ title, kind, grade, collections, pdfThumbnail, image }) {
+    prepare({ title, resourceType, subject, kind, grade, collections, pdfThumbnail, image }) {
       const g =
         grade === "k2" ? "K–2" : grade === "g3_5" ? "3–5" : grade === "all" ? "All" : grade;
 
-      const autoTitle = title || "Resource";
+      // Build display title: prefer explicit title, then resourceType – subject combo
+      const autoTitle =
+        title ||
+        (resourceType && subject ? `${resourceType} – ${subject}` : resourceType || subject || "Resource");
 
       const kindLabel =
         kind === "pdf"
