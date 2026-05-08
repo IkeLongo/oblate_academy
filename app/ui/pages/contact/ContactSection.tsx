@@ -14,6 +14,8 @@ export function ContactSectionWithShader({
   const [submitting, setSubmitting] = useState(false);
   const [consentNonMarketing, setConsentNonMarketing] = useState(false);
   const [consentMarketing, setConsentMarketing] = useState(false);
+  // Record when the form was loaded — submitted timestamps under 3 s are treated as bots
+  const loadTimeRef = useRef<number>(Date.now());
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
@@ -28,6 +30,7 @@ export function ContactSectionWithShader({
     const email = formData.get('email') as string;
     const phone = formData.get('phone') as string;
     const message = formData.get('message') as string;
+    const honeypot = formData.get('website') as string;
 
     try {
       const res = await fetch('/api/contact', {
@@ -42,6 +45,8 @@ export function ContactSectionWithShader({
           message,
           smsConsentNonMarketing: consentNonMarketing,
           smsConsentMarketing: consentMarketing,
+          _hp: honeypot,               // honeypot — real users never fill this
+          _lt: loadTimeRef.current,    // load timestamp for timing check
         }),
       });
       const data = await res.json();
@@ -85,6 +90,21 @@ export function ContactSectionWithShader({
 
             <div className="py-10">
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Honeypot — visually hidden, only bots will fill this */}
+                <div
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }}
+                >
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+
                 <label
                   htmlFor="name"
                   className="block text-sm leading-6 font-medium text-neutral-700"
@@ -153,7 +173,7 @@ export function ContactSectionWithShader({
                   />
                 </div>
 
-                <div className="flex items-start w-full pt-4">
+                {/* <div className="flex items-start w-full pt-4">
                   <input
                     id="sms-consent-non-marketing"
                     type="checkbox"
@@ -188,7 +208,7 @@ export function ContactSectionWithShader({
                     <a href="/terms" className="!text-sm underline">Terms of Service</a>. 
                     Consent is not required to submit this form.
                   </label>
-                </div>
+                </div> */}
                 <div className="mt-8 flex flex-col gap-2">
                   {successMessage && (
                     <div className="rounded-md bg-green-100 text-green-800 px-4 mb-4 py-2 text-center text-sm font-medium border border-green-200">
