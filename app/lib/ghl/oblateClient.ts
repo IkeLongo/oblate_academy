@@ -103,10 +103,12 @@ export async function findContactByEmailOrPhone(email: string, phone: string): P
 
 export async function createContact(contact: { name: string; email: string; phone: string }): Promise<GhlContact> {
   const locationId = requiredEnv("GHL_OBLATE_LOCATION_ID");
-  return ghlFetch<GhlContact>(`/contacts/`, {
+  // GHL returns { contact: {...} } for creation — unwrap defensively
+  const response = await ghlFetch<{ contact: GhlContact } | GhlContact>(`/contacts/`, {
     method: "POST",
     body: { ...contact, locationId },
   });
+  return 'contact' in response ? (response as { contact: GhlContact }).contact : (response as GhlContact);
 }
 
 export async function updateContact(contactId: string, updates: { name?: string; email?: string; phone?: string }): Promise<GhlContact> {
@@ -222,4 +224,12 @@ export async function sendContactEmail(opts: {
 
   // [DEBUG]
   console.log('[EMAIL] GHL messages API responded — email queued successfully.');
+}
+
+export async function sendEmailToAddress(toEmail: string, subject: string, html: string): Promise<void> {
+  let contact = await findContactByEmailOrPhone(toEmail, '');
+  if (!contact) {
+    contact = await createContact({ name: toEmail, email: toEmail, phone: '' });
+  }
+  await sendContactEmail({ contactId: contact.id, toEmail, subject, html });
 }

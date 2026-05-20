@@ -1,14 +1,17 @@
 import { emailHeader } from "./header";
 import { emailFooter } from "./footer";
+import { internalFooter } from "./internalFooter";
 
 export interface EmailLayoutOptions {
   title: string;
   content: string;
   websiteUrl?: string;
   showTaxNotice?: boolean;
+  useInternalFooter?: boolean;
+  internalFooterMessage?: string;
 }
 
-export function emailLayout({ title, content, websiteUrl, showTaxNotice }: EmailLayoutOptions): string {
+export function emailLayout({ title, content, websiteUrl, showTaxNotice, useInternalFooter, internalFooterMessage }: EmailLayoutOptions): string {
   return `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -55,7 +58,7 @@ export function emailLayout({ title, content, websiteUrl, showTaxNotice }: Email
               </td>
             </tr>
             <tr>
-              <td style="background-color: #faf8f4;">${emailFooter({ websiteUrl, showTaxNotice })}</td>
+              <td>${useInternalFooter ? internalFooter(internalFooterMessage) : emailFooter({ websiteUrl, showTaxNotice })}</td>
             </tr>
           </table>
         </td>

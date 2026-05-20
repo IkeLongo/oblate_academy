@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { findContactByEmailOrPhone, createContact, findOpportunity, createOpportunity, sendContactEmail } from '@/app/lib/ghl/oblateClient';
+import { findContactByEmailOrPhone, createContact, findOpportunity, createOpportunity, sendContactEmail, sendEmailToAddress } from '@/app/lib/ghl/oblateClient';
 import { contactConfirmationEmail, CONTACT_CONFIRMATION_SUBJECT } from '@/app/lib/email/templates/contactConfirmation';
+import { contactInternalNotificationEmail, contactInternalNotificationSubject } from '@/app/lib/email/templates/contactInternalNotification';
 
 export const runtime = "nodejs";
 
@@ -163,6 +164,34 @@ export async function POST(request: NextRequest) {
         if ('details' in emailError) console.error('[EMAIL] GHL details:', (emailError as { details: string }).details);
       } else {
         console.error('[EMAIL] Confirmation email failed (unknown error):', emailError);
+      }
+    }
+
+    // Best-effort internal notification emails
+    const internalEmails = (process.env.INTERNAL_NOTIFICATION_EMAILS ?? '')
+      .split(',')
+      .map((e) => e.trim())
+      .filter(Boolean);
+
+    for (const recipient of internalEmails) {
+      try {
+        console.log(`[EMAIL:internal] sending to ${recipient}`);
+        await sendEmailToAddress(
+          recipient,
+          contactInternalNotificationSubject(cleanName),
+          contactInternalNotificationEmail({
+            name: cleanName,
+            email: cleanEmail,
+            phone: cleanPhone,
+            message: cleanMessage,
+          }),
+        );
+        console.log(`[EMAIL:internal] success`);
+      } catch (internalEmailError) {
+        console.error(
+          `[EMAIL:internal] failed`,
+          internalEmailError instanceof Error ? internalEmailError.message : internalEmailError,
+        );
       }
     }
 
