@@ -1,4 +1,4 @@
-import { emailLayout } from "./layout";
+import { emailLayout } from "./emailLayout";
 
 export function contactInternalNotificationSubject(name: string): string {
   return `New Contact Form Submission — ${name}`;

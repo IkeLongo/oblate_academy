@@ -1,4 +1,4 @@
-import { emailLayout } from "./layout";
+import { emailLayout } from "./emailLayout";
 
 export const DONOR_THANK_YOU_SUBJECT = "Thank You for Supporting the Oblate Academy";
 

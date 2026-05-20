@@ -1,4 +1,4 @@
-import { emailLayout } from "./layout";
+import { emailLayout } from "./emailLayout";
 
 export function donationInternalNotificationSubject(name: string): string {
   return `New Donation Received — ${name}`;

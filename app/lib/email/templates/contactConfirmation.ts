@@ -1,4 +1,4 @@
-import { emailLayout } from "./layout";
+import { emailLayout } from "./emailLayout";
 
 export const CONTACT_CONFIRMATION_SUBJECT = "Thank you for contacting Oblate Academy";
 
