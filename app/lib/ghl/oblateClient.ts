@@ -124,6 +124,7 @@ export interface GhlOpportunity {
   pipelineId: string;
   stageId: string;
   status: string;
+  monetaryValue?: number;
 }
 
 export async function findOpportunity(contactId: string, pipelineId: string): Promise<GhlOpportunity | null> {
@@ -138,13 +139,27 @@ export async function findOpportunity(contactId: string, pipelineId: string): Pr
   return response.opportunities?.[0] || null;
 }
 
-export async function createOpportunity(opportunity: { contactId: string; pipelineId: string; pipelineStageId: string; contactName?: string }): Promise<GhlOpportunity> {
+export async function createOpportunity(opportunity: { contactId: string; pipelineId: string; pipelineStageId: string; contactName?: string; monetaryValue?: number }): Promise<GhlOpportunity> {
   const locationId = requiredEnv("GHL_OBLATE_LOCATION_ID");
   const { contactName, ...rest } = opportunity;
   const name = `${contactName || "Website Contact"} - Website Inquiry`;
   return ghlFetch<GhlOpportunity>(`/opportunities/`, {
     method: "POST",
     body: { ...rest, locationId, name, status: "open" },
+  });
+}
+
+export async function updateOpportunityStage(opportunityId: string, pipelineStageId: string): Promise<GhlOpportunity> {
+  return ghlFetch<GhlOpportunity>(`/opportunities/${opportunityId}`, {
+    method: "PUT",
+    body: { pipelineStageId },
+  });
+}
+
+export async function updateOpportunityValue(opportunityId: string, value: number): Promise<GhlOpportunity> {
+  return ghlFetch<GhlOpportunity>(`/opportunities/${opportunityId}`, {
+    method: "PUT",
+    body: { monetaryValue: value },
   });
 }
 
