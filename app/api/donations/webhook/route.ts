@@ -10,7 +10,7 @@ import {
   updateOpportunityValue,
   sendEmailToAddress,
 } from '@/app/lib/ghl/oblateClient';
-import { donorThankYouEmail, DONOR_THANK_YOU_SUBJECT } from '@/app/lib/email/templates/donorThankYou';
+// import { donorThankYouEmail, DONOR_THANK_YOU_SUBJECT } from '@/app/lib/email/templates/donorThankYou'; // re-enable when backend donor email is restored
 import {
   donationInternalNotificationEmail,
   donationInternalNotificationSubject,
@@ -162,7 +162,7 @@ export async function POST(request: NextRequest) {
     // which correctly resolves {{receipt.url}}. Re-enable this block when moving
     // back to backend-sent donor emails.
     const donorEmailSent = false;
-    let donorEmailError: string | undefined = undefined;
+    const donorEmailError: string | undefined = undefined;
     const donorEmailSkippedReason = 'temporarily_disabled_using_ghl_receipt_email';
     console.log('[DONATION:webhook] donor thank-you email temporarily disabled in favor of GHL receipt email');
 

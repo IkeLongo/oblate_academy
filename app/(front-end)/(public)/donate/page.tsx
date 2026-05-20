@@ -94,7 +94,7 @@ export default function DonatePage() {
             virtue, and truth through trusted Catholic resources and formation materials.
           </p>
           <p className="mt-4 font-inria text-sm sm:text-base italic text-yellow-200">
-            "Let all that you do be done in love." - 1 Corinthians 16:14
+            &ldquo;Let all that you do be done in love.&rdquo; - 1 Corinthians 16:14
           </p>
         </div>
       </section>
