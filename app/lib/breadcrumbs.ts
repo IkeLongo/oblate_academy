@@ -39,6 +39,10 @@ const STATIC_ROUTE_MAP: Record<string, BreadcrumbItem[]> = {
     { label: "Home", href: "/" },
     { label: "Contact" },
   ],
+  "/donate": [
+    { label: "Home", href: "/" },
+    { label: "Donate" },
+  ],
   "/resources": [
     { label: "Home", href: "/" },
     { label: "Resources" },

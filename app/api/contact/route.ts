@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { findContactByEmailOrPhone, createContact, findOpportunity, createOpportunity, sendContactEmail } from '@/app/lib/ghl/oblateClient';
+import { contactConfirmationEmail, CONTACT_CONFIRMATION_SUBJECT } from '@/app/lib/email/templates/contactConfirmation';
 
 export const runtime = "nodejs";
 
@@ -116,42 +118,57 @@ export async function POST(request: NextRequest) {
     return fakeSuccess();
   }
 
-  // ── GHL Webhook ───────────────────────────────────────────────────────────
-  let ghlWebhookSuccess = false;
-  let ghlWebhookError: string | null = null;
-
-  try {
-    const webhookPayload = {
-      name:    cleanName,
-      email:   cleanEmail,
-      phone:   cleanPhone,
-      message: cleanMessage,
-      source:  'Website Contact Form - Inquiry',
-      status:  (status as string) || 'new',
-      tags:    (tags as string[]) ?? ['website-contact-form-inquiry'],
-    };
-
-    const webhookRes = await fetch(process.env.GHL_WEBHOOK_URL_CONTACT_FORM!, {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(webhookPayload),
-      cache:   'no-store',
-    });
-
-    if (!webhookRes.ok) {
-      const text = await webhookRes.text();
-      throw new Error(`Webhook failed: ${webhookRes.status} ${text}`);
-    }
-
-    ghlWebhookSuccess = true;
-  } catch (err: unknown) {
-    console.error('GHL Webhook Error:', err);
-    ghlWebhookError = err instanceof Error ? err.message : 'Unknown webhook error';
+  // Validate required fields
+  if (typeof name !== "string" || !name.trim()) {
+    return NextResponse.json({ message: "Invalid name." }, { status: 400 });
+  }
+  if (typeof email !== "string" || !EMAIL_RE.test(email)) {
+    return NextResponse.json({ message: "Invalid email." }, { status: 400 });
+  }
+  if (typeof phone !== "string" || !phone.trim()) {
+    return NextResponse.json({ message: "Invalid phone." }, { status: 400 });
+  }
+  if (typeof message !== "string" || !message.trim()) {
+    return NextResponse.json({ message: "Invalid message." }, { status: 400 });
   }
 
-  return NextResponse.json({
-    message: 'Contact received and confirmation email sent.',
-    ghlWebhookSuccess,
-    ghlWebhookError,
-  });
+  // Replace webhook logic with GHL API calls
+  try {
+    const contact = await findContactByEmailOrPhone(email, phone);
+    const contactId = contact ? contact.id : (await createContact({ name, email, phone })).id;
+
+    const opportunity = await findOpportunity(contactId, process.env.GHL_OBLATE_PIPELINE_ID!);
+    if (!opportunity) {
+      await createOpportunity({
+        contactId,
+        pipelineId: process.env.GHL_OBLATE_PIPELINE_ID!,
+        pipelineStageId: process.env.GHL_OBLATE_STAGE_NEW_INQUIRY_ID!,
+        contactName: cleanName,
+      });
+    }
+
+    // Best-effort confirmation email — failure must not block the response
+    try {
+      await sendContactEmail({
+        contactId,
+        toEmail: cleanEmail,
+        subject: CONTACT_CONFIRMATION_SUBJECT,
+        html: contactConfirmationEmail(cleanName),
+      });
+    } catch (emailError) {
+      // [DEBUG]
+      if (emailError instanceof Error) {
+        console.error('[EMAIL] Confirmation email failed:', emailError.message);
+        if ('status' in emailError) console.error('[EMAIL] GHL status:', (emailError as { status: number }).status);
+        if ('details' in emailError) console.error('[EMAIL] GHL details:', (emailError as { details: string }).details);
+      } else {
+        console.error('[EMAIL] Confirmation email failed (unknown error):', emailError);
+      }
+    }
+
+    return NextResponse.json({ message: "Contact received and processed successfully." });
+  } catch (error) {
+    console.error("GHL API Error:", error);
+    return NextResponse.json({ message: "Failed to process contact." }, { status: 500 });
+  }
 }

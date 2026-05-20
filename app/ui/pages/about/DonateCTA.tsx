@@ -29,9 +29,9 @@ export default function DonateCTA() {
             next generation of Catholic disciples.
           </p>
 
-          {/* TODO: Replace href with the actual donation page URL */}
+          {/* TODO: Replace /donate with hosted donation URL only if external flow is required later. */}
           <Link
-            href="/contact"
+            href="/donate"
             className="mt-2 inline-flex items-center gap-2 rounded-full bg-yellow-400 px-10 py-[0.9rem] text-sm font-extrabold uppercase tracking-wide text-yellow-900 transition-colors hover:bg-yellow-300"
             style={{ fontFamily: "Poppins, sans-serif" }}
           >

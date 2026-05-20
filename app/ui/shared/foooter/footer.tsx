@@ -102,13 +102,13 @@ export default function Footer() {
                     if (link.name === 'Social') {
                       return (
                         <div key={link.name} className="flex gap-4 mt-2">
-                          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                          <a href="https://www.facebook.com/profile.php?id=61584416584808" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                             <Facebook size={20} className="text-gray-100 hover:text-blue-300 transition-colors" />
                           </a>
                           <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X">
-                            <XIcon className="text-gray-100 hover:text-blue-300 transition-colors" />
+                            <XIcon className="hidden text-gray-100 hover:text-blue-300 transition-colors" />
                           </a>
-                          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                          <a href="https://www.instagram.com/oblateacademy/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                             <Instagram size={20} className="text-gray-100 hover:text-blue-300 transition-colors" />
                           </a>
                         </div>
