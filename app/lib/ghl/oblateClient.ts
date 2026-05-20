@@ -226,6 +226,17 @@ export async function sendContactEmail(opts: {
   console.log('[EMAIL] GHL messages API responded — email queued successfully.');
 }
 
+export async function addTagsToContact(contactId: string, tags: string[]): Promise<void> {
+  const payload = { tags };
+  console.log('[TAGS] applying to contact:', contactId);
+  console.log('[TAGS] payload:', JSON.stringify(payload));
+  const response = await ghlFetch<unknown>(`/contacts/${contactId}/tags`, {
+    method: "POST",
+    body: payload,
+  });
+  console.log('[TAGS] success — response:', JSON.stringify(response));
+}
+
 export async function sendEmailToAddress(toEmail: string, subject: string, html: string): Promise<void> {
   let contact = await findContactByEmailOrPhone(toEmail, '');
   if (!contact) {

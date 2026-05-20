@@ -14,8 +14,17 @@ export function ContactSectionWithShader({
   const [submitting, setSubmitting] = useState(false);
   const [consentNonMarketing, setConsentNonMarketing] = useState(false);
   const [consentMarketing, setConsentMarketing] = useState(false);
+  const [phoneDisplay, setPhoneDisplay] = useState('');
   // Record when the form was loaded — submitted timestamps under 3 s are treated as bots
   const loadTimeRef = useRef<number>(Date.now());
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+    let formatted = digits;
+    if (digits.length > 6) formatted = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+    else if (digits.length > 3) formatted = `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    setPhoneDisplay(formatted);
+  };
 
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>,
@@ -43,6 +52,7 @@ export function ContactSectionWithShader({
           email,
           phone,
           message,
+          tags: ['website-contact-form-inquiry'],
           smsConsentNonMarketing: consentNonMarketing,
           smsConsentMarketing: consentMarketing,
           _hp: honeypot,               // honeypot — real users never fill this
@@ -54,6 +64,7 @@ export function ContactSectionWithShader({
         form.reset();
         setConsentNonMarketing(false);
         setConsentMarketing(false);
+        setPhoneDisplay('');
         setSuccessMessage('Thank you for reaching out! We have received your message and will be in touch soon.');
       } else {
         setSuccessMessage('Sorry, there was a problem submitting your message. Please try again.');
@@ -151,7 +162,9 @@ export function ContactSectionWithShader({
                     id="phone"
                     name="phone"
                     type="tel"
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="(555) 000-0000"
+                    value={phoneDisplay}
+                    onChange={handlePhoneChange}
                     className="block w-full rounded-md border-0 bg-white px-4 py-1.5 text-black shadow-sm ring-1 shadow-black/10 ring-black/10 placeholder:text-gray-400 focus:ring-2 focus:ring-neutral-400 focus:outline-none sm:text-sm sm:leading-6"
                   />
                 </div>

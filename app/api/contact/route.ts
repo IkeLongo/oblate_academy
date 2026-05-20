@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { findContactByEmailOrPhone, createContact, findOpportunity, createOpportunity, sendContactEmail, sendEmailToAddress } from '@/app/lib/ghl/oblateClient';
+import { findContactByEmailOrPhone, createContact, findOpportunity, createOpportunity, sendContactEmail, sendEmailToAddress, addTagsToContact } from '@/app/lib/ghl/oblateClient';
 import { contactConfirmationEmail, CONTACT_CONFIRMATION_SUBJECT } from '@/app/lib/email/templates/contactConfirmation';
 import { contactInternalNotificationEmail, contactInternalNotificationSubject } from '@/app/lib/email/templates/contactInternalNotification';
 
@@ -137,6 +137,19 @@ export async function POST(request: NextRequest) {
   try {
     const contact = await findContactByEmailOrPhone(email, phone);
     const contactId = contact ? contact.id : (await createContact({ name, email, phone })).id;
+
+    // Apply tags to the contact
+    const cleanTags = Array.isArray(tags) ? tags.filter((t): t is string => typeof t === 'string' && t.trim().length > 0) : [];
+    console.log('[TAGS] received tags:', JSON.stringify(cleanTags));
+    if (cleanTags.length > 0) {
+      try {
+        await addTagsToContact(contactId, cleanTags);
+      } catch (tagError) {
+        console.error('[TAGS] failed —', tagError instanceof Error ? tagError.message : tagError);
+      }
+    } else {
+      console.log('[TAGS] no tags to apply — skipping');
+    }
 
     const opportunity = await findOpportunity(contactId, process.env.GHL_OBLATE_PIPELINE_ID!);
     if (!opportunity) {
