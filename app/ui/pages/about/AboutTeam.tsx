@@ -7,35 +7,35 @@ export function AboutTeam() {
     {
       title: "Mrs. Kammer",
       designation: "Teacher",
-      src: "/avatars/mrs-kammer.png", // replace with actual image path
+      src: "/avatars/mrs-kammer.webp", // replace with actual image path
       excerpt:
         "A published artist with degrees in art and elementary education, Mrs. Kammer has spent over a decade nurturing young talent in Catholic schools. A devoted wife, grandmother of four, and woman of deep faith, she finds daily strength in praying the Rosary.",
     },
     {
       title: "Mrs. Maloney",
       designation: "Teacher",
-      src: "/avatars/mrs-maloney.png",
+      src: "/avatars/mrs-maloney.webp", // replace with actual image path 
       excerpt:
         "With over 30 years in Catholic education, Mrs. Maloney specializes in elementary instruction with a passion for reading and religion. Her deep devotion to the Blessed Mother is a cornerstone of her teaching and a gift she shares with every student.",
     },
     {
       title: "Mrs. Ybarra",
       designation: "Teacher",
-      src: "/avatars/mrs-ybarra.png",
+      src: "/avatars/mrs-ybarra.webp",
       excerpt:
         "A seasoned educator with 25+ years as a teacher and reading specialist, Mrs. Ybarra brings both expertise and compassion to the classroom. Inspired by her neurodivergent grandson, she is deeply committed to honoring the unique learning needs of every child.",
     },
     {
       title: "Mrs. Guillen",
       designation: "Director & Founder",
-      src: "/avatars/mrs-guillen.png",
+      src: "/avatars/mrs-guillen.webp",
       excerpt:
         "With experience in both public and Catholic education, Mrs. Guillen has also served nearly 20 years in the nonprofit sector. As a devoted wife and mother, she leads with a heart for service, rooted deeply in her Catholic faith.",
     },
     {
       title: "Rev. David P. Uribe, OMI",
       designation: "Director of Ministry",
-      src: "/avatars/rev-uribe.png",
+      src: "/avatars/father-david.webp",
       excerpt:
         "An ordained priest of the Missionary Oblates of Mary Immaculate, Fr. Uribe serves within a global missionary community present in over 70 countries. The Oblates are known as 'specialists in difficult missions,' bringing faith to those most in need.",
     },
