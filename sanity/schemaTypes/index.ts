@@ -9,6 +9,7 @@ import { resourceCollection } from "./documents/resourceCollection";
 import { category } from './documents/category';
 import { resourceGroup } from './documents/resourceGroup';
 import { featuredResourceKit } from './documents/featuredResourceKit';
+import { homepageFeaturedResources } from './documents/homepageFeaturedResources';
 
 import { gradeVariant } from "./objects/gradeVariant";
 import { actionCard } from "./objects/actionCard";
@@ -17,7 +18,8 @@ import { resourceHubLink } from './objects/resourceHubLink';
 import { resourceHubCard } from './objects/resourceHubCard';
 import { resourceHub } from './objects/resourceHub';
 import { resourcePlacementInline } from './objects/resourcePlacementInline';
+import { featuredResourceItem } from './objects/featuredResourceItem';
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [saint, virtue, resource, resourceCollection, resourceGroup, category, featuredResourceKit, gradeVariant, actionCard, link, resourceHubLink, resourceHubCard, resourceHub, resourcePlacementInline],
+  types: [saint, virtue, resource, resourceCollection, resourceGroup, category, featuredResourceKit, gradeVariant, actionCard, link, resourceHubLink, resourceHubCard, resourceHub, resourcePlacementInline, featuredResourceItem, homepageFeaturedResources],
 }

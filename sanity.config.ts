@@ -16,6 +16,10 @@ import {schema} from './sanity/schemaTypes'
 import {structure} from './sanity/structure'
 import { resolve } from '@/sanity/presentation/resolve'
 import { initialValueTemplates } from './sanity/templates/initialValueTemplates'
+import { HOMEPAGE_FEATURED_RESOURCES_ID } from './sanity/schemaTypes/documents/homepageFeaturedResources'
+
+// Singleton actions that would create, duplicate or remove the document
+const SINGLETON_BLOCKED_ACTIONS = new Set(['delete', 'duplicate', 'unpublish'])
 
 export default defineConfig({
   basePath: '/studio',
@@ -25,6 +29,16 @@ export default defineConfig({
   schema: {
     types: schema.types,
     templates: (prev) => [...prev, ...initialValueTemplates],
+  },
+  document: {
+    actions: (prev, { schemaType }) =>
+      schemaType === HOMEPAGE_FEATURED_RESOURCES_ID
+        ? prev.filter(({ action }) => !(action && SINGLETON_BLOCKED_ACTIONS.has(action)))
+        : prev,
+    newDocumentOptions: (prev, { creationContext }) =>
+      creationContext.type === 'global'
+        ? prev.filter((option) => option.templateId !== HOMEPAGE_FEATURED_RESOURCES_ID)
+        : prev,
   },
   plugins: [
     structureTool({structure}),

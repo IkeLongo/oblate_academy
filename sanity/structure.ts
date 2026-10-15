@@ -7,7 +7,9 @@ import {
   BookIcon,
   ListIcon,
   FolderIcon,
+  StarIcon,
 } from "@sanity/icons";
+import { HOMEPAGE_FEATURED_RESOURCES_ID } from "./schemaTypes/documents/homepageFeaturedResources";
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -123,10 +125,32 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
+      // Singleton: opens the single document directly (no list, no create)
+      S.listItem()
+        .title("Homepage Featured Resources")
+        .id(HOMEPAGE_FEATURED_RESOURCES_ID)
+        .icon(StarIcon)
+        .child(
+          S.document()
+            .schemaType(HOMEPAGE_FEATURED_RESOURCES_ID)
+            .documentId(HOMEPAGE_FEATURED_RESOURCES_ID)
+            .title("Homepage Featured Resources")
+        ),
+
+      S.divider(),
+
       // Everything else (optional)
       ...S.documentTypeListItems().filter(
         (item) =>
           item.getId() &&
-          !["saint", "virtue", "category", "resourceCollection", "resourceGroup", "resource"].includes(item.getId()!)
+          ![
+            "saint",
+            "virtue",
+            "category",
+            "resourceCollection",
+            "resourceGroup",
+            "resource",
+            HOMEPAGE_FEATURED_RESOURCES_ID,
+          ].includes(item.getId()!)
       ),
     ]);
