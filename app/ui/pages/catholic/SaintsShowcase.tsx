@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/live";
 import { saintsRowCardsQuery } from "@/sanity/lib/queries/queries";
-import { urlFor } from "@/sanity/lib/image";
+import { getCardImage } from "@/app/lib/cardImage";
 import { ContentRow } from "@/app/ui/pages/home/ContentRow";
 import type { ContentCardModel, Saint } from "@/app/types";
 
@@ -14,8 +14,7 @@ export default async function SaintsShowcase() {
   const cards: ContentCardModel[] = (saints as Saint[]).map((s) => ({
     title: s.name,
     href: `/grade/k-2/saints/${s.slug}`,
-    imageSrc: urlFor(s.cardImage).width(800).height(450).fit("crop").auto("format").url(),
-    imageAlt: s.cardImage.alt ?? s.name,
+    ...getCardImage(s.cardImage, s.name, { width: 800, height: 450 }),
   }));
 
   if (!cards.length) return null;

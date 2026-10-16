@@ -24,7 +24,12 @@ export const saint = defineType({
       group: "shared",
       options: { hotspot: true },
       fields: [{ name: "alt", type: "string", title: "Alt Text", validation: (R: any) => R.required().max(120) }],
-      validation: (R) => R.required(),
+      validation: (R) =>
+        R.custom((value) =>
+          (value as { asset?: unknown } | undefined)?.asset
+            ? true
+            : "A card image is required. Upload an image before publishing."
+        ),
     }),
     defineField({
       name: "relatedVirtues",

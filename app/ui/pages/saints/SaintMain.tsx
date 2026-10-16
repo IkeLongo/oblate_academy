@@ -5,7 +5,7 @@ import { PortableText } from "next-sanity";
 import { components } from "@/app/ui/components/texts/PortableTextComponent";
 import { GradeSwitcher } from "@/app/ui/components/input/GradeSwitcher";
 import { ResourceFocusCards } from "@/app/ui/components/resources/ResourceFocusCards";
-import { urlFor } from "@/sanity/lib/image";
+import { getCardImage } from "@/app/lib/cardImage";
 import { HubHeader } from "@/app/ui/components/nav/HubHeader";
 import { getResourceDisplayTitle } from "@/app/lib/utils";
 import type { GradeKey, GradeKeyLink, PageData } from "@/app/types";
@@ -18,7 +18,7 @@ type SaintMainProps = {
 };
 
 export function SaintMain({ grade, gradeHref, slug, data }: SaintMainProps) {
-  const imageUrl = data.cardImage ? urlFor(data.cardImage).url() : "";
+  const { imageSrc: imageUrl, imageAlt } = getCardImage(data.cardImage, data.name);
 
   return (
     <div className="base bg-gradient-to-b from-yellow-200 via-gray-100 to-yellow-200 mx-auto px-6 py-20 pt-10 pt-10">
@@ -55,16 +55,14 @@ export function SaintMain({ grade, gradeHref, slug, data }: SaintMainProps) {
         <div className="mt-4 navdesk:mt-10 bg-white/70 rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row gap-8 items-stretch">
           {/* LEFT: fixed height on md so RIGHT can match it */}
           <div className="w-full md:w-[320px] md:shrink-0 flex flex-col gap-6 items-center md:items-start md:h-[540px]">
-            {imageUrl && (
-              <Image
+            <Image
                 src={imageUrl}
-                alt={data.cardImage?.alt || data.name}
+                alt={imageAlt}
                 width={320}
                 height={450}
                 className="rounded-2xl object-cover object-top w-full md:w-[320px] h-[400px] md:h-[450px]"
                 priority
               />
-            )}
 
             {/* Push feast day to bottom of the left column on md */}
             <div className="w-full bg-blue-100 rounded-lg px-4 py-2 md:mt-auto">

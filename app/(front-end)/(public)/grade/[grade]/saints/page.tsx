@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { sanityFetch } from "@/sanity/lib/live";
 import { saintsRowCardsQuery } from "@/sanity/lib/queries/queries";
-import { urlFor } from "@/sanity/lib/image";
+import { getCardImage } from "@/app/lib/cardImage";
 import { isGradeLink, toGradeKey } from "@/app/types";
 import { SaintsHub } from "@/app/ui/pages/saints/SaintsHub";
 
@@ -45,8 +45,7 @@ export default async function SaintsHubPage({ params }: PageProps) {
   const cards = (saints as Saint[]).map((s) => ({
     title: s.name,
     href: `/grade/${grade}/saints/${s.slug}`,
-    imageSrc: urlFor(s.cardImage).width(600).height(450).fit("crop").auto("format").url(),
-    imageAlt: s.cardImage.alt ?? s.name,
+    ...getCardImage(s.cardImage, s.name, { width: 600, height: 450 }),
   }));
 
   return <SaintsHub grade={gradeKey} gradeHref={grade} cards={cards} />;

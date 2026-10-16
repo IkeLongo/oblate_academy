@@ -3,7 +3,6 @@ export const saintsRowCardsQuery = `*[
   isActive == true &&
   defined(name) &&
   defined(slug.current) &&
-  defined(cardImage.asset) &&
   (
     // show if that grade variant exists
     ($grade == "gk_2" && defined(gk_2)) ||
@@ -24,7 +23,6 @@ export const virtuesRowCardsQuery = `*[
   isActive == true &&
   defined(name) &&
   defined(slug.current) &&
-  defined(cardImage.asset) &&
   (
     ($grade == "gk_2" && defined(gk_2)) ||
     ($grade == "g3_5" && defined(g3_5))

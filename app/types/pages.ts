@@ -6,7 +6,7 @@ export type RowCard = {
   _id: string;
   name: string;
   slug: string;
-  cardImage: SanityImage;
+  cardImage?: SanityImage | null;
 };
 
 export type PageData = {
@@ -16,7 +16,7 @@ export type PageData = {
   slug: string;
   overviewTitle: string;
   overview: PortableTextValue;
-  cardImage: SanityImage;
+  cardImage?: SanityImage | null;
   resources: Resource[];
   enableGradeK_2?: boolean;
   enableGrade3_5?: boolean;
@@ -47,11 +47,11 @@ export type Resource = {
 export type Saint = {
   name: string;
   slug: string;
-  cardImage: SanityImage;
+  cardImage?: SanityImage | null;
 };
 
 export type Virtue = {
   name: string;
   slug: string;
-  cardImage: SanityImage;
+  cardImage?: SanityImage | null;
 };

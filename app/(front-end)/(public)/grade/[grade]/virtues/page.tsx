@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { sanityFetch } from "@/sanity/lib/live";
 import { virtuesRowCardsQuery } from "@/sanity/lib/queries/queries";
-import { urlFor } from "@/sanity/lib/image";
+import { getCardImage } from "@/app/lib/cardImage";
 import { isGradeLink, toGradeKey } from "@/app/types";
 import { VirtuesHub } from "@/app/ui/pages/virtues/VirtuesHub";
 
@@ -45,8 +45,7 @@ export default async function VirtuesHubPage({ params }: PageProps) {
   const cards = (virtues as Virtue[]).map((v) => ({
     title: v.name,
     href: `/grade/${grade}/virtues/${v.slug}`,
-    imageSrc: urlFor(v.cardImage).width(600).height(450).fit("crop").auto("format").url(),
-    imageAlt: v.cardImage.alt ?? v.name,
+    ...getCardImage(v.cardImage, v.name, { width: 600, height: 450 }),
   }));
 
   return <VirtuesHub grade={gradeKey} gradeHref={grade} cards={cards} />;

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { sanityFetch } from "@/sanity/lib/live";
 import { virtuesRowCardsQuery } from "@/sanity/lib/queries/queries";
-import { urlFor } from "@/sanity/lib/image";
+import { getCardImage } from "@/app/lib/cardImage";
 import { ContentRow } from "@/app/ui/pages/home/ContentRow";
 import type { ContentCardModel, Virtue } from "@/app/types";
 
@@ -14,8 +14,7 @@ export default async function VirtuesShowcase() {
   const cards: ContentCardModel[] = (virtues as Virtue[]).map((v) => ({
     title: v.name,
     href: `/grade/k-2/virtues/${v.slug}`,
-    imageSrc: urlFor(v.cardImage).width(800).height(450).fit("crop").auto("format").url(),
-    imageAlt: v.cardImage.alt ?? v.name,
+    ...getCardImage(v.cardImage, v.name, { width: 800, height: 450 }),
   }));
 
   if (!cards.length) return null;

@@ -1,5 +1,5 @@
 
-import { urlFor } from "@/sanity/lib/image";
+import { getCardImage } from "@/app/lib/cardImage";
 import GradeContentClient from "./client/GradeContentClient";
 import { sanityFetch } from "@/sanity/lib/live";
 import { saintsRowCardsQuery, virtuesRowCardsQuery } from "@/sanity/lib/queries/queries";
@@ -23,15 +23,13 @@ function toCards(
   const saintsCards = saints.map((s) => ({
     title: s.name,
     href: `/grade${gradePrefix(grade)}/saints/${s.slug}`,
-    imageSrc: urlFor(s.cardImage).width(800).height(450).fit("crop").auto("format").url(),
-    imageAlt: s.cardImage.alt || s.name,
+    ...getCardImage(s.cardImage, s.name, { width: 800, height: 450 }),
   }));
 
   const virtuesCards = virtues.map((v) => ({
     title: v.name,
     href: `/grade${gradePrefix(grade)}/virtues/${v.slug}`,
-    imageSrc: urlFor(v.cardImage).width(800).height(450).fit("crop").auto("format").url(),
-    imageAlt: v.cardImage.alt || v.name,
+    ...getCardImage(v.cardImage, v.name, { width: 800, height: 450 }),
   }));
 
   return { saintsCards, virtuesCards };

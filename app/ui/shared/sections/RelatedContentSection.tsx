@@ -1,7 +1,7 @@
 // app/ui/components/sections/RelatedContentSection.tsx
 import React from "react";
 import { ContentCard } from "@/app/ui/components/cards/ContentCard";
-import { urlFor } from "@/sanity/lib/image";
+import { getCardImage } from "@/app/lib/cardImage";
 
 import type { ImageAsset } from '@sanity/types';
 import type { RelatedSectionTheme, CardColorConfig } from "@/app/types";
@@ -71,22 +71,17 @@ export default function RelatedContentSection({
             <div className="flex gap-8 md:gap-10 mb-2 lg:mb-0 lg:justify-center min-w-max md:min-w-0">
               {sliced.map((item, i) => {
                 const isLast = i === sliced.length - 1;
+                const { imageSrc, imageAlt } = getCardImage(item.cardImage, item.name, {
+                  width: 800,
+                  height: 450,
+                });
                 return (
                   <div key={item._id} className={isLast ? 'pr-0 md:pr-6 lg:pr-8' : ''}>
                     <ContentCard
                       title={item.name}
                       href={`/grade/${gradeHref}/${basePath}/${item.slug}`}
-                      imageSrc={
-                        item.cardImage
-                          ? urlFor(item.cardImage)
-                              .width(800)
-                              .height(450)
-                              .fit("crop")
-                              .auto("format")
-                              .url()
-                          : ""
-                      }
-                      imageAlt={item.cardImage?.alt || ""}
+                      imageSrc={imageSrc}
+                      imageAlt={imageAlt}
                       color={cardColorForIndex(i)}
                     />
                   </div>

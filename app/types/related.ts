@@ -6,7 +6,7 @@ export type RelatedVirtuesSectionProps = {
     _id: string;
     name: string;
     slug: string;
-    cardImage?: SanityImage;
+    cardImage?: SanityImage | null;
     imageSrc?: string;
   }>;
   title?: string;
