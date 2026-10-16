@@ -16,29 +16,38 @@ export const featuredResourceItem = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "blurb",
-      title: "Blurb (optional)",
+      name: "featuredTitle",
+      title: "Homepage Title (optional)",
+      type: "string",
+      description: "Optional homepage title. Leave blank to use the resource's normal display title.",
+      validation: (Rule) => Rule.max(70),
+    }),
+    defineField({
+      name: "description",
+      title: "Description (optional)",
       type: "text",
       rows: 2,
       description:
-        "Optional homepage-specific context explaining why this resource is being highlighted. Leave blank to show only the resource.",
+        "Optional homepage-specific supporting copy shown under the title. Leave blank to show only the title.",
       validation: (Rule) => Rule.max(160),
     }),
   ],
   preview: {
     select: {
-      title: "resource.title",
+      featuredTitle: "featuredTitle",
+      resourceTitle: "resource.title",
       resourceType: "resource.resourceType",
       subject: "resource.subject",
       kind: "resource.kind",
-      blurb: "blurb",
+      description: "description",
       image: "resource.image",
       pdfThumbnail: "resource.pdfThumbnail",
     },
-    prepare({ title, resourceType, subject, kind, blurb, image, pdfThumbnail }) {
+    prepare({ featuredTitle, resourceTitle, resourceType, subject, kind, description, image, pdfThumbnail }) {
       // Same fallback as the resource schema preview
       const displayTitle =
-        title ||
+        featuredTitle?.trim() ||
+        resourceTitle ||
         (resourceType && subject ? `${resourceType} – ${subject}` : resourceType || subject || "Resource");
 
       const kindLabel =
@@ -57,7 +66,7 @@ export const featuredResourceItem = defineType({
 
       return {
         title: displayTitle,
-        subtitle: blurb ? `${kindLabel} • ${blurb}` : kindLabel,
+        subtitle: description ? `${kindLabel} • ${description}` : kindLabel,
         media,
       };
     },

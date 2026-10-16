@@ -17,9 +17,11 @@ export type ResourceMediaProps = {
   muxPlaybackId?: string | null;
   excerpt?: string;
   priority?: boolean;
+  // Height of the link preview; the default keeps the original fixed height.
+  linkHeightClass?: string;
 };
 
-function LinkCardContent({ url, label }: { url?: string | null; label: string }) {
+function LinkCardContent({ url, label, heightClass }: { url?: string | null; label: string; heightClass: string }) {
   const [preview, setPreview] = useState<{ image: string | null } | null>(null); // null = loading
 
   useEffect(() => {
@@ -44,7 +46,7 @@ function LinkCardContent({ url, label }: { url?: string | null; label: string })
 
   if (preview.image) {
     return (
-      <div className="relative w-full h-80">
+      <div className={`relative w-full ${heightClass}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={preview.image}
@@ -79,6 +81,7 @@ export function ResourceMedia({
   muxPlaybackId,
   excerpt,
   priority,
+  linkHeightClass = "h-80",
 }: ResourceMediaProps) {
   if (kind === "image" && image?.asset) {
     return (
@@ -131,7 +134,7 @@ export function ResourceMedia({
   }
 
   if (kind === "link") {
-    return <LinkCardContent url={url} label={label} />;
+    return <LinkCardContent url={url} label={label} heightClass={linkHeightClass} />;
   }
 
   // Fallback icons for unknown types

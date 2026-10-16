@@ -3,7 +3,7 @@
 
 import React, { useMemo, useState } from "react";
 import { cn } from "@/app/lib/utils";
-import { getResourceDisplayTitle } from "@/app/lib/utils";
+import { getResourceDisplayTitle, getRichTextExcerpt } from "@/app/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { Label } from "@/app/ui/components/input/Label";
 import { Input } from "@/app/ui/components/input/Input";
@@ -68,14 +68,7 @@ function toCard(r: Resource, index: number): ResourceCard {
     href = r.url;
   } else if (r.kind === "richText") {
     href = `/resources/resource/${r._id}`;
-    // Try to extract excerpt from first block in body
-    if (Array.isArray(r.body)) {
-      const firstBlock = r.body.find(b => b._type === "block" && Array.isArray(b.children));
-      if (firstBlock) {
-        excerpt = firstBlock.children.map((c: any) => c.text).join("").slice(0, 160);
-        if (excerpt?.length === 160) excerpt += "...";
-      }
-    }
+    excerpt = getRichTextExcerpt(r.body);
   }
   return {
     id: r._id,

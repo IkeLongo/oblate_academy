@@ -13,7 +13,8 @@ export const homepageFeaturedResourcesQuery = groq`
   subtitle,
   "items": coalesce(items[defined(resource->_id)]{
     _key,
-    blurb,
+    featuredTitle,
+    description,
     "resource": resource->{
       _id,
       title,
@@ -41,7 +42,8 @@ export type HomepageFeaturedResourcesData = {
   subtitle?: string | null;
   items: {
     _key: string;
-    blurb?: string | null;
+    featuredTitle?: string | null;
+    description?: string | null;
     resource: Resource;
   }[];
 } | null;

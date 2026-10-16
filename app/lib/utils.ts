@@ -26,3 +26,15 @@ export function getResourceDisplayTitle(resource: {
   }
   return resource.resourceType || resource.subject || "Resource";
 }
+
+type ExcerptBlock = { _type?: string; children?: { text?: string }[] };
+
+/** First 160 characters of the first text block in a portable-text body, or undefined. */
+export function getRichTextExcerpt(body?: ExcerptBlock[] | null): string | undefined {
+  if (!Array.isArray(body)) return undefined;
+  const firstBlock = body.find((b) => b._type === "block" && Array.isArray(b.children));
+  if (!firstBlock) return undefined;
+  let excerpt = firstBlock.children!.map((c) => c.text).join("").slice(0, 160);
+  if (excerpt.length === 160) excerpt += "...";
+  return excerpt;
+}
