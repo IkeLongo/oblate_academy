@@ -7,6 +7,7 @@ import { ContentRow } from "@/app/ui/pages/home/ContentRow";
 import { GradeDropdown } from "./GradeContentDropdown";
 import { getSelectedGrade, clearSelectedGrade } from "@/app/lib/gradeSelection";
 
+import { toGradeLink } from "@/app/types";
 import type { GradeKey, ContentCardModel } from "@/app/types";
 
 type Props = {
@@ -57,8 +58,20 @@ export default function GradeContentClient({
         <div className="flex flex-col md:flex-row md:justify-end mb-10">
           <GradeDropdown grade={grade} options={options} onChange={setGrade} />
         </div>
-        <ContentRow title="Meet the Saints" cards={current.saintsCards} startColorIndex={0} />
-        <ContentRow title="Grow in Virtues" cards={current.virtuesCards} startColorIndex={3} />
+        <ContentRow
+          title="Meet the Saints"
+          cards={current.saintsCards}
+          startColorIndex={0}
+          viewAllHref={`/grade/${toGradeLink(grade)}/saints`}
+          viewAllLabel="View All Saints"
+        />
+        <ContentRow
+          title="Grow in Virtues"
+          cards={current.virtuesCards}
+          startColorIndex={3}
+          viewAllHref={`/grade/${toGradeLink(grade)}/virtues`}
+          viewAllLabel="View All Virtues"
+        />
       </section>
     </div>
   );

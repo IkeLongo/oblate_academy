@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { ContentCard } from "../../components/cards/ContentCard";
 import type { ContentCardModel } from "@/app/types";
 
@@ -13,14 +14,32 @@ export function ContentRow({
   title,
   cards,
   startColorIndex = 0,
+  viewAllHref,
+  viewAllLabel = "View All",
 }: {
   title: string;
   cards: ContentCardModel[];
   startColorIndex?: number;
+  viewAllHref?: string;
+  viewAllLabel?: string;
 }) {
+  const heading = <h3 className="text-3xl font-extrabold text-blue-400">{title}</h3>;
+
   return (
     <div className="space-y-4">
-      <h3 className="text-3xl font-extrabold text-blue-400">{title}</h3>
+      {viewAllHref ? (
+        <div className="flex items-center justify-between gap-x-4 gap-y-1 flex-wrap">
+          {heading}
+          <Link
+            href={viewAllHref}
+            className="inline-flex items-center py-2 text-sm font-poppins font-semibold text-blue-400 hover:text-blue-500 underline underline-offset-2"
+          >
+            {viewAllLabel} →
+          </Link>
+        </div>
+      ) : (
+        heading
+      )}
 
       <div className="-mr-4 sm:-mr-6 lg:-mr-8 -ml-4 sm:-ml-6 lg:-ml-8 overflow-x-auto pb-2 scroll-pr-4 sm:scroll-pr-6 lg:scroll-pr-8">
         <div className="flex gap-6">
