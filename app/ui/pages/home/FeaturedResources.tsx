@@ -16,14 +16,14 @@ export default async function FeaturedResources() {
   if (!section || !heading || items.length === 0) return null;
 
   return (
-    <div className="base bg-gray-100">
+    <div className="base bg-blue-50">
       <section aria-labelledby="featured-resources-heading">
         <div className="text-center">
           <h2 id="featured-resources-heading" className="text-3xl font-extrabold text-blue-400 sm:text-4xl">
             {heading}
           </h2>
           {section.subtitle && (
-            <p className="mx-auto mt-3 max-w-2xl text-lg text-black-200">{section.subtitle}</p>
+            <p className="mx-auto mt-3 max-w-2xl text-lg text-black-300">{section.subtitle}</p>
           )}
         </div>
 

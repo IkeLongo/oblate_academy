@@ -3,6 +3,7 @@ import FaithAndFun from "@/app/ui/pages/home/FaithAndFun";
 import GradeContent from "@/app/ui/pages/home/GradeContent";
 import OblateAcademyHero from "@/app/ui/pages/home/Hero";
 import ParentTeacherResources from "@/app/ui/shared/resources/ParentTeacherResources";
+import FeaturedResources from "@/app/ui/pages/home/FeaturedResources";
 import TeachPillars from "@/app/ui/pages/home/TeachPillars";
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default function Home() {
       <GradeContent />
       <FaithAndFun />
       <ParentTeacherResources />
+      <FeaturedResources />
       <TeachPillars />
     </div>
   );
